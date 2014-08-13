@@ -6,8 +6,10 @@ App.module("HeaderApp.List", function (List, App, Backbone, Marionette, $, _) {
 				fetchingMyAccount = App.request("user:myaccount:entity");
 
 			$.when(fetchingMyAccount).done(function (myAccount) {
-				var accountView = self.getAccountView(myAccount);
+				// Execute command to build the websocket connection
+				App.execute("cmd:websocket:connect", myAccount);
 
+				var accountView = self.getAccountView(myAccount);
 				App.headerRegion.show(accountView);
 
 			}).fail(function (response) {

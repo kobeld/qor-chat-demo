@@ -45,27 +45,3 @@ App.on("start", function () {
 		// }
 	}
 });
-
-
-
-
-
-$(function () {
-	if (window["WebSocket"]) {
-		conn = new WebSocket("ws://localhost:3000/ws/53eb312863ed2e48e1000002/MzkxZjU5YzctZDIyOS00YjNkLThlNzQtNTQ5OTE1ZjNiODBm");
-		conn.onopen = function () {
-			var message = JSON.stringify({
-				"type": "ping",
-				"content": "I am Aaron",
-			});
-
-			conn.send(message);
-		};
-		conn.onmessage = function (data) {
-			console.log(data);
-		};
-	} else {
-		alert("Sorry, your browser does not support websocket!")
-	}
-
-});
