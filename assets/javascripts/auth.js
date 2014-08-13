@@ -7,7 +7,7 @@ var LoginForm = Marionette.ItemView.extend({
 	el: "#form-login",
 
 	events: {
-		"click button.js-submit": "login"
+		"click button[type=submit]": "login"
 	},
 
 	ui: {
@@ -35,8 +35,6 @@ var LoginForm = Marionette.ItemView.extend({
 			data: formData
 
 		}).done(function (data) {
-			console.log(data);
-
 			if (data.Errors) {
 				alert("Validation Error");
 				return
@@ -44,10 +42,10 @@ var LoginForm = Marionette.ItemView.extend({
 
 			// Set the access token to the local storage.
 			simpleStorage.set('token', data.access_token);
-			window.location.replace("/#list");
+			window.location.replace("/");
 
 		}).fail(function (data) {
-			console.log(data);
+			alert("Internal Error");
 		});
 	}
 
@@ -57,7 +55,7 @@ var SignupForm = Marionette.ItemView.extend({
 	el: "#form-register",
 
 	events: {
-		"click button.js-submit": "signup"
+		"click button[type=submit]": "signup"
 	},
 
 	ui: {
@@ -96,10 +94,10 @@ var SignupForm = Marionette.ItemView.extend({
 
 			// Set the access token to the local storage.
 			simpleStorage.set('token', data.access_token);
-			window.location.replace("/#list");
+			window.location.replace("/");
 
 		}).fail(function (data) {
-			console.log(data);
+			alert("Internal Error");
 		});
 	}
 

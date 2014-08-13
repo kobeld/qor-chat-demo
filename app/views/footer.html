@@ -1,13 +1,16 @@
 
 {{ javascript_tag "bundle_libs" }}
 {{ javascript_tag "bundle_proui" }}
-{{ javascript_tag "app" }}
+{{ javascript_tag "bundle_app" }}
 
 </body>
 
 <script type="text/javascript">
 $(function(){
-  ReadyChat.init()
+	App.start();
+
+	// TODO
+  ReadyChat.init();
 });
 </script>
 
