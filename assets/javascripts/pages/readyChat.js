@@ -4,26 +4,24 @@
  *  Description: Custom javascript code used in Chat page
  */
 
-var ReadyChat = function() {
-    var chatHeight          = 600; // Default chat container height in large screens
-    var chatHeightSmall     = 300; // Default chat components (talk & people) height in small screens
+var ReadyChat = function () {
+    var chatHeight = 600; // Default chat container height in large screens
+    var chatHeightSmall = 300; // Default chat components (talk & people) height in small screens
 
     /* Cache some often used variables */
-    var chatCon             = $('.chatui-container');
-    var chatTalk            = $('.chatui-talk');
-    var chatTalkScroll      = $('.chatui-talk-scroll');
+    var chatCon = $('.chatui-container');
+    var chatTalk = $('.chatui-talk');
+    var chatTalkScroll = $('.chatui-talk-scroll');
 
-    var chatPeople          = $('.chatui-people');
-    var chatPeopleScroll    = $('.chatui-people-scroll');
+    var chatPeople = $('.chatui-people');
+    var chatPeopleScroll = $('.chatui-people-scroll');
 
-    var chatInput           = $('.chatui-input');
-    var chatMsg             = '';
+    var chatInput = $('.chatui-input');
+    var chatMsg = '';
 
     /* Updates chat UI components height */
-    var updateChatHeight = function(){
-        var windowW = window.innerWidth
-                        || document.documentElement.clientWidth
-                        || document.body.clientWidth;
+    var updateChatHeight = function () {
+        var windowW = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
         if (windowW < 768) { // On small screens
             chatCon
@@ -36,8 +34,7 @@ var ReadyChat = function() {
                 .add(chatPeopleScroll)
                 .add(chatPeopleScroll.parent())
                 .css('height', chatHeightSmall);
-        }
-        else if (windowW > 767) { // On large screens
+        } else if (windowW > 767) { // On large screens
             chatCon
                 .css('height', chatHeight);
 
@@ -54,12 +51,26 @@ var ReadyChat = function() {
     };
 
     return {
-        init: function() {
+        init: function () {
+
+            chatCon = $('.chatui-container');
+            chatTalk = $('.chatui-talk');
+            chatTalkScroll = $('.chatui-talk-scroll');
+
+            chatPeople = $('.chatui-people');
+            chatPeopleScroll = $('.chatui-people-scroll');
+
+            chatInput = $('.chatui-input');
+            chatMsg = '';
+
+
             // Initialize default chat height
             updateChatHeight();
 
             // Update chat UI components height on window resize
-            $(window).resize(function(){ updateChatHeight(); });
+            $(window).resize(function () {
+                updateChatHeight();
+            });
 
             // Initialize scrolling on chat talk + people
             chatTalkScroll
@@ -83,7 +94,7 @@ var ReadyChat = function() {
             // When the chat message form is submitted
             chatInput
                 .find('form')
-                .submit(function(e){
+                .submit(function (e) {
                     // Get text from message input
                     chatMsg = chatInput.find('#chatui-message').val();
 
@@ -92,14 +103,13 @@ var ReadyChat = function() {
                         // Add it to the message list
                         chatTalk
                             .find('ul')
-                            .append('<li class="chatui-talk-msg chatui-talk-msg-highlight themed-border animation-expandUp">'
-                                    + '<img src="/assets/img/placeholders/avatars/avatar2.jpg" alt="Avatar" class="img-circle chatui-talk-msg-avatar">'
-                                    + $('<div />').text(chatMsg).html()
-                                    + '</li>');
+                            .append('<li class="chatui-talk-msg chatui-talk-msg-highlight themed-border animation-expandUp">' + '<img src="/assets/img/placeholders/avatars/avatar2.jpg" alt="Avatar" class="img-circle chatui-talk-msg-avatar">' + $('<div />').text(chatMsg).html() + '</li>');
 
                         // Scroll the message list to the bottom
                         chatTalkScroll
-                            .animate({ scrollTop: chatTalkScroll[0].scrollHeight },150);
+                            .animate({
+                                scrollTop: chatTalkScroll[0].scrollHeight
+                            }, 150);
 
                         // Reset the message input
                         chatInput

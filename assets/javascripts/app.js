@@ -3,7 +3,7 @@ var App = new Marionette.Application();
 App.addRegions({
 	headerRegion: "#header-region",
 	// leftRegion: ".left-region",
-	// mainRegion: "#main-region",
+	mainRegion: ".main-region",
 	// modalRegion: Marionette.Region.Modal.extend({
 	// 	el: "#global-modal"
 	// })

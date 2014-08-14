@@ -4,3 +4,6 @@
 //= require javascripts/apps/header/list/list_controller
 //= require javascripts/apps/header/list/list_view
 //= require javascripts/apps/websocket/websocket
+//= require javascripts/apps/chats/chats_app
+//= require javascripts/apps/chats/private/private_controller
+//= require javascripts/apps/chats/private/private_view

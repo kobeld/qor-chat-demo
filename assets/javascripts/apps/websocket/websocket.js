@@ -14,11 +14,16 @@ App.module("Websocket", function (Websocket, App, Backbone, Marionette, $, _) {
 
 			_wsConn = new WebSocket("ws://localhost:3000/ws/" + teamId + "/" + token);
 			_wsConn.onopen = function () {
-				_wsConn.send(message);
+				// _wsConn.send(message);
+
 			};
 
-			_wsConn.onmessage = function (data) {
-				console.log(data);
+			_wsConn.onmessage = function (msgEvent) {
+
+				var msData = JSON.parse(msgEvent.data)
+				App.vent.trigger("vent:websocket:" + msData.dType, msData);
+
+				console.log(msData);
 			};
 
 			_wsConn.onclose = function (data) {

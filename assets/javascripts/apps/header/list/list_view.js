@@ -18,7 +18,7 @@ App.module("HeaderApp.List", function (List, App, Backbone, Marionette, $, _) {
 		testing: function () {
 
 			var data = JSON.stringify({
-				"type": "ping",
+				"dType": "ping",
 				"content": "I am Aaron",
 			});
 
