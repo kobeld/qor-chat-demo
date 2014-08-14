@@ -45,24 +45,25 @@
 </script>
 
 <script type="text/template" id="private-chat-roster">
+
   <div class="chatui-people themed-background-dark">
     <div class="chatui-people-scroll">
       <h2 class="chatui-header"><i class="fa fa-circle text-success pull-right"></i><strong>Online</strong></h2>
       <div class="list-group">
-        <a href="javascript:void(0)" class="list-group-item active">
-        <span class="badge">2</span>
-        <img src="/assets/img/placeholders/avatars/avatar6.jpg" alt="Avatar" class="img-circle">
-        <h5 class="list-group-item-heading"><strong>Shirley</strong> Wells</h5>
-        </a>
-        <a href="javascript:void(0)" class="list-group-item">
-        <span class="badge">5</span>
-        <img src="/assets/img/placeholders/avatars/avatar9.jpg" alt="Avatar" class="img-circle">
-        <h5 class="list-group-item-heading"><strong>Craig</strong> West</h5>
-        </a>
+
       </div>
     </div>
   </div>
+
 </script>
+
+<script type="text/template" id="private-chat-buddy">
+  <a href="javascript:void(0)" class="list-group-item">
+    <img src="<%= avatar %>" alt="Avatar" class="img-circle">
+    <h5 class="list-group-item-heading"><%= name %></h5>
+  </a>
+</script>
+
 
 <script type="text/template" id="private-chat-messages">
   <div class="chatui-talk-scroll">

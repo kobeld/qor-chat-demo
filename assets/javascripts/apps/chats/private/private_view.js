@@ -16,8 +16,14 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 		template: "#private-chat-title"
 	});
 
-	Private.ChatRosterView = Marionette.ItemView.extend({
-		template: "#private-chat-roster"
+	Private.ChatBuddyView = Marionette.ItemView.extend({
+		template: "#private-chat-buddy"
+	});
+
+	Private.ChatRosterView = Marionette.CompositeView.extend({
+		template: "#private-chat-roster",
+		childView: Private.ChatBuddyView,
+		childViewContainer: ".list-group"
 	});
 
 	Private.ChatMessagesView = Marionette.ItemView.extend({

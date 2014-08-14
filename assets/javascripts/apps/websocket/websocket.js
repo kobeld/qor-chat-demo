@@ -14,16 +14,12 @@ App.module("Websocket", function (Websocket, App, Backbone, Marionette, $, _) {
 
 			_wsConn = new WebSocket("ws://localhost:3000/ws/" + teamId + "/" + token);
 			_wsConn.onopen = function () {
-				// _wsConn.send(message);
-
+				App.vent.trigger("vent:websocket:open");
 			};
 
 			_wsConn.onmessage = function (msgEvent) {
-
 				var msData = JSON.parse(msgEvent.data)
-				App.vent.trigger("vent:websocket:" + msData.dType, msData);
-
-				console.log(msData);
+				App.vent.trigger("vent:websocket:" + msData.topic, msData);
 			};
 
 			_wsConn.onclose = function (data) {
@@ -57,7 +53,8 @@ App.module("Websocket", function (Websocket, App, Backbone, Marionette, $, _) {
 	});
 
 	App.commands.setHandler("cmd:websocket:send", function (data) {
-		API.send(data);
+		var jsonStr = JSON.stringify(data);
+		API.send(jsonStr);
 	});
 
 
