@@ -14,7 +14,10 @@
     <div id="roster-region" class="chatui-people themed-background-dark">
     </div>
 
-    <div id="messages-region" class="chatui-talk">
+    <div class="chatui-talk">
+      <div id="messages-region" class="chatui-talk-scroll">
+
+      </div>
     </div>
 
     <div id="input-region" class="chatui-input">
@@ -64,30 +67,15 @@
   </a>
 </script>
 
-
-<script type="text/template" id="private-chat-messages">
-  <div class="chatui-talk-scroll">
-    <ul>
-      <li class="text-center"><small>yesterday, 23:10</small></li>
-      <li class="chatui-talk-msg">
-        <img src="/assets/img/placeholders/avatars/avatar6.jpg" alt="Avatar" class="img-circle chatui-talk-msg-avatar"> Hey admin?
-      </li>
-      <li class="chatui-talk-msg">
-        <img src="/assets/img/placeholders/avatars/avatar6.jpg" alt="Avatar" class="img-circle chatui-talk-msg-avatar"> How are you?
-      </li>
-      <li class="text-center"><small>just now</small></li>
-      <li class="chatui-talk-msg chatui-talk-msg-highlight themed-border">
-        <img src="/assets/img/placeholders/avatars/avatar2.jpg" alt="Avatar" class="img-circle chatui-talk-msg-avatar"> I am fine, thanks!
-      </li>
-    </ul>
-  </div>
+<script type="text/template" id="private-chat-message">
+  <img src="<%= fromUserAvatar %>" alt="Avatar" class="img-circle chatui-talk-msg-avatar"> <%= content %>
 </script>
 
 <script type="text/template" id="private-chat-input">
-  <form action="page_ready_chat.html" method="post" class="form-horizontal form-control-borderless remove-margin">
+  <form class="form-horizontal form-control-borderless remove-margin">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-angle-right"></i></span>
-      <input type="text" id="chatui-message" name="chatui-message" class="form-control input-lg" placeholder="Type a message and hit enter..">
+      <input type="text" id="chatui-message" name="content" class="form-control input-lg" placeholder="Type a message and hit enter..">
     </div>
   </form>
 </script>

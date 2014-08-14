@@ -93,7 +93,7 @@ var ReadyChat = function () {
 
             // When the chat message form is submitted
             chatInput
-                .find('form')
+                .find('formaaa')
                 .submit(function (e) {
                     // Get text from message input
                     chatMsg = chatInput.find('#chatui-message').val();

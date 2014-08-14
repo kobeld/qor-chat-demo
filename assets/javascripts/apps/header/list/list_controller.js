@@ -1,5 +1,8 @@
 App.module("HeaderApp.List", function (List, App, Backbone, Marionette, $, _) {
 
+	// TODO: Not good to store myAccount info here
+	App.MyAccount = null;
+
 	List.Controller = {
 		listHeader: function () {
 			var self = this,
@@ -11,6 +14,8 @@ App.module("HeaderApp.List", function (List, App, Backbone, Marionette, $, _) {
 
 				var accountView = self.getAccountView(myAccount);
 				App.headerRegion.show(accountView);
+
+				App.MyAccount = myAccount;
 
 			}).fail(function (response) {
 				App.execute("cmd:response:handle", response);

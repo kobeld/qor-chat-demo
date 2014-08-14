@@ -12,6 +12,23 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 		initialize: function () {
 			new Backbone.SingleChooser(this);
+		},
+
+		chooseById: function (id) {
+			var buddy = this.findWhere({
+				id: id
+			});
+
+			if (buddy) {
+				buddy.choose();
+			}
+		},
+
+		chooseFirst: function() {
+			var buddy = this.first();
+			if (buddy) {
+				buddy.choose();
+			}
 		}
 	});
 
