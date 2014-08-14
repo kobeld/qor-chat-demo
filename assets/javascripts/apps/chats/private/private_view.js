@@ -13,11 +13,37 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 	});
 
 	Private.ChatTitleView = Marionette.ItemView.extend({
-		template: "#private-chat-title"
+		template: "#private-chat-title",
+
+		reRender: function(newModel) {
+			this.model = newModel;
+			this.render();
+		}
 	});
 
 	Private.ChatBuddyView = Marionette.ItemView.extend({
-		template: "#private-chat-buddy"
+		template: "#private-chat-buddy",
+
+		modelEvents: {
+			"change:chosen": "changeChosen",
+		},
+
+		events: {
+			"click a": "choose"
+		},
+
+		ui: {
+			alink: "a"
+		},
+
+		changeChosen: function () {
+			this.ui.alink.toggleClass("active");
+		},
+
+		choose: function (e) {
+			e.preventDefault();
+			this.model.choose();
+		}
 	});
 
 	Private.ChatRosterView = Marionette.CompositeView.extend({

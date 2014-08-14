@@ -9,22 +9,7 @@ App.module("HeaderApp.List", function (List, App, Backbone, Marionette, $, _) {
 
 		triggers: {
 			"click a.js-logout": "user:logout"
-		},
-
-		events: {
-			"click .dropdown-toggle": "testing"
-		},
-
-		testing: function () {
-
-			var data = {
-				"dType": "ping",
-				"content": "I am Aaron",
-			};
-
-			App.execute("cmd:websocket:send", data)
 		}
-
 	});
 
 });

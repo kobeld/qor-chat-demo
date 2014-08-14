@@ -12,6 +12,11 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 				messagesView = new Private.ChatMessagesView(),
 				inputView = new Private.ChatInputView();
 
+			Private.listenTo(buddies, "collection:chose:one", function(chosen){
+				titleView.reRender(chosen);
+			});
+
+
 			privateChatLayout.on("show", function () {
 				this.titleRegion.show(titleView);
 				this.rosterRegion.show(rosterView);
@@ -25,10 +30,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 
 				// Set the handler to deal with the roster once received
 				App.vent.on("vent:websocket:roster", function (data) {
-					console.log(data);
-
 					var object = data.object;
-
 					if (data.dType === "all") {
 						buddies.reset(object);
 
