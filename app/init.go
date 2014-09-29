@@ -4,7 +4,7 @@ import (
 	"github.com/shaoshing/train"
 	"net/http"
 
-	"github.com/robfig/revel"
+	"github.com/revel/revel"
 )
 
 func init() {
