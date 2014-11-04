@@ -3,11 +3,14 @@ App.module("SidebarApp.Tabs", function (Tabs, App, Backbone, Marionette, $, _) {
 	template: "#navigation-tabs",
 
         initialize: function () {
-            this.switchPrivateTab();
         },
 
         events: {
             "click li": "activateTab"
+        },
+
+        onRender: function(){
+            this.switchPrivateTab();
         },
 
         _clearActiveTabs: function(){
