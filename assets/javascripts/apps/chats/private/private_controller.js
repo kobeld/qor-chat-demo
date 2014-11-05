@@ -12,10 +12,12 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 				inputView = new Private.ChatInputView(),
 				rosterView = new Private.ChatRosterView({
 					collection: buddies
-				}),
-				messagesView = new Private.ChatMessagesView({
-					collection: messages
 				});
+
+
+                        var messagesView = new Private.ChatMessagesView({
+                                collection: messages
+                        });
 
                         Private.listenTo(buddies, "collection:chose:one", function (chosen) {
                             titleView.reRender(chosen);

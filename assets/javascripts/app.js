@@ -1,5 +1,7 @@
 var App = new Marionette.Application();
 
+App.ServerHost = "http://localhost:3000"
+
 App.addRegions({
 	headerRegion: "#header-region",
         leftRegion: "#left-region",
