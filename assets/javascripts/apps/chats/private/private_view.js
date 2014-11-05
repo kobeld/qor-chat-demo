@@ -67,7 +67,12 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 	Private.ChatMessagesView = Marionette.CollectionView.extend({
 		tagName: "ul",
 		template: "#private-chat-messages",
-		childView: Private.ChatMessageView
+		childView: Private.ChatMessageView,
+
+                reRender: function(messages){
+                    this.collection = messages;
+		    this.render();
+                }
 	});
 
 	Private.ChatInputView = Marionette.ItemView.extend({

@@ -6,7 +6,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 		load: function () {
 			var self = this,
 				buddies = App.request("chat:buddies"),
-				messages = App.request("chat:messages"),
+				messages = App.request("chat:messages"), // TODO fetch real history message with chosen buddy's id
 				privateChatLayout = new Private.ChatLayout(),
 				titleView = new Private.ChatTitleView(),
 				inputView = new Private.ChatInputView(),
@@ -15,24 +15,28 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 				}),
 				messagesView = new Private.ChatMessagesView({
 					collection: messages
-				})
-
-				Private.listenTo(buddies, "collection:chose:one", function (chosen) {
-					titleView.reRender(chosen);
-
-					_selectedUser = chosen;
-
-					var userId = chosen.get("id");
-					// Request recent conversation via websocket
-					App.execute("cmd:websocket:send", {
-						topic: "messages",
-						dType: "conversation",
-						message: {
-							fromUserId: App.MyAccount.get("id"),
-							toUserId: userId
-						}
-					});
 				});
+
+                        Private.listenTo(buddies, "collection:chose:one", function (chosen) {
+                            titleView.reRender(chosen);
+
+                            // TODO fetch real history message with chosen buddy's id
+			    var messages = App.request("chat:messages");
+                            messagesView.reRender(messages);
+
+                            _selectedUser = chosen;
+
+                            var userId = chosen.get("id");
+                            // Request recent conversation via websocket
+                            App.execute("cmd:websocket:send", {
+                                topic: "messages",
+                                dType: "conversation",
+                                message: {
+                                    fromUserId: App.MyAccount.get("id"),
+                                toUserId: userId
+                                }
+                            });
+                        });
 
 			privateChatLayout.on("show", function () {
 				this.titleRegion.show(titleView);
