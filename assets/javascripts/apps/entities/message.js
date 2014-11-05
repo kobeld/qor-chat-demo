@@ -13,27 +13,37 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 
         var API = {
-            getMessages: function () {
+            getEmptyMessages: function () {
                 return new Entities.Messages();
+            },
 
-                //var msgs = new Entities.Messages(),
-                    //defer = $.Deferred(),
-                    //response = msgs.fetch({
-                        //headers: App.getBearerHeader(),
-                    //});
+            getPrivateMessages: function (withUserId) {
+                var msgs = new Entities.Messages(),
+                    defer = $.Deferred(),
+                    response = msgs.fetch({
+                        data: {
+                            withUserId: withUserId,
+                        },
+                        headers: App.getBearerHeader(),
+                    });
 
-                //response.done(function () {
-                    //defer.resolveWith(response, msgs);
-                //}).fail(function () {
-                    //defer.rejectWith(response, arguments);
-                //});
+                response.done(function (d) {
+                    defer.resolveWith(response, msgs);
+                }).fail(function () {
+                    defer.rejectWith(response, arguments);
+                });
 
-                //return defer.promise();
+                return defer.promise();
             }
         };
 
-	App.reqres.setHandler("chat:messages", function () {
-            return API.getMessages();
+	App.reqres.setHandler("chat:messages", function (options) {
+            if(options === undefined){
+                return API.getEmptyMessages();
+            }
+            if(options.chatType == "private"){
+                return API.getPrivateMessages(options.withUserId);
+            }
 	});
 
 });
