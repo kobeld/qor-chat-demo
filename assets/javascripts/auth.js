@@ -6,6 +6,8 @@ $(function () {
 var LoginForm = Marionette.ItemView.extend({
 	el: "#form-login",
 
+        baseURL: "http://" + document.QorChatServerHost
+
 	events: {
 		"click button[type=submit]": "login"
 	},
@@ -31,7 +33,7 @@ var LoginForm = Marionette.ItemView.extend({
 
 		$.ajax({
 			type: "POST",
-			url: App.ServerBaseURL + "/login",
+			url: baseURL + "/login",
 			data: formData
 
 		}).done(function (data) {
@@ -83,7 +85,7 @@ var SignupForm = Marionette.ItemView.extend({
 
 		$.ajax({
 			type: "POST",
-			url: App.ServerBaseURL + "/signup",
+			url: baseURL + "/signup",
 			data: formData
 
 		}).done(function (data) {
