@@ -1,6 +1,8 @@
 var App = new Marionette.Application();
 
-App.ServerHost = "http://localhost:3000"
+App.ServerHost = document.QorChatServerHost
+App.ServerBaseURL = "http://" + App.ServerHost
+console.log(App.ServerBaseURL)
 
 App.addRegions({
 	headerRegion: "#header-region",

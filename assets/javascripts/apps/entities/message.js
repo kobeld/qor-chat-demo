@@ -7,7 +7,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 	Entities.Messages = Backbone.Collection.extend({
             model: Entities.Message,
             url: function(){
-                return App.ServerHost + "/messages/private";
+                return App.ServerBaseURL + "/messages/private";
             },
 	});
 

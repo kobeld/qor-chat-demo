@@ -3,7 +3,7 @@ App.module("Conversation", function (Entities, App, Backbone, Marionette, $, _) 
 	// Conversation model
 	Entities.Conversation = Backbone.Model.extend({
 		url: function () {
-			return "http://localhost:3000/conversations/all";
+			return App.ServerBaseURL + "/conversations/all";
 		}
 	});
 

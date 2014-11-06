@@ -3,7 +3,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 	// MyAccount model
 	Entities.MyAccount = Backbone.Model.extend({
             url: function () {
-                return App.ServerHost + "/users/my-account";
+                return App.ServerBaseURL + "/users/my-account";
             }
 	});
 

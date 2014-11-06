@@ -31,7 +31,7 @@ var LoginForm = Marionette.ItemView.extend({
 
 		$.ajax({
 			type: "POST",
-			url: "http://localhost:3000/login",
+			url: App.ServerBaseURL + "/login",
 			data: formData
 
 		}).done(function (data) {
@@ -83,7 +83,7 @@ var SignupForm = Marionette.ItemView.extend({
 
 		$.ajax({
 			type: "POST",
-			url: "http://localhost:3000/signup",
+			url: App.ServerBaseURL + "/signup",
 			data: formData
 
 		}).done(function (data) {
