@@ -27,20 +27,20 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 
                             var chatWithUserId = chosen.get("id");
 
-                            // Request recent conversation vai http api
-                            // TODO fetch real history message with chosen buddy's id
-			    var fetchingMessages = App.request("chat:messages", {
-                                chatType: "private",
-                                withUserId: chatWithUserId,
-                            });
+                            //// Request recent conversation vai http api
+                            //// TODO fetch real history message with chosen buddy's id
+			    //var fetchingMessages = App.request("chat:messages", {
+                                //chatType: "private",
+                                //withUserId: chatWithUserId,
+                            //});
 
-                            $.when(fetchingMessages).done(function (msgs) {
-                                console.log(msgs)
-				// Execute command to build the websocket connection
-                                messagesView.reRender(msgs);
-                            }).fail(function (response) {
-                                App.execute("cmd:response:handle", response);
-                            });
+                            //$.when(fetchingMessages).done(function (msgs) {
+                                //console.log(msgs)
+				//// Execute command to build the websocket connection
+                                //messagesView.reRender(msgs);
+                            //}).fail(function (response) {
+                                //App.execute("cmd:response:handle", response);
+                            //});
 
 
                             // TODO remove below code
