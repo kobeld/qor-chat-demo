@@ -83,7 +83,7 @@ func serverHost() (r string) {
 	case ENV_LOCAL:
 		r = "localhost:3000"
 	case ENV_DEV_SERVER:
-		r = "http://chat_server.qortex.theplant-dev.com"
+		r = "chat_server.qortex.theplant-dev.com"
 	case ENV_CN:
 		r = "TODO"
 	case ENV_PRODUCTION:
