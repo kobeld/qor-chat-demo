@@ -3,3 +3,4 @@ test-results/
 tmp/
 routes/
 conf/env.json
+qor-chat-demo.log
