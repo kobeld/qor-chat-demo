@@ -57,6 +57,8 @@ var LoginForm = Marionette.ItemView.extend({
 var SignupForm = Marionette.ItemView.extend({
 	el: "#form-register",
 
+        baseURL: "http://" + document.QorChatServerHost,
+
 	events: {
 		"click button[type=submit]": "signup"
 	},
