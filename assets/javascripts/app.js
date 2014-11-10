@@ -44,8 +44,8 @@ App.on("start", function () {
 	if (Backbone.history) {
 		Backbone.history.start();
 
-		// if(this.getCurrentRoute() === ""){
-		// 	App.execute("cmd:todolists:list");
-		// }
+		 if(this.getCurrentRoute() === ""){
+		 	App.trigger("chats:private");
+		 }
 	}
 });

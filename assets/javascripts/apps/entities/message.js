@@ -27,7 +27,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
                         headers: App.getBearerHeader(),
                     });
 
-                response.done(function (d) {
+                response.done(function (data) {
                     defer.resolveWith(response, msgs);
                 }).fail(function () {
                     defer.rejectWith(response, arguments);

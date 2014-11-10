@@ -10,7 +10,13 @@
 //= require javascripts/apps/header/list/list_view
 //= require javascripts/apps/websocket/websocket
 //= require javascripts/apps/chats/chats_app
-//= require javascripts/apps/chats/private/private_controller
+
+//= require javascripts/apps/chats/private/title/title_view
+//= require javascripts/apps/chats/private/messages/input_view
+//= require javascripts/apps/chats/private/messages/messages_view
+//= require javascripts/apps/chats/private/roster/roster_view
 //= require javascripts/apps/chats/private/private_view
+//= require javascripts/apps/chats/private/private_controller
+
 //= require javascripts/apps/chats/conversations/conversations_controller
 //= require javascripts/apps/chats/conversations/conversations_view
