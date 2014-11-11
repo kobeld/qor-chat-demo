@@ -19,6 +19,10 @@ App.module("ChatsApp.Private.Messages", function (Messages, App, Backbone, Mario
         // NOTE maybe not a good idea to put fetching processing in view layer
         loadRecent: function(chatWithUserId){
             var self = this;
+
+            // clear original showing messages
+            self.destroyChildren();
+
             // Request recent conversation vai http api
             var fetchingMessages = App.request("chat:messages", {
                 chatType: "private",
@@ -30,6 +34,7 @@ App.module("ChatsApp.Private.Messages", function (Messages, App, Backbone, Mario
                     collection: msgsCollection.collection,
                 })
                 self.render();
+                self._scrollToLatest();
             }).fail(function (response) {
                 App.execute("cmd:response:handle", response);
             });
@@ -37,12 +42,14 @@ App.module("ChatsApp.Private.Messages", function (Messages, App, Backbone, Mario
 
         appendMsg: function(msg){
             this.options.collection.add(msg);
+            this._scrollToLatest();
+        },
 
-            // scroll to latest message just sent or received
+        _scrollToLatest: function(){
             var scrollBar = $("#messages-region");
             scrollBar.animate({
                 scrollTop: scrollBar[0].scrollHeight
             });
-        },
+        }
     });
 });
