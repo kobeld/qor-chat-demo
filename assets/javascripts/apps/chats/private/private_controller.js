@@ -19,7 +19,6 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 
             var messagesView = new Private.Messages.ChatMessagesView();
 
-
             Private.listenTo(buddies, "collection:chose:one", function (chosen) {
                 titleView.reRender(chosen);
 
@@ -27,18 +26,6 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 
                 var chatWithUserId = chosen.get("id");
                 messagesView.loadRecent(chatWithUserId);
-
-
-                // TODO remove below code
-                // Request recent conversation via websocket
-                App.execute("cmd:websocket:send", {
-                    topic: "messages",
-                    dType: "conversation",
-                    message: {
-                        fromUserId: App.MyAccount.get("id"),
-                        toUserId: chatWithUserId
-                    }
-                });
             });
 
             privateChatLayout.on("show", function () {
