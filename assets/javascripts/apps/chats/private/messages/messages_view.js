@@ -1,5 +1,5 @@
-App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, _) {
-    Private.ChatMessageView = Marionette.ItemView.extend({
+App.module("ChatsApp.Private.Messages", function (Messages, App, Backbone, Marionette, $, _) {
+    Messages.ChatMessageView = Marionette.ItemView.extend({
         tagName: "li",
         className: "chatui-talk-msg",
         template: "#private-chat-message",
@@ -11,10 +11,10 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
         }
     });
 
-    Private.ChatMessagesView = Marionette.CollectionView.extend({
+    Messages.ChatMessagesView = Marionette.CollectionView.extend({
         tagName: "ul",
         template: "#private-chat-messages",
-        childView: Private.ChatMessageView,
+        childView: Messages.ChatMessageView,
 
         // NOTE maybe not a good idea to put fetching processing in view layer
         loadRecent: function(chatWithUserId){
@@ -29,16 +29,18 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
             });
 
             $.when(fetchingMessages).done(function(msgsCollection) {
-
-                console.log(msgsCollection)
-                debugger
-                self.collection = msgsCollection.collection;
+                //console.log(msgsCollection)
+                self.constructor({
+                    collection: msgsCollection.collection,
+                })
                 self.render();
-                // Execute command to build the websocket connection
-                //messagesView.reRender(msgs);
             }).fail(function (response) {
                 App.execute("cmd:response:handle", response);
             });
-        }
+        },
+
+        appendMsg: function(msg){
+            this.options.collection.add(msg);
+        },
     });
 });

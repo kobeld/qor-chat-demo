@@ -17,19 +17,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
                             collection: buddies
                     });
 
-            //var fetchingMessages = App.request("chat:messages");
-            //$.when(fetchingMessages).done(function (msgs) {
-                //console.log(msgs)
-                //// Execute command to build the websocket connection
-                //messagesView.reRender(msgs);
-            //}).fail(function (response) {
-                //App.execute("cmd:response:handle", response);
-            //});
-
-
-            var messagesView = new Private.ChatMessagesView({
-                collection: messages
-            });
+            var messagesView = new Private.Messages.ChatMessagesView();
 
 
             Private.listenTo(buddies, "collection:chose:one", function (chosen) {
@@ -38,9 +26,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
                 _selectedUser = chosen;
 
                 var chatWithUserId = chosen.get("id");
-
                 messagesView.loadRecent(chatWithUserId);
-
 
 
                 // TODO remove below code
@@ -77,7 +63,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
                     fromUserAvatar: App.MyAccount.get("avatar")
                 }
 
-                messages.add(msg);
+                messagesView.appendMsg(msg);
 
                 App.execute("cmd:websocket:send", {
                     topic: "messages",
@@ -124,7 +110,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
                             buddies.chooseById(msg.fromUserId);
                         };
 
-                        messages.add(msg);
+                        messagesView.appendMsg(msg);
 
                     } else if (data.dType === "composing") {
                         // TODO:
