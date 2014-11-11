@@ -41,10 +41,15 @@ App.module("ChatsApp.Private.Messages", function (Messages, App, Backbone, Mario
                 withUserId: chatWithUserId,
             });
 
-            $.when(fetchingMessages).done(function(msgsCollection) {
+            $.when(fetchingMessages).done(function(data) {
+                // NOTE need to revser chats so it show as latest msgs are near the bottom
+                var collection = data.collection;
+                var models = collection.models.reverse()
+                collection.models = models;
                 self.constructor({
-                    collection: msgsCollection.collection,
+                    collection: collection,
                 })
+
                 self.render();
                 self._scrollToLatest();
             }).fail(function (response) {
