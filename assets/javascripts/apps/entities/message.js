@@ -4,12 +4,15 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 	Entities.Message = Backbone.Model.extend({
 	});
 
+
 	Entities.Messages = Backbone.Collection.extend({
             model: Entities.Message,
             url: function(){
                 return App.ServerBaseURL + "/messages/private";
             },
 	});
+
+        Entities.Messages.COUNT_PER_SCREEN = 5;
 
 
         var API = {
@@ -23,6 +26,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
                     response = msgs.fetch({
                         data: {
                             withUserId: withUserId,
+                            limit: Entities.Messages.COUNT_PER_SCREEN,
                         },
                         headers: App.getBearerHeader(),
                     });
