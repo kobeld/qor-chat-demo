@@ -11,10 +11,22 @@ App.module("ChatsApp.Private.Messages", function (Messages, App, Backbone, Mario
         }
     });
 
-    Messages.ChatMessagesView = Marionette.CollectionView.extend({
-        tagName: "ul",
+    Messages.ChatMessagesView = Marionette.CompositeView.extend({
         template: "#private-chat-messages",
         childView: Messages.ChatMessageView,
+        childViewContainer: "ul",
+
+        onShow: function(){
+            $('#private-chat-more-messages').waypoint(function(direction) {
+                // TODO
+                console.log(direction);
+            }, {
+                onlyOnScroll: true,
+                offset: '935%',
+                context: '.chatui-talk-scroll',
+
+            });
+        },
 
         // NOTE maybe not a good idea to put fetching processing in view layer
         loadRecent: function(chatWithUserId){
@@ -47,6 +59,7 @@ App.module("ChatsApp.Private.Messages", function (Messages, App, Backbone, Mario
 
         _scrollToLatest: function(){
             var scrollBar = $("#messages-region");
+            scrollBar.scrollTop(scrollBar[0].scrollHeight)
             scrollBar.animate({
                 scrollTop: scrollBar[0].scrollHeight
             });

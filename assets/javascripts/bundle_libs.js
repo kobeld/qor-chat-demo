@@ -8,4 +8,5 @@
 //= require javascripts/vendor/backbone.syphon.min
 //= require javascripts/vendor/json2
 //= require javascripts/vendor/simple-storage
+//= require javascripts/vendor/waypoints
 //= require javascripts/plugins
