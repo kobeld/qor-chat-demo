@@ -34,6 +34,7 @@ var LoginForm = Marionette.ItemView.extend({
 
 		$.ajax({
 			type: "POST",
+                        crossDomain: true,
 			url: self.baseURL + "/login",
 			data: formData
 

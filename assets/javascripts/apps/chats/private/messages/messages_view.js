@@ -58,7 +58,9 @@ App.module("ChatsApp.Private.Messages", function (Messages, App, Backbone, Mario
         },
 
         appendMsg: function(msg){
-            this.options.collection.add(msg);
+            if(this.options && this.options.collection){
+                this.options.collection.add(msg);
+            }
             this._scrollToLatest();
         },
 
