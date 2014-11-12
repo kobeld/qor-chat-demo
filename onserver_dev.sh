@@ -18,7 +18,7 @@ echo "killing old process"
 killall -9 revel;
 
 echo "deploying"
-nohup $GOPATH/bin/revel run github.com/kobeld/qor-chat-demo >> qor-chat-demo.log 2>&1 &
+nohup $GOPATH/bin/revel run github.com/kobeld/qor-chat-demo >> $HOME/qor-chat-demo.log 2>&1 &
 
 echo "done"
 
