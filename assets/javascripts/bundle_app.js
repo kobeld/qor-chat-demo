@@ -1,4 +1,5 @@
 //= require javascripts/app
+//= require javascripts/apps/entities/tab
 //= require javascripts/apps/entities/user
 //= require javascripts/apps/entities/buddy
 //= require javascripts/apps/entities/message
@@ -18,5 +19,8 @@
 //= require javascripts/apps/chats/private/private_view
 //= require javascripts/apps/chats/private/private_controller
 
-//= require javascripts/apps/chats/conversations/conversations_controller
-//= require javascripts/apps/chats/conversations/conversations_view
+//= require javascripts/apps/chats/group/group_view
+//= require javascripts/apps/chats/group/group_controller
+
+//= require javascripts/apps/chats/history/history_controller
+//= require javascripts/apps/chats/history/history_view

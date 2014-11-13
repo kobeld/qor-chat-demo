@@ -6,6 +6,7 @@
 //= require javascripts/vendor/backbone.marionette
 //= require javascripts/vendor/backbone-chooser-min
 //= require javascripts/vendor/backbone.syphon.min
+//= require javascripts/vendor/backbone.picky
 //= require javascripts/vendor/json2
 //= require javascripts/vendor/simple-storage
 //= require javascripts/vendor/waypoints

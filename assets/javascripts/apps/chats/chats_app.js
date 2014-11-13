@@ -3,7 +3,7 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
         appRoutes: {
             "chats/private": "privateChats",
             "chats/group": "groupChats",
-            "chats/history": "historyConversations",
+            "chats/history": "historyChats",
         }
     });
 
@@ -12,12 +12,23 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
         privateChats: function(){
             App.execute("cmd:header:list", {
             });
+
+            App.navigate("chats/private");
+            App.execute("set:active:tab", "chats/private");
         },
 
         groupChats: function(){
+            ChatsApp.Group.Controller.load();
+
+            App.navigate("chats/group");
+            App.execute("set:active:tab", "chats/group");
         },
 
-        historyConversations: function(){
+        historyChats: function(){
+            ChatsApp.History.Controller.load();
+
+            App.navigate("chats/history");
+            App.execute("set:active:tab", "chats/history");
         },
 
         loadPrivateChat: function() {
@@ -30,8 +41,13 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
     });
 
     App.on("chats:private", function(){
-        App.navigate("chats/private");
         API.privateChats();
+    });
+    App.on("chats:group", function(){
+        API.groupChats();
+    });
+    App.on("chats:history", function(){
+        API.groupChats();
     });
 
     App.addInitializer(function(){

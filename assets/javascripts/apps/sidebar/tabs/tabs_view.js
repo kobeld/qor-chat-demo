@@ -1,38 +1,34 @@
 App.module("SidebarApp.Tabs", function (Tabs, App, Backbone, Marionette, $, _) {
-    Tabs.TabsView = Marionette.ItemView.extend({
-	template: "#navigation-tabs",
+    Tabs.TabView = Marionette.ItemView.extend({
+        template: "#navigation-tab",
 
-        initialize: function () {
-        },
+        tagName: "li",
 
         events: {
-            "click li": "activateTab"
+            "click a": "navigate"
+        },
+
+        ui: {
+            "link": "a"
+        },
+
+        navigate: function(e){
+            e.preventDefault();
+            App.trigger(this.model.get("triggerEvent"));
         },
 
         onRender: function(){
-            this.switchPrivateTab();
-        },
+            if(this.model.selected){
+                //this.$el.addClass("active");
+                this.ui.link.addClass("active");
+            };
+        }
+    });
 
-        _clearActiveTabs: function(){
-            this.$("li a").removeClass("active")
-        },
-
-        activateTab: function(event){
-            this._clearActiveTabs();
-            $($(event.currentTarget).find("a")).addClass("active");
-        },
-
-        switchPrivateTab: function(){
-            this._clearActiveTabs();
-            this.$(".navigation-tab-private").addClass("active")
-        },
-        switchGroupTab: function(){
-            this._clearActiveTabs();
-            this.$(".navigation-tab-group").addClass("active")
-        },
-        switchHistoryTab: function(){
-            this._clearActiveTabs();
-            this.$(".navigation-tab-history").addClass("active")
+    Tabs.TabsView = Marionette.CollectionView.extend({
+        template: "#navigation-tabs",
+        childView: Tabs.TabView,
+        initialize: function () {
         },
     });
 });

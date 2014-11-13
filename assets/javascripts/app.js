@@ -2,7 +2,6 @@ var App = new Marionette.Application();
 
 App.ServerHost = document.QorChatServerHost
 App.ServerBaseURL = "http://" + App.ServerHost
-console.log(App.ServerBaseURL)
 
 App.addRegions({
 	headerRegion: "#header-region",
@@ -45,7 +44,7 @@ App.on("start", function () {
 		Backbone.history.start();
 
 		 if(this.getCurrentRoute() === ""){
-		 	App.trigger("chats:private");
+		 	App.trigger("chats:group");
 		 }
 	}
 });
