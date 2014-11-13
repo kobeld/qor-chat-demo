@@ -12,7 +12,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
             },
 	});
 
-        Entities.Messages.COUNT_PER_SCREEN = 10;
+        Entities.Messages.COUNT_PER_SCREEN = 0;
 
 
         var API = {

@@ -9,4 +9,8 @@ App.module("HeaderApp", function (HeaderApp, App, Backbone, Marionette, $, _) {
 	HeaderApp.on("before:start", function(options){
 		API.listHeader();
 	})
+
+	App.commands.setHandler("cmd:header:list", function (data) {
+		API.listHeader();
+	});
 });
