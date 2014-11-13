@@ -92,13 +92,18 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
                         // messages.reset(object);
 
                     } else if (data.dType === "new") {
-
                         if (_selectedUser == null) {
                             buddies.chooseById(msg.fromUserId);
-                        };
-
-                        messagesView.appendMsg(msg);
-
+                        }
+                        if(_selectedUser.get("id") == msg.fromUserId) {
+                            messagesView.appendMsg(msg);
+                        }else{
+                            // show unread if incomming messages is not active
+                            var fromBuddy = buddies.findById(msg.fromUserId);
+                            if(!!fromBuddy){
+                                fromBuddy.setUnread();
+                            }
+                        }
                     } else if (data.dType === "composing") {
                         // TODO:
                     };
