@@ -1,7 +1,7 @@
 App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
     ChatsApp.Router = Marionette.AppRouter.extend({
         appRoutes: {
-            "chats/private": "privateChats",
+            "chats/private": "loadPrivateChat",
             "chats/group": "groupChats",
             "chats/history": "historyConversations",
         }
