@@ -53,7 +53,15 @@ App.module("ChatsApp.Private.Messages", function (Messages, App, Backbone, Mario
                 self.render();
                 self._scrollToLatest();
             }).fail(function (response) {
-                App.execute("cmd:response:handle", response);
+                if(response.status === 404){
+                    var messages = App.request("chat:messages");
+                    self.constructor({
+                        collection: messages,
+                    })
+                    self.render();
+                }else{
+                    App.execute("cmd:response:handle", response);
+                }
             });
         },
 
