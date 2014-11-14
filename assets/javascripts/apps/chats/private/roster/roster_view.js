@@ -3,7 +3,8 @@ App.module("ChatsApp.Private.Roster", function (Roster, App, Backbone, Marionett
         template: "#private-chat-buddy",
 
         modelEvents: {
-            "change:chosen": "changeChosen",
+            "model:chosen": "onChosen",
+            "model:unchosen": "onUnchosen",
             "unread_number:show": "showUnreadNumber",
         },
 
@@ -16,7 +17,14 @@ App.module("ChatsApp.Private.Roster", function (Roster, App, Backbone, Marionett
             indicator: "a i"
         },
 
-        changeChosen: function () {
+        onChosen: function(model){
+            console.log(model)
+            this.ui.alink.addClass("active");
+        },
+        onUnchosen: function(){
+            this.ui.alink.removeClass("active");
+        },
+        changeChosen: function (data) {
             this.ui.alink.toggleClass("active");
         },
 

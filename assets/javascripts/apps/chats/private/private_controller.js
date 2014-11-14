@@ -3,39 +3,24 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 
     Private.Controller = {
         index: function(){
-                //var self = this,
         },
 
         load: function () {
             var self = this,
+                    privateChatLayout = new Private.ChatLayout(),
                     buddies = App.request("chat:buddies"),
                     messages = App.request("chat:messages"), // TODO fetch real history message with chosen buddy's id
-                    privateChatLayout = new Private.ChatLayout(),
-                    titleView = new Private.Title.TitleView(),
+                    titleView = new Private.Title.TitleView({
+                    }),
                     inputView = new Private.Messages.InputView(),
                     rosterView = new Private.Roster.RosterView({
                             collection: buddies
                     });
 
+
             var messagesView = new Private.Messages.ChatMessagesView();
 
-            Private.listenTo(buddies, "collection:chose:one", function (chosen) {
-                titleView.reRender(chosen);
 
-                _selectedUser = chosen;
-
-                var chatWithUserId = chosen.get("id");
-                messagesView.loadRecent(chatWithUserId);
-            });
-
-            privateChatLayout.on("show", function () {
-                    this.titleRegion.show(titleView);
-                    this.rosterRegion.show(rosterView);
-                    this.inputRegion.show(inputView);
-                    this.messagesRegion.show(messagesView);
-
-                    ReadyChat.init(); // TODO: should change this logic to each view.
-            });
 
             inputView.on("form:submit", function (data) {
                 if (data.content === "" || _selectedUser === null) {
@@ -56,30 +41,6 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
                     topic: "messages",
                     dType: "new",
                     message: msg
-                });
-            });
-
-            rosterView.on("show", function () {
-                // Set the handler to deal with the roster once received
-                App.vent.on("vent:websocket:roster", function (data) {
-                    var object = data.object;
-                    if (data.dType === "all") {
-                        buddies.reset(object);
-                        buddies.chooseFirst();
-
-                    } else if (data.dType === "online") {
-                        buddies.add(object);
-
-                    } else if (data.dType === "offline") {
-                        buddies.remove(object)
-
-                    };
-                });
-
-                // Request roster via websocket
-                App.execute("cmd:websocket:send", {
-                    topic: "roster",
-                    dType: "all",
                 });
             });
 
@@ -108,7 +69,29 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
                         // TODO:
                     };
                 });
-            })
+            });
+
+            rosterView.on("show", function(){
+                if(buddies.length > 0){
+                    buddies.chooseFirst();
+                }
+            });
+
+            privateChatLayout.on("show", function () {
+                    this.titleRegion.show(titleView);
+                    this.inputRegion.show(inputView);
+                    this.messagesRegion.show(messagesView);
+                    this.rosterRegion.show(rosterView);
+
+                    ReadyChat.init(); // TODO: should change this logic to each view.
+            });
+
+            privateChatLayout.listenTo(buddies, "collection:chose:one", function (chosen) {
+                titleView.reRender(chosen);
+                _selectedUser = chosen;
+                var chatWithUserId = chosen.get("id");
+                messagesView.loadRecent(chatWithUserId);
+            });
 
             App.mainRegion.show(privateChatLayout);
         }

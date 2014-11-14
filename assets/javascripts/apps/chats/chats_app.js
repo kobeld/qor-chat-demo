@@ -7,11 +7,9 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
         }
     });
 
-
     var API = {
         privateChats: function(){
-            App.execute("cmd:header:list", {
-            });
+            ChatsApp.Private.Controller.load();
 
             App.navigate("chats/private");
             App.execute("set:active:tab", "chats/private");
@@ -36,9 +34,7 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
         }
     };
 
-    App.vent.on("vent:websocket:open", function () {
-        API.loadPrivateChat();
-    });
+
 
     App.on("chats:private", function(){
         API.privateChats();
@@ -50,10 +46,19 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
         API.groupChats();
     });
 
+
+    App.vent.on("vent:websocket:open", function () {
+        // Request roster via websocket
+        App.execute("cmd:websocket:send", {
+            topic: "roster",
+            dType: "all",
+        });
+    });
+
+
     App.addInitializer(function(){
         new ChatsApp.Router({
             controller: API
         });
     });
-
 });

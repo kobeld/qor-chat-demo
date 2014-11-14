@@ -40,11 +40,10 @@ App.commands.setHandler("cmd:response:handle", function (response) {
 });
 
 App.on("start", function () {
-	if (Backbone.history) {
-		Backbone.history.start();
-
-		 if(this.getCurrentRoute() === ""){
-		 	App.trigger("chats:group");
-		 }
-	}
+    if (Backbone.history) {
+        Backbone.history.start();
+        if(this.getCurrentRoute() === ""){
+            App.trigger("chats:private");
+        }
+    }
 });
