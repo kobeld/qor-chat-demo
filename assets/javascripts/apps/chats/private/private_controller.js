@@ -30,7 +30,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 
                 var msg = {
                     content: data.content,
-                    toUserId: _selectedUser.get("id"),
+                    receiverId: _selectedUser.get("id"),
                     fromUserId: App.MyAccount.get("id"),
                     fromUserAvatar: App.MyAccount.get("avatar")
                 }
