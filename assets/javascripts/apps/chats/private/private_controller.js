@@ -38,8 +38,8 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
                 messagesView.appendMsg(msg);
 
                 App.execute("cmd:websocket:send", {
-                    topic: "messages",
-                    dType: "new",
+                    topic: App.Topic.MESSAGES,
+                    dType: App.DType.MESSAGES_PRIVATE,
                     message: msg
                 });
             });
@@ -49,10 +49,10 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
                 App.vent.on("vent:websocket:messages", function (data) {
                     var msg = data.message;
 
-                    if (data.dType === "all") {
+                    if (data.dType === App.DType.ROSTER_ALL) {
                         // messages.reset(object);
 
-                    } else if (data.dType === "new") {
+                    } else if (data.dType === App.DType.MESSAGES_PRIVATE) {
                         if (_selectedUser == null) {
                             buddies.chooseById(msg.fromUserId);
                         }

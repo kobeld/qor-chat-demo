@@ -23,7 +23,7 @@ App.module("Websocket", function (Websocket, App, Backbone, Marionette, $, _) {
 			};
 
 			_wsConn.onclose = function (data) {
-				console.log(data);
+				//console.log(data);
 				// TODO: Reconnect
 				_wsConn = null;
 			};

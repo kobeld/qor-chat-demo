@@ -79,15 +79,13 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
         App.vent.on("vent:websocket:roster", function (data) {
             var object = data.object;
-            if (data.dType === "all") {
+            if (data.dType === App.DType.ROSTER_ALL) {
                 Entities.buddies.reset(object);
                 Entities.buddies.chooseFirst();
-            } else if (data.dType === "online") {
+            } else if (data.dType === App.DType.ROSTER_ONLINE) {
                 Entities.buddies.add(object);
-
-            } else if (data.dType === "offline") {
+            } else if (data.dType === App.DType.ROSTER_OFFLINE) {
                 Entities.buddies.remove(object)
-
             };
         });
 
