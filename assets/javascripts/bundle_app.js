@@ -1,4 +1,5 @@
 //= require javascripts/app
+//= require javascripts/apps/entities/account
 //= require javascripts/apps/entities/user
 //= require javascripts/apps/entities/buddy
 //= require javascripts/apps/entities/message
