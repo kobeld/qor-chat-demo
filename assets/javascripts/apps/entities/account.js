@@ -40,7 +40,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 		}
 	};
 
-	App.reqres.setHandler("Entity:User:MyAccount", function () {
+	App.reqres.setHandler("entity:user:myaccount", function () {
 		return API.getMyAccountEntity();
 	});
 })

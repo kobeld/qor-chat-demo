@@ -41,7 +41,7 @@ App.on("start", function () {
 		Backbone.history.start();
 
 		var self = this,
-			myAccountEntity = App.request("Entity:User:MyAccount");
+			myAccountEntity = App.request("entity:user:myaccount");
 
 		// Get current user account
 		$.when(myAccountEntity).done(function (myAccount) {
@@ -52,8 +52,7 @@ App.on("start", function () {
 
 			// Show the Lobby by default
 			if (self.getCurrentRoute() === "") {
-				// console.log(App.MyAccount)
-				App.execute("cmd:lobby:show");
+				App.execute("cmd:lobby:show", myAccount.get("teamIds")[0]);
 			}
 
 		}).fail(function (response) {

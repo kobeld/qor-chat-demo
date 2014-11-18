@@ -40,7 +40,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 		}
 	};
 
-	App.reqres.setHandler("user:entities", function (teamId) {
+	App.reqres.setHandler("entities:user", function (teamId) {
 		return API.getUserEntities(teamId);
 	})
 });

@@ -1,22 +1,13 @@
 App.module("RosterApp", function (RosterApp, App, Backbone, Marionette, $, _) {
 
-	RosterApp.Router = Marionette.AppRouter.extend({
-		appRoutes: {
-			// "lobby": "show"
-		}
-	});
-
 	var API = {
-		// RosterApp.Sidebar.Controller.
+		showSidebarRoster: function(teamId) {
+			RosterApp.Sidebar.Controller.showRoster(teamId);
+		}
 	};
 
-	App.commands.setHandler("cmd:lobby:show", function () {
-		// API.show();
+	App.commands.setHandler("cmd:roster:sidebar", function (teamId) {
+		API.showSidebarRoster(teamId);
 	});
 
-	App.addInitializer(function (options) {
-		new RosterApp.Router({
-			controller: API
-		});
-	});
 });

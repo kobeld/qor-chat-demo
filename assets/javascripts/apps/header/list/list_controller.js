@@ -6,7 +6,7 @@ App.module("HeaderApp.List", function (List, App, Backbone, Marionette, $, _) {
 	List.Controller = {
 		listHeader: function () {
 			var self = this,
-				fetchingMyAccount = App.request("Entity:User:MyAccount");
+				fetchingMyAccount = App.request("entity:user:myaccount");
 
 			$.when(fetchingMyAccount).done(function (myAccount) {
 				// Execute command to build the websocket connection
