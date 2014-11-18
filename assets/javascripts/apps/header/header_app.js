@@ -6,7 +6,7 @@ App.module("HeaderApp", function (HeaderApp, App, Backbone, Marionette, $, _) {
 		}
 	};
 
-	HeaderApp.on("before:start", function(options){
+	App.commands.setHandler("cmd:header:show", function () {
 		API.listHeader();
-	})
+	});
 });

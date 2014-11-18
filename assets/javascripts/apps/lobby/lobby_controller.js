@@ -4,7 +4,6 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 
 		showLobby: function() {
 			var lobbyFullView = new LobbyApp.LobbyFullView();
-
 			App.mainRegion.show(lobbyFullView);
 		}
 

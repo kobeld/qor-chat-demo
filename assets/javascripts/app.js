@@ -40,9 +40,24 @@ App.on("start", function () {
 	if (Backbone.history) {
 		Backbone.history.start();
 
-		// Show the Lobby by default
-		if(this.getCurrentRoute() === ""){
-			App.execute("cmd:lobby:show");
-		}
+		var self = this,
+			myAccountEntity = App.request("Entity:User:MyAccount");
+
+		// Get current user account
+		$.when(myAccountEntity).done(function (myAccount) {
+			$("#page-container").show();
+
+			// Show the Header
+			App.execute("cmd:header:show");
+
+			// Show the Lobby by default
+			if (self.getCurrentRoute() === "") {
+				// console.log(App.MyAccount)
+				App.execute("cmd:lobby:show");
+			}
+
+		}).fail(function (response) {
+			App.execute("cmd:response:handle", response);
+		})
 	}
 });
