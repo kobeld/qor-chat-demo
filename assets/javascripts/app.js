@@ -40,8 +40,9 @@ App.on("start", function () {
 	if (Backbone.history) {
 		Backbone.history.start();
 
-		// if(this.getCurrentRoute() === ""){
-		// 	App.execute("cmd:todolists:list");
-		// }
+		// Show the Lobby by default
+		if(this.getCurrentRoute() === ""){
+			App.execute("cmd:lobby:show");
+		}
 	}
 });
