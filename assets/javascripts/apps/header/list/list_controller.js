@@ -12,28 +12,21 @@ App.module("HeaderApp.List", function (List, App, Backbone, Marionette, $, _) {
 				// Execute command to build the websocket connection
 				App.execute("cmd:websocket:connect", myAccount);
 
-				var accountView = self.getAccountView(myAccount);
-				App.headerRegion.show(accountView);
+				var accountView = new List.UserAccountView({
+					model: myAccount
+				});
 
+				accountView.on("user:logout", function () {
+					App.logout();
+				});
+
+				App.headerRegion.show(accountView);
 				App.MyAccount = myAccount;
 
 			}).fail(function (response) {
 				App.execute("cmd:response:handle", response);
 			});
-		},
-
-		getAccountView: function (account) {
-			var accountView = new List.UserAccountView({
-				model: account
-			});
-
-			accountView.on("user:logout", function(){
-				App.logout();
-			});
-
-			return accountView;
 		}
-
 	};
 
 });
