@@ -39,7 +39,8 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 
                 App.execute("cmd:websocket:send", {
                     topic: App.Topic.MESSAGES,
-                    dType: App.DType.MESSAGES_PRIVATE,
+                    //dType: App.DType.MESSAGES_PRIVATE,
+                    dType: App.DType.MESSAGES_GROUP,
                     message: msg
                 });
             });
@@ -65,6 +66,8 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
                                 fromBuddy.setUnread();
                             }
                         }
+                    } else if ( data.dType == App.DType.MESSAGES_GROUP) {
+                        messagesView.appendMsg(msg);
                     } else if (data.dType === "composing") {
                         // TODO:
                     };
