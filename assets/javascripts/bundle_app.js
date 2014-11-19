@@ -1,12 +1,12 @@
 //= require javascripts/app
-//= require javascripts/apps/entities/account
-//= require javascripts/apps/entities/user
-//= require javascripts/apps/entities/buddy
-//= require javascripts/apps/entities/message
+//= require javascripts/websocket/websocket
+//= require javascripts/entities/account
+//= require javascripts/entities/user
+//= require javascripts/entities/buddy
+//= require javascripts/entities/message
 //= require javascripts/apps/header/header_app
 //= require javascripts/apps/header/list/list_controller
 //= require javascripts/apps/header/list/list_view
-//= require javascripts/apps/websocket/websocket
 //= require javascripts/apps/chats/chats_app
 //= require javascripts/apps/chats/private/private_controller
 //= require javascripts/apps/chats/private/private_view
