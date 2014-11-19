@@ -38,26 +38,32 @@ App.commands.setHandler("cmd:response:handle", function (response) {
 });
 
 App.on("start", function () {
-	if (Backbone.history) {
-		Backbone.history.start();
+	var self = this,
+		myAccountEntity = App.request("entity:user:myaccount");
 
-		var self = this,
-			myAccountEntity = App.request("entity:user:myaccount");
+	// Get current user account first
+	$.when(myAccountEntity).done(function (myAccount) {
 
-		// Get current user account
-		$.when(myAccountEntity).done(function (myAccount) {
-			$("#page-container").show();
+		// Ensure the websocket be connected
+		App.vent.on("vent:websocket:open", function () {
+			// Then start the routers
+			if (Backbone.history) {
+				Backbone.history.start();
 
-			// Show the Header
-			App.execute("cmd:header:show");
-
-			// Show the Lobby by default
-			if (self.getCurrentRoute() === "") {
-				App.execute("cmd:lobby:show", myAccount.get("teamIds")[0]);
+				$("#page-container").show();
+				// Show the Header
+				App.execute("cmd:header:show");
+				// Show the Lobby by default
+				if (self.getCurrentRoute() === "") {
+					App.execute("cmd:lobby:show", myAccount.get("teamIds")[0]);
+				}
 			}
+		});
 
-		}).fail(function (response) {
-			App.execute("cmd:response:handle", response);
-		})
-	}
+		// Execute command to build the websocket connection
+		App.execute("cmd:websocket:connect", myAccount);
+
+	}).fail(function (response) {
+		App.execute("cmd:response:handle", response);
+	})
 });

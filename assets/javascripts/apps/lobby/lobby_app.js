@@ -8,7 +8,6 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 
 	var API = {
 		show: function (teamId) {
-			console.log(2);
 			LobbyApp.Controller.showLobby(teamId);
 			App.execute("cmd:roster:sidebar", teamId);
 		}
@@ -16,7 +15,7 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 
 	App.commands.setHandler("cmd:lobby:show", function (teamId) {
 		App.navigate("teams/" + teamId + "/lobby");
-		API.show();
+		API.show(teamId);
 	});
 
 	App.addInitializer(function (options) {

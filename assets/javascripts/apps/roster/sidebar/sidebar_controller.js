@@ -6,10 +6,8 @@ App.module("RosterApp.Sidebar", function (Sidebar, App, Backbone, Marionette, $,
 				userEntities = App.request("entities:user", teamId);
 
 			$.when(userEntities).done(function (users) {
-				console.log(users);
-
 				var onlineUsers = new App.Entities.UserCollection(),
-					offlineUsers = new App.Entities.UserCollection();
+					offlineUsers = users.clone();
 
 				var rosterLayout = new Sidebar.RosterLayout(),
 					onlineUsersView = new Sidebar.OnlineUsersView({
@@ -21,12 +19,14 @@ App.module("RosterApp.Sidebar", function (Sidebar, App, Backbone, Marionette, $,
 
 				App.vent.on("vent:websocket:roster", function (data) {
 					var object = data.object;
+
 					if (data.dType === "all") {
 						onlineUsers.reset(object);
+						offlineUsers.remove(object);
 
 					} else if (data.dType === "online") {
-						onlineUsers.add(object);
 						offlineUsers.remove(object);
+						onlineUsers.add(object);
 
 					} else if (data.dType === "offline") {
 						onlineUsers.remove(object);

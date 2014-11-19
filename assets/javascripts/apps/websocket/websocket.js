@@ -23,7 +23,6 @@ App.module("Websocket", function (Websocket, App, Backbone, Marionette, $, _) {
 			};
 
 			_wsConn.onclose = function (data) {
-				console.log(data);
 				// TODO: Reconnect
 				_wsConn = null;
 			};
@@ -44,7 +43,6 @@ App.module("Websocket", function (Websocket, App, Backbone, Marionette, $, _) {
 	};
 
 	App.commands.setHandler("cmd:websocket:connect", function (user) {
-		console.log(user);
 		_user = user;
 		if (window["WebSocket"]) {
 			API.connect();
