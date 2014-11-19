@@ -44,6 +44,7 @@ App.module("Websocket", function (Websocket, App, Backbone, Marionette, $, _) {
 	};
 
 	App.commands.setHandler("cmd:websocket:connect", function (user) {
+		console.log(user);
 		_user = user;
 		if (window["WebSocket"]) {
 			API.connect();
