@@ -1,26 +1,27 @@
-<!-- Left Sidebar -->
-<div id="sidebar">
-  <!-- Wrapper for scrolling functionality -->
-  <div class="sidebar-scroll">
-    <!-- Sidebar Content -->
-    <div class="sidebar-content">
-      <!-- Brand -->
-      <a href="index.html" class="sidebar-brand">
-      <i class="gi gi-flash"></i>Qor Chat Demo
-      </a>
-      <!-- END Brand -->
-
-      <!-- Sidebar Navigation -->
-      <ul class="sidebar-nav">
-        <li>
-          <a href="javascript:void(0);" class="active"><i class="gi gi-home sidebar-nav-icon"></i>Lobby</a>
-        </li>
-        <li>
-          <a href="javascript:void(0);"><i class="gi gi-stopwatch sidebar-nav-icon"></i>Private Chat</a>
-        </li>
-      </ul>
-      <!-- END Sidebar Navigation -->
-    </div>
-  </div>
+<div id="sidebar" class="left-region menu-sidebar">
+<!-- #menu-layout to be inserted here -->
 </div>
-<!-- END Main Sidebar -->
+
+<script type="text/template" id="menu-sidebar-view">
+  <div class="sidebar-content">
+    <span class="sidebar-brand">
+      <i class="gi gi-flash"></i>Qor Chat Demo
+    </span>
+    <ul class="sidebar-nav">
+      <li>
+        <a href="javascript:void(0);" class="active"><i class="gi gi-home sidebar-nav-icon"></i>Lobby</a>
+      </li>
+    </ul>
+    <ul id="active-conversations" class="sidebar-nav">
+
+    </ul>
+  </div>
+</script>
+
+<script type="text/template" id="active-conversation-item">
+  <a href="javascript:void(0);">
+    <i class="gi gi-home sidebar-nav-icon"></i>Lobby
+  </a>
+</script>
+
+

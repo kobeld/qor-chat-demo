@@ -4,7 +4,7 @@ App.addRegions({
 	headerRegion: "#header-region",
 	mainRegion: ".main-region",
 	rightRegion: ".right-region",
-	// leftRegion: ".left-region",
+	leftRegion: ".left-region"
 	// modalRegion: Marionette.Region.Modal.extend({
 	// 	el: "#global-modal"
 	// })
@@ -53,6 +53,10 @@ App.on("start", function () {
 				$("#page-container").show();
 				// Show the Header
 				App.execute("cmd:header:show");
+
+				// Show the Left menu
+				App.execute("cmd:menu:sidebar:list")
+
 				// Show the Lobby by default
 				if (self.getCurrentRoute() === "") {
 					App.execute("cmd:lobby:show", myAccount.get("teamIds")[0]);
