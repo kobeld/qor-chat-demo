@@ -2,6 +2,11 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 	// User Model
 	Entities.User = Backbone.Model.extend({
+
+		initialize: function() {
+			new Backbone.Chooser(this);
+		},
+
 		urlRoot: function () {
 			return "http://localhost:3000/teams/" +  this.get("teamId") + "/users";
 		}
@@ -11,6 +16,10 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 	// User Collection
 	Entities.UserCollection = Backbone.Collection.extend({
 		model: Entities.User,
+
+		initialize: function() {
+			new Backbone.SingleChooser(this);
+		},
 
 		url: function () {
 			return "http://localhost:3000/teams/" + this.teamId + "/users";

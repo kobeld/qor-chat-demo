@@ -13,7 +13,17 @@ App.module("RosterApp.Sidebar", function (Sidebar, App, Backbone, Marionette, $,
 
 	// The Roster User Item View (Basic element)
 	Sidebar.RosterUserItemView = Marionette.ItemView.extend({
-		template: "#roster-user-item"
+		template: "#roster-user-item",
+
+		events: {
+			"dblclick a": "privateChat"
+		},
+
+		privateChat: function(e) {
+			e.preventDefault();
+			this.model.choose();
+		}
+
 	});
 
 	// Define the Online Users Composite View

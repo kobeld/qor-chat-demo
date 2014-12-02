@@ -6,8 +6,9 @@ App.module("RosterApp.Sidebar", function (Sidebar, App, Backbone, Marionette, $,
 				userEntities = App.request("entities:user", teamId);
 
 			$.when(userEntities).done(function (users) {
+
 				var onlineUsers = new App.Entities.UserCollection(),
-					offlineUsers = users.clone();
+					offlineUsers = users;
 
 				var rosterLayout = new Sidebar.RosterLayout(),
 					onlineUsersView = new Sidebar.OnlineUsersView({
@@ -17,6 +18,18 @@ App.module("RosterApp.Sidebar", function (Sidebar, App, Backbone, Marionette, $,
 						collection: offlineUsers
 					});
 
+				// Listening to start the 1-on-1 chat
+				Sidebar.listenTo(onlineUsers, "collection:chose:one", function (chosen) {
+					console.log(chosen.get("email"));
+					App.execute("cmd:chats:private:show");
+				});
+
+				Sidebar.listenTo(offlineUsers, "collection:chose:one", function (chosen) {
+					console.log(chosen.get("email"));
+					App.execute("cmd:chats:private:show");
+				});
+
+				// Subscripe to the roster events of websocket
 				App.vent.on("vent:websocket:roster", function (data) {
 					var object = data.object;
 

@@ -6,7 +6,7 @@ App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 				MenuApp.Sidebar.Controller.list();
 			}
 		}
-	}
+	};
 
 	App.commands.setHandler("cmd:menu:sidebar:list", function(){
 		API.Sidebar.list();
