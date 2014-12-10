@@ -50,7 +50,14 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
                 App.vent.on("vent:websocket:messages", function (data) {
                     var msg = data.message;
 
-                    if (data.dType === App.DType.MESSAGES_PRIVATE) {
+                    if (data.dType === App.DType.MESSAGES_SYNC) {
+                        if (_selectedUser == null) {
+                            buddies.chooseById(msg.fromUserId);
+                        }
+                        if(_selectedUser.get("id") == msg.receiverId) {
+                            messagesView.appendMsg(msg);
+                        }
+                    }else if (data.dType === App.DType.MESSAGES_PRIVATE) {
                         if (_selectedUser == null) {
                             buddies.chooseById(msg.fromUserId);
                         }

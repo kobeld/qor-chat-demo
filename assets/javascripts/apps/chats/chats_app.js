@@ -10,6 +10,7 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
     App.DType.ROSTER_OFFLINE = "offline",
     App.DType.MESSAGES_PRIVATE = "private",
     App.DType.MESSAGES_GROUP = "group",
+    App.DType.MESSAGES_SYNC = "sync",
 
 
     ChatsApp.Router = Marionette.AppRouter.extend({
