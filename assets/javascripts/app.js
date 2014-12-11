@@ -55,7 +55,7 @@ App.on("start", function () {
 				App.execute("cmd:header:show");
 
 				// Show the Left menu
-				App.execute("cmd:menu:sidebar:list")
+				App.execute("cmd:menu:list");
 
 				// Show the Lobby by default
 				if (self.getCurrentRoute() === "") {

@@ -15,5 +15,5 @@
 //= require javascripts/apps/lobby/lobby_controller
 //= require javascripts/apps/lobby/lobby_view
 //= require javascripts/apps/menu/menu_app
-//= require javascripts/apps/menu/sidebar/sidebar_controller
-//= require javascripts/apps/menu/sidebar/sidebar_view
+//= require javascripts/apps/menu/menu_controller
+//= require javascripts/apps/menu/menu_view

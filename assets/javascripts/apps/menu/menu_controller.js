@@ -1,13 +1,13 @@
-App.module("MenuApp.Sidebar", function (Sidebar, App, Backbone, Marionette, $, _) {
+App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 
-	Sidebar.Controller = {
+	MenuApp.Controller = {
 		list: function () {
 
 			// TODO: Should open conversation later
 
 			var conversations = App.request("entity:conversations");
 
-			var sidebarView = new Sidebar.MenuView({
+			var sidebarView = new MenuApp.MenuView({
 				collection: conversations
 			});
 			App.leftRegion.show(sidebarView);
