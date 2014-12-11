@@ -9,7 +9,6 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 	var API = {
 		show: function (teamId) {
 			LobbyApp.Controller.showLobby(teamId);
-			App.execute("cmd:roster:sidebar", teamId);
 		}
 	};
 

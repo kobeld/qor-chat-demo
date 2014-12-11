@@ -14,9 +14,6 @@
 //= require javascripts/apps/lobby/lobby_app
 //= require javascripts/apps/lobby/lobby_controller
 //= require javascripts/apps/lobby/lobby_view
-//= require javascripts/apps/roster/roster_app
-//= require javascripts/apps/roster/sidebar/sidebar_controller
-//= require javascripts/apps/roster/sidebar/sidebar_view
 //= require javascripts/apps/menu/menu_app
 //= require javascripts/apps/menu/sidebar/sidebar_controller
 //= require javascripts/apps/menu/sidebar/sidebar_view
