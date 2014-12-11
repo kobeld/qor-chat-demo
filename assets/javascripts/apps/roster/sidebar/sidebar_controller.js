@@ -20,12 +20,10 @@ App.module("RosterApp.Sidebar", function (Sidebar, App, Backbone, Marionette, $,
 
 				// Listening to start the 1-on-1 chat
 				Sidebar.listenTo(onlineUsers, "collection:chose:one", function (chosen) {
-					console.log(chosen.get("email"));
 					App.execute("cmd:chats:private:show");
 				});
 
 				Sidebar.listenTo(offlineUsers, "collection:chose:one", function (chosen) {
-					console.log(chosen.get("email"));
 					App.execute("cmd:chats:private:show");
 				});
 
