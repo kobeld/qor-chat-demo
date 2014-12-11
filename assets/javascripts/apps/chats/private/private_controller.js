@@ -30,7 +30,8 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 
                 var msg = {
                     content: data.content,
-                    receiverId: _selectedUser.get("id"),
+                    //receiverId: _selectedUser.get("id"),
+                    receiverId: "54892e3398587fd16c000001",
                     fromUserId: App.MyAccount.get("id"),
                     fromUserAvatar: App.MyAccount.get("avatar")
                 }
@@ -39,8 +40,8 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 
                 App.execute("cmd:websocket:send", {
                     topic: App.Topic.MESSAGES,
-                    dType: App.DType.MESSAGES_PRIVATE,
-                    //dType: App.DType.MESSAGES_GROUP,
+                    //dType: App.DType.MESSAGES_PRIVATE,
+                    dType: App.DType.MESSAGES_GROUP,
                     message: msg
                 });
             });
@@ -57,7 +58,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
                         if(_selectedUser.get("id") == msg.receiverId) {
                             messagesView.appendMsg(msg);
                         }
-                    }else if (data.dType === App.DType.MESSAGES_PRIVATE) {
+                    }else if (data.dType === App.DType.MESSAGES_GROUP) {
                         if (_selectedUser == null) {
                             buddies.chooseById(msg.fromUserId);
                         }
