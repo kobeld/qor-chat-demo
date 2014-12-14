@@ -1,14 +1,33 @@
 App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 
+	ChatsApp.Router = Marionette.AppRouter.extend({
+		appRoutes: {
+			"teams/:teamId/chat/:convId": "startChatFromRouter"
+		}
+	})
+
 	var API = {
-		Private: {
-			show: function() {
-				ChatsApp.Private.Controller.show();
-			}
+		startChatFromRouter: function (teamId, convId) {
+			// Show the Left menu first if it is from the router
+			App.execute("cmd:menu:list", teamId, convId);
+		},
+
+		startChatByClicked: function (conv) {
+			App.execute("cmd:menu:activeOrAdd", conv);
+			if (conv.get("isPrivate")) {
+				ChatsApp.Private.Controller.start(conv.get("teamId"), conv.get("userId"));
+			};
 		}
 	};
 
-	App.commands.setHandler("cmd:chats:private:show", function(){
-		API.Private.show();
-	})
+	App.commands.setHandler("cmd:chats:private:start", function (conv) {
+		App.navigate("teams/" + conv.get("teamId") + "/chat/" + conv.id);
+		API.startChatByClicked(conv);
+	});
+
+	App.addInitializer(function (options) {
+		new ChatsApp.Router({
+			controller: API
+		});
+	});
 });

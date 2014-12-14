@@ -27,12 +27,20 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 					});
 
 				// Listening to start the 1-on-1 chat
-				LobbyApp.listenTo(onlineUsers, "collection:chose:one", function (chosen) {
-					App.execute("cmd:chats:private:show");
+				LobbyApp.listenTo(onlineUsers, "collection:chose:one", function (user) {
+					App.execute("cmd:chats:private:start", teamId, user.id);
+
 				});
 
-				LobbyApp.listenTo(offlineUsers, "collection:chose:one", function (chosen) {
-					App.execute("cmd:chats:private:show");
+				LobbyApp.listenTo(offlineUsers, "collection:chose:one", function (user) {
+					var conv = new App.Entities.Conversation({
+						id: user.id,
+						isPrivate: true,
+						teamId: teamId,
+						withUser: user
+					});
+
+					App.execute("cmd:chats:private:start", conv);
 				});
 
 				// Subscripe to the roster events of websocket

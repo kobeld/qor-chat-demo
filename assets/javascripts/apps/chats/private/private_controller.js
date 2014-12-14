@@ -3,7 +3,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 	var _selectedUser = null;
 
 	Private.Controller = {
-		show: function () {
+		start: function (teamId, userId) {
 			var self = this,
 				messages = App.request("chat:messages"),
 				privateChatLayout = new Private.ChatLayout(),

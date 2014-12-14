@@ -4,6 +4,17 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 	Entities.Conversation = Backbone.Model.extend({
 		initialize: function () {
 			new Backbone.Chooser(this);
+		},
+
+		// Temp
+		urlRoot: function () {
+			return "http://localhost:3000"
+		},
+
+		defaults: {
+			isPrivate: false,
+			teamId: "",
+			withUser: ""
 		}
 	});
 
@@ -12,6 +23,11 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 		initialize: function () {
 			new Backbone.SingleChooser(this);
+		},
+
+		// Temp
+		url: function () {
+			return "http://localhost:3000";
 		}
 	});
 
@@ -22,7 +38,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 				convs = new Entities.Conversations();
 
 			// Temp
-			setTimeout(function(){
+			setTimeout(function () {
 				defer.resolveWith(response, [convs]);
 			}, 200);
 

@@ -18,13 +18,13 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 			new Backbone.SingleChooser(this);
 		},
 
-		chooseByConvId: function (id) {
-			var conv = this.findWhere({
-				id: id
+		chooseByConvId: function (convId) {
+			var menuItem = this.findWhere({
+				id: convId
 			}) || this.first();
 
-			if (conv) {
-				conv.choose();
+			if (menuItem) {
+				menuItem.choose();
 			}
 		}
 
