@@ -7,20 +7,15 @@
     <span class="sidebar-brand">
       <i class="gi gi-flash"></i>Qor Chat Demo
     </span>
-    <ul class="sidebar-nav">
-      <li>
-        <a href="javascript:void(0);" class="active"><i class="gi gi-home sidebar-nav-icon"></i>Lobby</a>
-      </li>
-    </ul>
-    <ul id="active-conversations" class="sidebar-nav">
+    <ul id="sidebar-menu" class="sidebar-nav" >
 
     </ul>
   </div>
 </script>
 
-<script type="text/template" id="active-conversation-item">
+<script type="text/template" id="menu-item-view">
   <a href="javascript:void(0);">
-    <i class="gi gi-home sidebar-nav-icon"></i><%= name %>
+    <i class="gi gi-home sidebar-nav-icon"></i><%= title %>
   </a>
 </script>
 

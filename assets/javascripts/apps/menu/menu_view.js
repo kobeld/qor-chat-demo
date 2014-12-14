@@ -1,14 +1,14 @@
 App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 
-	MenuApp.ActiveConversationItem = Marionette.ItemView.extend({
+	MenuApp.MenuItemView = Marionette.ItemView.extend({
 		tagName: "li",
-		template: "active-conversation-item"
+		template: "#menu-item-view"
 	});
 
 	MenuApp.MenuView = Marionette.CompositeView.extend({
 		template: "#menu-sidebar-view",
-		childView: MenuApp.ActiveConversationItem,
-		childViewContainer: "#active-conversations"
+		childView: MenuApp.MenuItemView,
+		childViewContainer: "#sidebar-menu"
 	});
 
 });

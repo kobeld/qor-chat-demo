@@ -4,13 +4,15 @@ App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 		list: function () {
 
 			// TODO: Should open conversation later
+			var menuDeferred = App.request("entity:menu");
 
-			var conversations = App.request("entity:conversations");
+			$.when(menuDeferred).done(function (menu) {
+				var menuView = new MenuApp.MenuView({
+					collection: menu
+				});
 
-			var sidebarView = new MenuApp.MenuView({
-				collection: conversations
-			});
-			App.leftRegion.show(sidebarView);
+				App.leftRegion.show(menuView);
+			})
 		}
 	};
 

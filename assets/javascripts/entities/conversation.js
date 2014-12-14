@@ -17,7 +17,16 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 	var API = {
 		getConversations: function () {
-			return new Entities.Conversations();
+
+			var defer = $.Deferred(),
+				convs = new Entities.Conversations();
+
+			// Temp
+			setTimeout(function(){
+				defer.resolveWith(response, [convs]);
+			}, 1000);
+
+			return defer.promise();
 		}
 	};
 
