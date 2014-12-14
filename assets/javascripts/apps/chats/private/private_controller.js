@@ -64,6 +64,8 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 			})
 
 			App.mainRegion.show(privateChatLayout);
+			// TODO: Show User Detail
+			App.rightRegion.empty();
 		}
 	};
 });

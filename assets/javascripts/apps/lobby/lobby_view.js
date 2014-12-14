@@ -20,10 +20,10 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 		template: "#roster-user-item",
 
 		events: {
-			"dblclick a": "privateChat"
+			"dblclick a": "chooseToChat"
 		},
 
-		privateChat: function(e) {
+		chooseToChat: function(e) {
 			e.preventDefault();
 			this.model.choose();
 		}

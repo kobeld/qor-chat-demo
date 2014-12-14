@@ -54,12 +54,9 @@ App.on("start", function () {
 				// Show the Header
 				App.execute("cmd:header:show");
 
-				// Show the Left menu
-				App.execute("cmd:menu:list");
-
 				// Show the Lobby by default
 				if (self.getCurrentRoute() === "") {
-					App.execute("cmd:lobby:show", myAccount.get("teamIds")[0]);
+					App.execute("cmd:menu:list", myAccount.get("teamIds")[0]);
 				}
 			}
 		});

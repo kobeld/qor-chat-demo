@@ -7,14 +7,19 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 	});
 
 	var API = {
-		show: function (teamId) {
-			LobbyApp.Controller.showLobby(teamId);
+		show: function (teamId, byClicked) {
+			if (byClicked) {
+				LobbyApp.Controller.showLobby(teamId);
+			} else {
+				// Show the Left menu first if it is from the router
+				App.execute("cmd:menu:list", teamId);
+			}
 		}
 	};
 
 	App.commands.setHandler("cmd:lobby:show", function (teamId) {
 		App.navigate("teams/" + teamId + "/lobby");
-		API.show(teamId);
+		API.show(teamId, true);
 	});
 
 	App.addInitializer(function (options) {

@@ -16,7 +16,18 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 		initialize: function () {
 			new Backbone.SingleChooser(this);
+		},
+
+		chooseByConvId: function (id) {
+			var conv = this.findWhere({
+				id: id
+			}) || this.first();
+
+			if (conv) {
+				conv.choose();
+			}
 		}
+
 	});
 
 	var API = {
@@ -30,11 +41,13 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 			$.when(activedConvsDefer).then(function (convs) {
 				_.each(convs, function (convItem) {
 					menu.add([{
+						id: convItem.get("id"),
 						title: "Chat",
 						conv: convItem
 					}]);
-				})
-				defer.resolve(menu)
+				});
+
+				defer.resolve(menu);
 			})
 
 			return defer.promise();

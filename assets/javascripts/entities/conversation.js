@@ -24,7 +24,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 			// Temp
 			setTimeout(function(){
 				defer.resolveWith(response, [convs]);
-			}, 1000);
+			}, 200);
 
 			return defer.promise();
 		}
