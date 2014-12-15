@@ -19,9 +19,19 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 		},
 
 		chooseByConvId: function (convId) {
-			var menuItem = this.findWhere({
-				id: convId
-			}) || this.first();
+
+			var menuItem = this.first();
+			if (convId != "") {
+				menuItem = this.findWhere({
+					id: convId
+				});
+
+				// TODO:
+				if (!menuItem) {
+					menuItem = Entities.DemoMenuItem;
+					this.push(menuItem);
+				}
+			}
 
 			if (menuItem) {
 				menuItem.choose();

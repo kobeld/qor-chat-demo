@@ -20,7 +20,16 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 		}
 	};
 
-	App.commands.setHandler("cmd:chats:private:start", function (conv) {
+	App.commands.setHandler("cmd:chats:private:start", function (user) {
+
+		// TODO: Should request from the backend
+		var conv = new App.Entities.Conversation({
+			id: user.id,
+			isPrivate: true,
+			teamId: user.get("teamId"),
+			withUser: user
+		});
+
 		App.navigate("teams/" + conv.get("teamId") + "/chat/" + conv.id);
 		API.startChatByClicked(conv);
 	});

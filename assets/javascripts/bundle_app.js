@@ -6,6 +6,7 @@
 //= require javascripts/entities/message
 //= require javascripts/entities/conversation
 //= require javascripts/entities/menu
+//= require javascripts/entities/demo
 //= require javascripts/apps/header/header_app
 //= require javascripts/apps/header/list/list_controller
 //= require javascripts/apps/header/list/list_view
