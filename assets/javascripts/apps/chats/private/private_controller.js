@@ -1,9 +1,7 @@
 App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, _) {
 
-	var _selectedUser = null;
-
 	Private.Controller = {
-		start: function (teamId, userId) {
+		start: function (conv) {
 			var self = this,
 				messages = App.request("chat:messages"),
 				privateChatLayout = new Private.ChatLayout(),
@@ -20,14 +18,16 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 			});
 
 			inputView.on("form:submit", function (data) {
-				if (data.content === "" || _selectedUser === null) {
-					alert("Please select a buddy on the right side to chat.")
+				if (data.content === "") {
+					alert("Content can not be blank!")
 					return;
 				};
 
+				console.log(App.MyAccount);
+
 				var msg = {
 					content: data.content,
-					toUserId: _selectedUser.get("id"),
+					toUserId: conv.get("withUser").id,
 					fromUserId: App.MyAccount.get("id"),
 					fromUserAvatar: App.MyAccount.get("avatar")
 				}

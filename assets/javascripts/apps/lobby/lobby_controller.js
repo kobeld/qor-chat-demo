@@ -28,11 +28,11 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 
 				// Listening to start the 1-on-1 chat
 				LobbyApp.listenTo(onlineUsers, "collection:chose:one", function (user) {
-					App.execute("cmd:chats:private:start", user);
+					App.execute("cmd:chats:private:user", user);
 				});
 
 				LobbyApp.listenTo(offlineUsers, "collection:chose:one", function (user) {
-					App.execute("cmd:chats:private:start", user);
+					App.execute("cmd:chats:private:user", user);
 				});
 
 				// Subscripe to the roster events of websocket

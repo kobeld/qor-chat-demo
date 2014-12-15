@@ -15,13 +15,13 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 		startChatByClicked: function (conv) {
 			App.execute("cmd:menu:activeOrAdd", conv);
 			if (conv.get("isPrivate")) {
-				ChatsApp.Private.Controller.start(conv.get("teamId"), conv.get("userId"));
+				ChatsApp.Private.Controller.start(conv);
 			};
 		}
 	};
 
-	App.commands.setHandler("cmd:chats:private:start", function (user) {
-
+	// Start the conversation with the user passing in
+	App.commands.setHandler("cmd:chats:private:user", function (user) {
 		// TODO: Should request from the backend
 		var conv = new App.Entities.Conversation({
 			id: user.id,
@@ -30,6 +30,12 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 			withUser: user
 		});
 
+		App.navigate("teams/" + conv.get("teamId") + "/chat/" + conv.id);
+		API.startChatByClicked(conv);
+	});
+
+	// Start the conversation with the conv passing in
+	App.commands.setHandler("cmd:chats:private:conv", function (conv) {
 		App.navigate("teams/" + conv.get("teamId") + "/chat/" + conv.id);
 		API.startChatByClicked(conv);
 	});
