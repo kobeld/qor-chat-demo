@@ -16,7 +16,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 		template: "#private-chat-message",
 
 		onBeforeRender: function () {
-			if (this.model.get("fromUserId") === App.MyAccount.get("id")) {
+			if (this.model.get("fromUserId") === App.Global.MyAccount.get("id")) {
 				this.$el.addClass("chatui-talk-msg-highlight themed-border");
 			};
 		}

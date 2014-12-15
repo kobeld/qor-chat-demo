@@ -39,6 +39,11 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 				App.vent.on("vent:websocket:roster", function (data) {
 					var object = data.object;
 
+					// TODO: should add the teamId in the backend
+					_.each(object, function(user){
+						user.teamId = teamId;
+					})
+
 					if (data.dType === "all") {
 						onlineUsers.reset(object);
 						offlineUsers.remove(object);

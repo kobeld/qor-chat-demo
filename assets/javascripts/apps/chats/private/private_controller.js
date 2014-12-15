@@ -23,13 +23,11 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 					return;
 				};
 
-				console.log(App.MyAccount);
-
 				var msg = {
 					content: data.content,
 					toUserId: conv.get("withUser").id,
-					fromUserId: App.MyAccount.get("id"),
-					fromUserAvatar: App.MyAccount.get("avatar")
+					fromUserId: App.Global.MyAccount.get("id"),
+					fromUserAvatar: App.Global.MyAccount.get("avatar")
 				}
 
 				messages.add(msg);
@@ -51,9 +49,9 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 
 					} else if (data.dType === "new") {
 
-						if (_selectedUser == null) {
-							buddies.chooseById(msg.fromUserId);
-						};
+						// if (_selectedUser == null) {
+						// 	buddies.chooseById(msg.fromUserId);
+						// };
 
 						messages.add(msg);
 
