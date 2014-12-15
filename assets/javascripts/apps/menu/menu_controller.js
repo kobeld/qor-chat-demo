@@ -16,9 +16,11 @@ App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 
 				MenuApp.listenTo(_menu, "collection:chose:one", function (chosen) {
 					// Show lobby if it is not conversation
-					if (!chosen.get("conv")) {
-						App.execute("cmd:lobby:show", teamId)
-					};
+					if (chosen.get("conv")) {
+						App.execute("cmd:chats:private:start", chosen.get("conv"));
+					} else {
+						App.execute("cmd:lobby:show", teamId);
+					}
 				});
 
 				App.leftRegion.show(menuView);
