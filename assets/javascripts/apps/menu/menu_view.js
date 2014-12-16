@@ -14,7 +14,8 @@ App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 		},
 
 		ui: {
-			menuLink: "a"
+			menuLink: "a",
+			icon: "a i"
 		},
 
 		changeChosen: function () {
@@ -24,6 +25,17 @@ App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 		choose: function (e) {
 			e.preventDefault();
 			this.model.choose();
+		},
+
+		onRender: function () {
+			var iconClass = "gi-home",
+				conv = this.model.get("conv");
+
+			if (conv) {
+				iconClass = conv.get("isPrivate") ? "gi-user" : "gi-group";
+			}
+
+			this.ui.icon.addClass(iconClass);
 		}
 
 	});
