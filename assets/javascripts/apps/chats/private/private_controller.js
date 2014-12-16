@@ -5,6 +5,9 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 			var self = this,
 				messages = App.request("chat:messages"),
 				privateChatLayout = new Private.ChatLayout(),
+				userInfoView = new App.ChatsApp.Common.UserInfoView({
+					model: conv.get("withUser")
+				}),
 				inputView = new Private.ChatInputView(),
 				messagesView = new Private.ChatMessagesView({
 					collection: messages
@@ -62,8 +65,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 			})
 
 			App.mainRegion.show(privateChatLayout);
-			// TODO: Show User Detail
-			App.rightRegion.empty();
+			App.rightRegion.show(userInfoView);
 		}
 	};
 });
