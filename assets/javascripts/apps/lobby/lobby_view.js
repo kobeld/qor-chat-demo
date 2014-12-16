@@ -23,10 +23,24 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 			"dblclick a": "chooseToChat"
 		},
 
+		ui: {
+			alink: ".list-group-item"
+		},
+
 		chooseToChat: function(e) {
 			e.preventDefault();
-			this.model.choose();
-		}
+
+			// Can not choose self to chat
+			if (!App.Global.IsCurrentUser(this.model)) {
+				this.model.choose();
+			}
+		},
+
+		onRender: function() {
+			if (App.Global.IsCurrentUser(this.model)) {
+				this.ui.alink.addClass("current-user");
+			};
+		},
 
 	});
 
