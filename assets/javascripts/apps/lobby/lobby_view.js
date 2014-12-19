@@ -1,6 +1,7 @@
 App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 
 	LobbyApp.LobbyFullView = Marionette.ItemView.extend({
+		className: "lobby-full-view",
 		template: "#lobby-full"
 	});
 

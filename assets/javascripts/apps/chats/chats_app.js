@@ -13,7 +13,6 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 		},
 
 		startChatByClicked: function (conv) {
-			App.execute("cmd:menu:activeOrAdd", conv);
 			if (conv.get("isPrivate")) {
 				ChatsApp.Private.Controller.start(conv);
 			};
@@ -30,8 +29,7 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 			withUser: user
 		});
 
-		App.navigate("teams/" + conv.get("teamId") + "/chat/" + conv.id);
-		API.startChatByClicked(conv);
+		App.execute("cmd:menu:activeOrAdd", conv);
 	});
 
 	// Start the conversation with the conv passing in
