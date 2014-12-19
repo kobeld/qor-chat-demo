@@ -19,6 +19,9 @@ App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 					var conv = args.model.get("conv");
 					// TODO: Sync to close the conversation
 					_menu.removeConvMenu(args.model);
+
+					// Remove the cached chat view
+					App.execute("cmd:chats:close", conv);
 				});
 
 				MenuApp.listenTo(_menu, "collection:chose:one", function (chosen) {

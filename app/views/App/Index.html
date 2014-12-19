@@ -3,7 +3,6 @@
 <div id="page-container" class="sidebar-visible-lg sidebar-no-animations sidebar-alt-visible-lg" style="display:none">
 
   {{ template "App/_left_sidebar.html" }}
-
   {{ template "App/_right_sidebar.html" }}
 
   <!-- Main Container -->
@@ -12,8 +11,8 @@
     {{ template "App/_header.html" }}
 
     <div id="page-content" class="main-region">
-  		<!-- Page content inserted here -->
-		</div>
+      <!-- Page content inserted here -->
+    </div>
 
     <!-- Page Content Partials -->
     {{ template "App/lobby.html" }}
@@ -26,6 +25,5 @@
 
 <!-- Scroll to top link, initialized in js/app.js - scrollToTop() -->
 <a href="#" id="to-top"><i class="fa fa-angle-double-up"></i></a>
-
 
 {{ template "footer.html" . }}

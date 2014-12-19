@@ -14,8 +14,18 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 
 		startChatByClicked: function (conv) {
 			if (conv.get("isPrivate")) {
+				// Hide the Lobby view
+				App.execute("cmd:lobby:hide");
 				ChatsApp.Private.Controller.start(conv);
 			};
+		},
+
+		hideChatView: function () {
+			ChatsApp.Private.Controller.hideChatView();
+		},
+
+		closeChatView: function (conv) {
+			ChatsApp.Private.Controller.closeChatView(conv);
 		}
 	};
 
@@ -36,6 +46,14 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 	App.commands.setHandler("cmd:chats:private:conv", function (conv) {
 		App.navigate("teams/" + conv.get("teamId") + "/chat/" + conv.id);
 		API.startChatByClicked(conv);
+	});
+
+	App.commands.setHandler("cmd:chats:hide", function () {
+		API.hideChatView();
+	});
+
+	App.commands.setHandler("cmd:chats:close", function (conv) {
+		API.closeChatView(conv);
 	});
 
 	App.addInitializer(function (options) {

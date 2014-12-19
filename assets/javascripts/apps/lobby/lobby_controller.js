@@ -1,12 +1,27 @@
 App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 
+	var _lobbyView = "";
+
 	LobbyApp.Controller = {
 
 		showLobby: function (teamId) {
-			var lobbyFullView = new LobbyApp.LobbyFullView();
-			App.mainRegion.show(lobbyFullView);
+
+			if (_lobbyView) {
+				_lobbyView.$el.show();
+			} else {
+				_lobbyView = new LobbyApp.LobbyFullView();
+				App.mainRegion.show(_lobbyView, {
+					preventDestroy: true
+				});
+			}
 
 			this.showRoster(teamId);
+		},
+
+		hideLobby: function() {
+			if (_lobbyView) {
+				_lobbyView.$el.hide();
+			};
 		},
 
 		showRoster: function (teamId) {
@@ -40,7 +55,7 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 					var object = data.object;
 
 					// TODO: should add the teamId in the backend
-					_.each(object, function(user){
+					_.each(object, function (user) {
 						user.teamId = teamId;
 					})
 
