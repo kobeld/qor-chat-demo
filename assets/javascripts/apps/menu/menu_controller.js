@@ -14,6 +14,13 @@ App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 					collection: _menu
 				});
 
+				// Listen to the close conversation event
+				menuView.on("childview:close:convMenu", function (childView, args) {
+					var conv = args.model.get("conv");
+					// TODO: Sync to close the conversation
+					_menu.removeConvMenu(args.model);
+				});
+
 				MenuApp.listenTo(_menu, "collection:chose:one", function (chosen) {
 					// Show lobby if it is not conversation
 					if (chosen.get("conv")) {

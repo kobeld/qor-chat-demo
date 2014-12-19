@@ -13,9 +13,14 @@ App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 			"click a": "choose"
 		},
 
+		triggers: {
+			"click i.js-close": "close:convMenu"
+		},
+
 		ui: {
 			menuLink: "a",
-			icon: "a i"
+			menuIcon: "i.sidebar-nav-icon",
+			closeIcon: "i.sidebar-nav-indicator"
 		},
 
 		changeChosen: function () {
@@ -33,9 +38,11 @@ App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 
 			if (conv) {
 				iconClass = conv.get("isPrivate") ? "gi-user" : "gi-group";
+			} else {
+				this.ui.closeIcon.remove();
 			}
 
-			this.ui.icon.addClass(iconClass);
+			this.ui.menuIcon.addClass(iconClass);
 		}
 
 	});

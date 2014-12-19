@@ -36,6 +36,12 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 			if (menuItem) {
 				menuItem.choose();
 			}
+		},
+
+		removeConvMenu: function(menuItem) {
+			this.remove(menuItem);
+			var lobbyMenu = this.first();
+			lobbyMenu.choose();
 		}
 
 	});
