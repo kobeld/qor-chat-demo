@@ -7,7 +7,8 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 		defaults: {
 			title: "",
-			conv: ""
+			conv: "",
+			unreadCount: 0
 		}
 	});
 
@@ -38,7 +39,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 			}
 		},
 
-		removeConvMenu: function(menuItem) {
+		removeConvMenu: function (menuItem) {
 			this.remove(menuItem);
 			var lobbyMenu = this.first();
 			lobbyMenu.choose();

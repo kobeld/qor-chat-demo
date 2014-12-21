@@ -16,7 +16,10 @@
 <script type="text/template" id="menu-item-view">
   <a href="javascript:void(0);" class="sidebar-nav-menu">
     <i class="gi gi-remove_2 sidebar-nav-indicator js-close"></i>
-    <i class="gi sidebar-nav-icon"></i><%= title %>
+    <i class="gi sidebar-nav-icon"></i>
+    <span class="title">
+      <%= title %> <% if(unreadCount > 0) { %>(<%= unreadCount %>)<% } %>
+    </span>
   </a>
 </script>
 

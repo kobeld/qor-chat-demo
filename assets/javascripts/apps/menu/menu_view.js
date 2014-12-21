@@ -5,8 +5,8 @@ App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 		template: "#menu-item-view",
 
 		modelEvents: {
-			"change:chosen": "changeChosen",
-			"request": "render" // TODO: Don't know why need this.
+			"change:unreadCount": "render", // TODO: Consider to use the backbone.stickit plugin
+			"change:chosen": "changeChosen"
 		},
 
 		events: {
@@ -20,10 +20,12 @@ App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 		ui: {
 			menuLink: "a",
 			menuIcon: "i.sidebar-nav-icon",
-			closeIcon: "i.sidebar-nav-indicator"
+			closeIcon: "i.sidebar-nav-indicator",
+			menuTitle: ".title"
 		},
 
 		changeChosen: function () {
+			this.ui.menuTitle.html(this.model.get("title"));
 			this.ui.menuLink.toggleClass("active");
 		},
 

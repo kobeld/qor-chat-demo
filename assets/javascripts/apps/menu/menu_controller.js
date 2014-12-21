@@ -51,7 +51,19 @@ App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 				_menu.push(menuItem);
 			};
 			menuItem.choose();
-		}
+		},
+
+		updateUnreadCount: function (data) {
+			var msg = data.message;
+			var menuItem = _menu.findWhere({
+				id: msg.convId
+			});
+
+			if (menuItem && !menuItem.isChosen()) {
+				var unreadCount = menuItem.get("unreadCount") + 1;
+				menuItem.set("unreadCount", unreadCount);
+			};
+		},
 	};
 
 });

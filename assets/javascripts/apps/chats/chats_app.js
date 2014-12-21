@@ -61,25 +61,7 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 	});
 
 	App.vent.on("vent:websocket:messages", function (data) {
-
 		API.receiveMessage(data);
-
-		// var msg = data.message;
-
-		// if (data.dType === "all") {
-		// 	// messages.reset(object);
-
-		// } else if (data.dType === "new") {
-
-		// 	// if (_selectedUser == null) {
-		// 	// 	buddies.chooseById(msg.fromUserId);
-		// 	// };
-
-		// 	// messages.add(msg);
-
-		// } else if (data.dType === "composing") {
-		// 	// TODO:
-		// };
 	});
 
 	App.addInitializer(function (options) {

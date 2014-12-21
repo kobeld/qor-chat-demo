@@ -7,6 +7,10 @@ App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 
 		activeOrAdd: function (conv) {
 			MenuApp.Controller.activeOrAdd(conv);
+		},
+
+		updateUnreadCount: function (data) {
+			MenuApp.Controller.updateUnreadCount(data);
 		}
 	};
 
@@ -16,5 +20,12 @@ App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 
 	App.commands.setHandler("cmd:menu:activeOrAdd", function (conv) {
 		API.activeOrAdd(conv);
-	})
+	});
+
+	App.vent.on("vent:websocket:messages", function (data) {
+		if (data.dType === "new") {
+			API.updateUnreadCount(data);
+		}
+	});
+
 });
