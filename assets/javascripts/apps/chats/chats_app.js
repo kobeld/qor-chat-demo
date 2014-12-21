@@ -26,6 +26,10 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 
 		closeChatView: function (conv) {
 			ChatsApp.Private.Controller.closeChatView(conv);
+		},
+
+		receiveMessage: function (data) {
+			ChatsApp.Private.Controller.receiveMessage(data);
 		}
 	};
 
@@ -33,7 +37,7 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 	App.commands.setHandler("cmd:chats:private:user", function (user) {
 		// TODO: Should request from the backend
 		var conv = new App.Entities.Conversation({
-			id: user.id,
+			id: "5469a9c263ed2e0df1000001", // Aaron and Safari
 			isPrivate: true,
 			teamId: user.get("teamId"),
 			withUser: user
@@ -54,6 +58,28 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 
 	App.commands.setHandler("cmd:chats:close", function (conv) {
 		API.closeChatView(conv);
+	});
+
+	App.vent.on("vent:websocket:messages", function (data) {
+
+		API.receiveMessage(data);
+
+		// var msg = data.message;
+
+		// if (data.dType === "all") {
+		// 	// messages.reset(object);
+
+		// } else if (data.dType === "new") {
+
+		// 	// if (_selectedUser == null) {
+		// 	// 	buddies.chooseById(msg.fromUserId);
+		// 	// };
+
+		// 	// messages.add(msg);
+
+		// } else if (data.dType === "composing") {
+		// 	// TODO:
+		// };
 	});
 
 	App.addInitializer(function (options) {

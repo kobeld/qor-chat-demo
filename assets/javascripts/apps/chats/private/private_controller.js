@@ -12,7 +12,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 
 			var privateChatLayout = _.find(_chatViews, function (view) {
 				return view.id == conv.id;
-			})
+			});
 
 			if (privateChatLayout) {
 				privateChatLayout.$el.show();
@@ -43,6 +43,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 					};
 
 					var msg = {
+						convId: conv.id,
 						content: data.content,
 						toUserId: conv.get("withUser").id,
 						fromUserId: App.Global.MyAccount.get("id"),
@@ -60,7 +61,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 
 				messagesView.on("show", function () {
 					// Set the handler to deal with the messages
-					App.vent.on("vent:websocket:messages", function (data) {
+					privateChatLayout.on("vent:messages:" + conv.id, function (data) {
 						var msg = data.message;
 
 						if (data.dType === "all") {
@@ -104,9 +105,33 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 		},
 
 		closeChatView: function (conv) {
-			_chatViews = _.reject(_chatViews, function(view){
+			_chatViews = _.reject(_chatViews, function (view) {
 				return view.id == conv.id;
 			});
+		},
+
+		receiveMessage: function (data) {
+			var msg = data.message;
+			var privateChatLayout = _.find(_chatViews, function (view) {
+				return view.id == msg.convId;
+			});
+
+			// The conversation tab is open, just show the message
+			if (privateChatLayout) {
+				privateChatLayout.trigger("vent:messages:" + msg.convId, data);
+
+			} else {
+				// Should bump out the conversation tab
+				var conv = new App.Entities.Conversation({
+					id: "5469a9c263ed2e0df1000001", // Aaron and Safari
+					isPrivate: true,
+					teamId: App.Entities.DemoUser.get("teamId"),
+					withUser: App.Entities.DemoUser,
+				});
+
+				App.execute("cmd:menu:activeOrAdd", conv);
+				this.receiveMessage(data);
+			}
 		}
 	};
 });
