@@ -13,11 +13,14 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 		},
 
 		startChatByClicked: function (conv) {
-			if (conv.get("isPrivate")) {
-				// Hide the Lobby view
-				App.execute("cmd:lobby:hide");
+			// Hide the Lobby view
+			App.execute("cmd:lobby:hide");
+
+			if (conv.isGroupChat()) {
+
+			} else {
 				ChatsApp.Private.Controller.start(conv);
-			};
+			}
 		},
 
 		hideChatView: function () {
@@ -34,16 +37,25 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 	};
 
 	// Start the conversation with the user passing in
-	App.commands.setHandler("cmd:chats:private:user", function (user) {
-		// TODO: Should request from the backend
-		var conv = new App.Entities.Conversation({
-			id: "5469a9c263ed2e0df1000001", // Aaron and Safari
-			isPrivate: true,
-			teamId: user.get("teamId"),
-			withUser: user
+	App.commands.setHandler("cmd:chats:users", function (withUsers) {
+
+		var withUserIds = _.map(withUsers, function (user) {
+			return user.id;
+		})
+
+		var newConv = new App.Entities.Conversation({
+			"teamId": withUsers[0].get("teamId"),
 		});
 
-		App.execute("cmd:menu:activeOrAdd", conv);
+		var savedConv = newConv.save({
+			"withUserIds": withUserIds
+		}, {
+			headers: App.getBearerHeader(),
+			success: function () {
+				newConv.set("withUsers", withUsers);
+				App.execute("cmd:menu:activeOrAdd", newConv);
+			}
+		});
 	});
 
 	// Start the conversation with the conv passing in

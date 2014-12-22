@@ -8,13 +8,24 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 		// Temp
 		urlRoot: function () {
-			return "http://localhost:3000"
+			return "http://localhost:3000/teams/" + this.get("teamId") + "/conversations"
 		},
 
-		defaults: {
-			isPrivate: false,
-			teamId: "",
-			withUser: ""
+		title: function () {
+			var withUsers = this.get("withUsers"),
+				title = "No Users"
+
+			if (withUsers.length == 1) {
+				title = withUsers[0].get("name");
+			} else if (withUsers.length > 1) {
+				title = "Meeting (" + (withUsers.length + 1) + " people)";
+			};
+
+			return title;
+		},
+
+		isGroupChat: function () {
+			return (this.get("withUsers").length > 1);
 		}
 	});
 
@@ -27,7 +38,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 		// Temp
 		url: function () {
-			return "http://localhost:3000";
+			return "http://localhost:3000" + this.get("teamId") + "/conversations";
 		}
 	});
 

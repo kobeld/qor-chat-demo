@@ -10,6 +10,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 			// Hide the privious chat view
 			this.hideChatView();
 
+			var toUser = conv.get("withUsers")[0];
 			var privateChatLayout = _.find(_chatViews, function (view) {
 				return view.id == conv.id;
 			});
@@ -45,7 +46,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 					var msg = {
 						convId: conv.id,
 						content: data.content,
-						toUserId: conv.get("withUser").id,
+						toUserId: toUser.id,
 						fromUserId: App.Global.MyAccount.get("id"),
 						fromUserAvatar: App.Global.MyAccount.get("avatar")
 					}
@@ -92,7 +93,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 			_currentView = privateChatLayout;
 
 			userInfoView = new App.ChatsApp.Common.UserInfoView({
-				model: conv.get("withUser")
+				model: toUser
 			}),
 			App.rightRegion.show(userInfoView);
 		},
@@ -124,9 +125,8 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 				// Should bump out the conversation tab
 				var conv = new App.Entities.Conversation({
 					id: "5469a9c263ed2e0df1000001", // Aaron and Safari
-					isPrivate: true,
 					teamId: App.Entities.DemoUser.get("teamId"),
-					withUser: App.Entities.DemoUser,
+					withUsers: [App.Entities.DemoUser],
 				});
 
 				App.execute("cmd:menu:activeOrAdd", conv);
