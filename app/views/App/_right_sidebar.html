@@ -2,46 +2,29 @@
 <!-- #roster-sidebar-layout to be inserted here -->
 </div>
 
-<!-- ###
+<!-- ### Deprecated
 	Lobby:
-	Roster siderbar layout
+	Roster siderbar view
 	### -->
-<script type="text/template" id="roster-sidebar-layout">
+<script type="text/template" id="roster-sidebar-view">
 	<div class="sidebar-content">
 		<span class="sidebar-title">
+			<button type="button" class="btn btn-xs btn-success js-start-chat hide">Start Chat</button>
 			<i class="gi gi-group pull-right"></i>
 		</span>
 
 		<div class="chat-right-roster themed-background-dark">
-			<div id="online-users-region">
-
-			</div>
-
-			<div id="offline-users-region">
+			<div id="user-list" class="list-group">
 
 			</div>
 		</div>
 	</div>
 </script>
 
-<!-- #online-user-region -->
-<script type="text/template" id="roster-online-users">
-	<h2 class="chatui-header"><i class="fa fa-circle text-success pull-right"></i><strong>Online</strong></h2>
-	<div class="list-group">
-	</div>
-</script>
-
-<!-- #offline-user-region -->
-<script type="text/template" id="roster-offline-users">
-<h2 class="chatui-header"><i class="fa fa-circle text-muted pull-right"></i><strong>Offline</strong></h2>
-	<div class="list-group">
-	</div>
-</script>
-
 <!-- #list-group -->
 <script type="text/template" id="roster-user-item">
 	<a href="javascript:void(0)" class="list-group-item">
-		<span class="badge"></span>
+		<i class="online-indicator fa fa-circle text-muted pull-right"></i>
 		<img src="<%= avatar %>" alt="Avatar" class="img-circle">
 		<h5 class="list-group-item-heading"><%= name %></h5>
 	</a>

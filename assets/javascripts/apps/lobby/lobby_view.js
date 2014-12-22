@@ -5,58 +5,76 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 		template: "#lobby-full"
 	});
 
-	// Define the Roster Layout on the left side
-	LobbyApp.RosterLayout = Marionette.LayoutView.extend({
-		className: "sidebar-scroll",
-		template: "#roster-sidebar-layout",
-
-		regions: {
-			onlineUsersRegion: "#online-users-region",
-			offlineUsersRegion: "#offline-users-region"
-		}
-	});
-
 	// The Roster User Item View (Basic element)
 	LobbyApp.RosterUserItemView = Marionette.ItemView.extend({
 		template: "#roster-user-item",
 
 		events: {
-			"dblclick a": "chooseToChat"
+			"click a": "selectToChat"
+		},
+
+		modelEvents: {
+			"change:isOnline": "updateOnlineIndicator"
 		},
 
 		ui: {
-			alink: ".list-group-item"
+			alink: ".list-group-item",
+			onlineIndicator: ".online-indicator"
 		},
 
-		chooseToChat: function(e) {
+		selectToChat: function (e) {
 			e.preventDefault();
 
-			// Can not choose self to chat
 			if (!App.Global.IsCurrentUser(this.model)) {
-				this.model.choose();
+				this.ui.alink.toggleClass("selected");
+				this.model.toggleChoose();
 			}
 		},
 
-		onRender: function() {
+		onRender: function () {
 			if (App.Global.IsCurrentUser(this.model)) {
 				this.ui.alink.addClass("current-user");
 			};
 		},
 
+		updateOnlineIndicator: function () {
+			if (this.model.get("isOnline")) {
+				this.ui.onlineIndicator.removeClass("text-muted").addClass("text-success");
+			} else {
+				this.ui.onlineIndicator.removeClass("text-success").addClass("text-muted");
+			}
+		}
 	});
 
-	// Define the Online Users Composite View
-	LobbyApp.OnlineUsersView = Marionette.CompositeView.extend({
-		template: "#roster-online-users",
+	// The Roster Sidebar View that maintaining the user list
+	LobbyApp.RosterSideberView = Marionette.CompositeView.extend({
+		template: "#roster-sidebar-view",
+		className: "sidebar-scroll",
 		childView: LobbyApp.RosterUserItemView,
-		childViewContainer: ".list-group"
-	});
+		childViewContainer: "#user-list",
 
-	// Define the Offline Users Composite View
-	LobbyApp.OfflineUsersView = Marionette.CompositeView.extend({
-		template: "#roster-offline-users",
-		childView: LobbyApp.RosterUserItemView,
-		childViewContainer: ".list-group"
+		ui: {
+			startChatBtn: ".js-start-chat"
+		},
+
+		collectionEvents: {
+			"collection:chose:some collection:chose:none collection:chose:all": "updateStartChatBtn",
+		},
+
+		triggers: {
+			"click .js-start-chat": "start:chat"
+		},
+
+		updateStartChatBtn: function (models) {
+			var number = models.length;
+			if (number == 0) {
+				this.ui.startChatBtn.addClass("hide");
+			} else if (number == 1) {
+				this.ui.startChatBtn.removeClass("hide").html("Start Chat");
+			} else {
+				this.ui.startChatBtn.removeClass("hide").html("Start Meeting");
+			}
+		}
 	});
 
 });

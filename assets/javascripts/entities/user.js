@@ -9,6 +9,10 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 		urlRoot: function () {
 			return "http://localhost:3000/teams/" +  this.get("teamId") + "/users";
+		},
+
+		defaults: {
+			isOnline: false
 		}
 
 	});
@@ -18,11 +22,18 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 		model: Entities.User,
 
 		initialize: function() {
-			new Backbone.SingleChooser(this);
+			new Backbone.MultiChooser(this);
 		},
 
 		url: function () {
 			return "http://localhost:3000/teams/" + this.teamId + "/users";
+		},
+
+		setOnlineStatus: function(userId, isOnline) {
+			var user = this.findWhere({id: userId});
+			if (user) {
+				user.set("isOnline", isOnline);
+			};
 		}
 	});
 

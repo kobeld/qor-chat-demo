@@ -1,6 +1,7 @@
 App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 
 	var _lobbyView = "";
+	var selectedUsers = [];
 
 	LobbyApp.Controller = {
 
@@ -18,7 +19,7 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 			this.showRoster(teamId);
 		},
 
-		hideLobby: function() {
+		hideLobby: function () {
 			if (_lobbyView) {
 				_lobbyView.$el.hide();
 			};
@@ -30,47 +31,34 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 
 			$.when(userEntities).done(function (users) {
 
-				var onlineUsers = new App.Entities.UserCollection(),
-					offlineUsers = users;
-
-				var rosterLayout = new LobbyApp.RosterLayout(),
-					onlineUsersView = new LobbyApp.OnlineUsersView({
-						collection: onlineUsers
-					}),
-					offlineUsersView = new LobbyApp.OfflineUsersView({
-						collection: offlineUsers
-					});
-
-				// Listening to start the 1-on-1 chat
-				LobbyApp.listenTo(onlineUsers, "collection:chose:one", function (user) {
-					App.execute("cmd:chats:private:user", user);
+				var rosterView = new LobbyApp.RosterSideberView({
+					collection: users
 				});
 
-				LobbyApp.listenTo(offlineUsers, "collection:chose:one", function (user) {
-					App.execute("cmd:chats:private:user", user);
+				rosterView.on("start:chat", function (args) {
+					var choseUsers = args.collection.getChosen();
+					switch (choseUsers.length) {
+					case 1:
+						App.execute("cmd:chats:private:user", choseUsers[0]);
+						break;
+					case 2:
+						// TODO
+						break;
+					default:
+					}
 				});
 
 				// Subscripe to the roster events of websocket
 				App.vent.on("vent:websocket:roster", function (data) {
 					var object = data.object;
 
-					// TODO: should add the teamId in the backend
-					_.each(object, function (user) {
-						user.teamId = teamId;
-					})
-
 					if (data.dType === "all") {
-						onlineUsers.reset(object);
-						offlineUsers.remove(object);
-
-					} else if (data.dType === "online") {
-						offlineUsers.remove(object);
-						onlineUsers.add(object);
-
-					} else if (data.dType === "offline") {
-						onlineUsers.remove(object);
-						offlineUsers.add(object);
-					};
+						_.each(data.object, function (onlineUser) {
+							users.setOnlineStatus(onlineUser.id, true);
+						});
+					} else {
+						users.setOnlineStatus(object.id, (data.dType === "online"));
+					}
 				});
 
 				// Request roster via websocket
@@ -79,12 +67,7 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 					dType: "all",
 				});
 
-				rosterLayout.on("show", function () {
-					this.onlineUsersRegion.show(onlineUsersView);
-					this.offlineUsersRegion.show(offlineUsersView);
-				})
-
-				App.rightRegion.show(rosterLayout);
+				App.rightRegion.show(rosterView);
 
 			}).fail(function (response) {
 				App.execute("cmd:response:handle", response);
