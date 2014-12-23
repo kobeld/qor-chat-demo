@@ -24,11 +24,11 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 		},
 
 		hideChatView: function () {
-			ChatsApp.Private.Controller.hideChatView();
+			ChatsApp.Common.Controller.hideCurrentChatView();
 		},
 
 		closeChatView: function (conv) {
-			ChatsApp.Private.Controller.closeChatView(conv);
+			ChatsApp.Common.Controller.popChatView(conv);
 		},
 
 		receiveMessage: function (data) {

@@ -8,12 +8,10 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 		start: function (conv) {
 
 			// Hide the privious chat view
-			this.hideChatView();
+			App.ChatsApp.Common.Controller.hideCurrentChatView();
 
-			var toUser = conv.get("withUsers")[0];
-			var privateChatLayout = _.find(_chatViews, function (view) {
-				return view.id == conv.id;
-			});
+			var toUser = conv.get("withUsers")[0],
+				privateChatLayout = App.ChatsApp.Common.Controller.findChatView(conv);
 
 			if (privateChatLayout) {
 				privateChatLayout.$el.show();
@@ -86,11 +84,11 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 					preventDestroy: true
 				});
 
-				_chatViews.push(privateChatLayout);
+				App.ChatsApp.Common.Controller.pushChatView(privateChatLayout);
 			}
 
 			// Set to cache the current view
-			_currentView = privateChatLayout;
+			App.ChatsApp.Common.Controller.setCurrentChatView(privateChatLayout);
 
 			userInfoView = new App.ChatsApp.Common.UserInfoView({
 				model: toUser
@@ -98,24 +96,9 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 			App.rightRegion.show(userInfoView);
 		},
 
-		hideChatView: function () {
-			if (_currentView) {
-				_currentView.$el.hide();
-				_currentView = "";
-			};
-		},
-
-		closeChatView: function (conv) {
-			_chatViews = _.reject(_chatViews, function (view) {
-				return view.id == conv.id;
-			});
-		},
-
 		receiveMessage: function (data) {
-			var msg = data.message;
-			var privateChatLayout = _.find(_chatViews, function (view) {
-				return view.id == msg.convId;
-			});
+			var msg = data.message,
+				privateChatLayout = App.ChatsApp.Common.Controller.findChatView(conv);
 
 			// The conversation tab is open, just show the message
 			if (privateChatLayout) {
