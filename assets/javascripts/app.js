@@ -47,9 +47,6 @@ App.on("start", function () {
 	// Get current user account first
 	$.when(myAccountEntity).done(function (myAccount) {
 
-		// Cache myAccount for further usage
-		App.Global.MyAccount = myAccount;
-
 		// Ensure the websocket be connected
 		App.vent.on("vent:websocket:open", function () {
 			// Then start the routers

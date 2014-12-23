@@ -16,7 +16,7 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 		selectToChat: function (e) {
 			e.preventDefault();
 
-			if (!App.Global.IsCurrentUser(this.model)) {
+			if (!App.request("entity:check:myaccount", this.model)) {
 				this.ui.alink.toggleClass("selected");
 				this.model.toggleChoose();
 			}

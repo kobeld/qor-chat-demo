@@ -35,13 +35,14 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 						return;
 					};
 
-					var msg = {
-						convId: conv.id,
-						content: data.content,
-						toUserId: toUser.id,
-						fromUserId: App.Global.MyAccount.get("id"),
-						fromUserAvatar: App.Global.MyAccount.get("avatar")
-					}
+					var myAccount = App.request("entity:cache:myaccount"),
+						msg = {
+							convId: conv.id,
+							content: data.content,
+							toUserId: toUser.id,
+							fromUserId: myAccount.get("id"),
+							fromUserAvatar: myAccount.get("avatar")
+						};
 
 					messages.add(msg);
 

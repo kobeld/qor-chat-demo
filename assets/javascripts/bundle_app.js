@@ -1,6 +1,5 @@
 //= require javascripts/extensions/tab_region
 //= require javascripts/app
-//= require javascripts/global/global
 //= require javascripts/websocket/websocket
 //= require javascripts/entities/account
 //= require javascripts/entities/user

@@ -14,7 +14,7 @@ App.module("Common", function (Common, App, Backbone, Marionette, $, _) {
 		},
 
 		onRender: function () {
-			if (App.Global.IsCurrentUser(this.model)) {
+			if (App.request("entity:check:myaccount", this.model)) {
 				this.ui.alink.addClass("current-user");
 			};
 		},

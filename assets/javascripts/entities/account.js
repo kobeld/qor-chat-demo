@@ -1,7 +1,8 @@
 App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 	// Caching current user's account
-	var myAccount = null;
+	// Be initialized on App start
+	var _myAccount = null;
 
 	// MyAccount model
 	Entities.Account = Backbone.Model.extend({
@@ -17,22 +18,22 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 			var defer = $.Deferred();
 
 			// Return if it is already there
-			if (myAccount != null) {
-				defer.resolve(myAccount);
+			if (_myAccount != null) {
+				defer.resolve(_myAccount);
 				return defer.promise();
 			};
 
 			// Or fetch it from the API
-			myAccount = new Entities.Account(),
-				response = myAccount.fetch({
-					// Oauth access token header
-					headers: App.getBearerHeader(),
-				});
+			_myAccount = new Entities.Account();
+			response = _myAccount.fetch({
+				// Oauth access token header
+				headers: App.getBearerHeader(),
+			});
 
 			response.done(function () {
-				defer.resolveWith(response, [myAccount]);
+				defer.resolveWith(response, [_myAccount]);
 			}).fail(function () {
-				myAccount = null;
+				_myAccount = null;
 				defer.rejectWith(response, arguments);
 			});
 
@@ -42,5 +43,13 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 	App.reqres.setHandler("entity:user:myaccount", function () {
 		return API.getMyAccountEntity();
+	});
+
+	App.reqres.setHandler("entity:cache:myaccount", function () {
+		return _myAccount;
+	});
+
+	App.reqres.setHandler("entity:check:myaccount", function (model) {
+		return _myAccount.id == model.id;
 	});
 })

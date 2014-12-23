@@ -18,7 +18,7 @@ App.module("ChatsApp.Common", function (Common, App, Backbone, Marionette, $, _)
 			template: "#chat-message",
 
 			onBeforeRender: function () {
-				if (this.model.get("fromUserId") === App.Global.MyAccount.get("id")) {
+				if (this.model.get("fromUserId") === App.request("entity:cache:myaccount").get("id")) {
 					this.$el.addClass("chatui-talk-msg-highlight themed-border");
 				};
 			}
