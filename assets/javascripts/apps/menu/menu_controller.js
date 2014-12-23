@@ -42,14 +42,16 @@ App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 			var menuItem = _menu.findWhere({
 				id: conv.id
 			});
+
 			if (!menuItem) {
 				menuItem = new App.Entities.MenuItem({
 					id: conv.get("id"),
-					title: conv.get("withUser").get("name"),
+					title: conv.title(),
 					conv: conv
 				})
 				_menu.push(menuItem);
 			};
+
 			menuItem.choose();
 		},
 

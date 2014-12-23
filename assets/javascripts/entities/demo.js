@@ -10,9 +10,8 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 	Entities.DemoPrivateConv = new Entities.Conversation({
 		id: "5469a9c263ed2e0df1000102",
-		isPrivate: true,
 		teamId: "5469a9c263ed2e0df1000002",
-		withUser: Entities.DemoUser
+		withUsers: [Entities.DemoUser]
 	});
 
 	Entities.DemoMenuItem = new Entities.MenuItem({

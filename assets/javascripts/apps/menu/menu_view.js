@@ -39,7 +39,7 @@ App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 				conv = this.model.get("conv");
 
 			if (conv) {
-				iconClass = conv.get("isPrivate") ? "gi-user" : "gi-group";
+				iconClass = conv.isGroupChat() ? "gi-group" : "gi-user";
 			} else {
 				this.ui.closeIcon.remove();
 			}

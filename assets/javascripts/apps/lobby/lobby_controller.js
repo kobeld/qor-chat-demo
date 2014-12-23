@@ -37,15 +37,9 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 
 				rosterView.on("start:chat", function (args) {
 					var choseUsers = args.collection.getChosen();
-					switch (choseUsers.length) {
-					case 1:
-						App.execute("cmd:chats:private:user", choseUsers[0]);
-						break;
-					case 2:
-						// TODO
-						break;
-					default:
-					}
+					if (choseUsers.length > 0) {
+						App.execute("cmd:chats:users", choseUsers);
+					};
 				});
 
 				// Subscripe to the roster events of websocket
