@@ -5,21 +5,12 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 		template: "#lobby-full"
 	});
 
-	// The Roster User Item View (Basic element)
-	LobbyApp.RosterUserItemView = Marionette.ItemView.extend({
-		template: "#roster-user-item",
+	// The Roster Item in Lobby
+	// Extended from App.Common.Views.RosterItemView
+	LobbyApp.LobbyRosterItemView = App.Common.RosterItemView.extend({
 
 		events: {
 			"click a": "selectToChat"
-		},
-
-		modelEvents: {
-			"change:isOnline": "updateOnlineIndicator"
-		},
-
-		ui: {
-			alink: ".list-group-item",
-			onlineIndicator: ".online-indicator"
 		},
 
 		selectToChat: function (e) {
@@ -29,29 +20,13 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 				this.ui.alink.toggleClass("selected");
 				this.model.toggleChoose();
 			}
-		},
-
-		onRender: function () {
-			if (App.Global.IsCurrentUser(this.model)) {
-				this.ui.alink.addClass("current-user");
-			};
-		},
-
-		updateOnlineIndicator: function () {
-			if (this.model.get("isOnline")) {
-				this.ui.onlineIndicator.removeClass("text-muted").addClass("text-success");
-			} else {
-				this.ui.onlineIndicator.removeClass("text-success").addClass("text-muted");
-			}
 		}
 	});
 
 	// The Roster Sidebar View that maintaining the user list
-	LobbyApp.RosterSideberView = Marionette.CompositeView.extend({
-		template: "#roster-sidebar-view",
-		className: "sidebar-scroll",
-		childView: LobbyApp.RosterUserItemView,
-		childViewContainer: "#user-list",
+	// Extended from App.Common.Views.RosterSidebarView
+	LobbyApp.RosterSideberView = App.Common.RosterSidebarView.extend({
+		childView: LobbyApp.LobbyRosterItemView,
 
 		ui: {
 			startChatBtn: ".js-start-chat"

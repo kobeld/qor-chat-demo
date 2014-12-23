@@ -69,7 +69,13 @@ App.module("ChatsApp.Group", function (Group, App, Backbone, Marionette, $, _) {
 			// Set to cache the current view
 			App.ChatsApp.Common.Controller.setCurrentChatView(groupChatLayout);
 
-			App.rightRegion.show("");
+			console.log(conv);
+
+			var sidebarUsersView = new App.Common.RosterSidebarView({
+				collection: new App.Entities.UserCollection(conv.get("withUsers"))
+			});
+
+			App.rightRegion.show(sidebarUsersView);
 		}
 	};
 

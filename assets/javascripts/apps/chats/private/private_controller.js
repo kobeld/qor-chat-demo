@@ -84,9 +84,9 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 			// Set to cache the current view
 			App.ChatsApp.Common.Controller.setCurrentChatView(privateChatLayout);
 
-			userInfoView = new Private.UserInfoView({
+			var userInfoView = new Private.UserInfoView({
 				model: toUser
-			}),
+			});
 			App.rightRegion.show(userInfoView);
 		},
 
