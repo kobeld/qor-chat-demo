@@ -8,8 +8,9 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 
 	var API = {
 		startChatFromRouter: function (teamId, convId) {
+			App.execute("entities:set:teamid", teamId);
 			// Show the Left menu first if it is from the router
-			App.execute("cmd:menu:list", teamId, convId);
+			App.execute("cmd:menu:list", convId);
 		},
 
 		startChatByClicked: function (conv) {
@@ -46,7 +47,7 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 		})
 
 		var newConv = new App.Entities.Conversation({
-			"teamId": withUsers[0].get("teamId"),
+			"teamId": App.request("entities:cache:teamid"),
 		});
 
 		var savedConv = newConv.save({

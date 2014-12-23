@@ -1,8 +1,8 @@
 App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 
 	var API = {
-		list: function (teamId, convId) {
-			MenuApp.Controller.list(teamId, convId);
+		list: function (convId) {
+			MenuApp.Controller.list(convId);
 		},
 
 		activeOrAdd: function (conv) {
@@ -14,8 +14,8 @@ App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 		}
 	};
 
-	App.commands.setHandler("cmd:menu:list", function (teamId, convId) {
-		API.list(teamId, convId);
+	App.commands.setHandler("cmd:menu:list", function (convId) {
+		API.list(convId);
 	});
 
 	App.commands.setHandler("cmd:menu:activeOrAdd", function (conv) {

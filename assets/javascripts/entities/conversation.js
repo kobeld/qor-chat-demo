@@ -36,9 +36,9 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 			new Backbone.SingleChooser(this);
 		},
 
-		// Temp
 		url: function () {
-			return "http://localhost:3000" + this.get("teamId") + "/conversations";
+			var teamId = App.request("entities:cache:teamid");
+			return "http://localhost:3000" + teamId + "/conversations";
 		}
 	});
 

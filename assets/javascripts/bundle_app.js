@@ -2,6 +2,7 @@
 //= require javascripts/app
 //= require javascripts/websocket/websocket
 //= require javascripts/entities/account
+//= require javascripts/entities/team
 //= require javascripts/entities/user
 //= require javascripts/entities/message
 //= require javascripts/entities/conversation

@@ -3,7 +3,7 @@ App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 	var _menu = [];
 
 	MenuApp.Controller = {
-		list: function (teamId, convId) {
+		list: function (convId) {
 
 			// TODO: Should open conversation later
 			var menuDeferred = App.request("entity:menu");
@@ -29,7 +29,7 @@ App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 					if (chosen.get("conv")) {
 						App.execute("cmd:chats:private:conv", chosen.get("conv"));
 					} else {
-						App.execute("cmd:lobby:show", teamId);
+						App.execute("cmd:lobby:show");
 					}
 				});
 

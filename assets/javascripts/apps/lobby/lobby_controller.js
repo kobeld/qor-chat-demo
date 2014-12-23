@@ -5,7 +5,7 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 
 	LobbyApp.Controller = {
 
-		showLobby: function (teamId) {
+		showLobby: function () {
 
 			if (_lobbyView) {
 				_lobbyView.$el.show();
@@ -16,7 +16,7 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 				});
 			}
 
-			this.showRoster(teamId);
+			this.showRoster();
 		},
 
 		hideLobby: function () {
@@ -25,9 +25,9 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 			};
 		},
 
-		showRoster: function (teamId) {
+		showRoster: function () {
 			var self = this,
-				userEntities = App.request("entities:user", teamId);
+				userEntities = App.request("entities:user");
 
 			$.when(userEntities).done(function (users) {
 

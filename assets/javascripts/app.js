@@ -59,7 +59,10 @@ App.on("start", function () {
 
 				// Show the Lobby by default
 				if (self.getCurrentRoute() === "") {
-					App.execute("cmd:menu:list", myAccount.get("teamIds")[0]);
+					// Set the cached teamId.
+					// TODO: Improvet the way of getting the teamId
+					App.execute("entities:set:teamid", myAccount.get("teamIds")[0]);
+					App.execute("cmd:menu:list");
 				}
 			}
 		});

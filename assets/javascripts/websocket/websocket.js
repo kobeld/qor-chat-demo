@@ -9,6 +9,7 @@ App.module("Websocket", function (Websocket, App, Backbone, Marionette, $, _) {
 				return;
 			};
 
+			// TODO: This will cause bug, should improve it later.
 			var	teamId = _user.get("teamIds")[0],
 				token = simpleStorage.get("token");
 

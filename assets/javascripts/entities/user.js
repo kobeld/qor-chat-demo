@@ -3,12 +3,13 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 	// User Model
 	Entities.User = Backbone.Model.extend({
 
-		initialize: function() {
+		initialize: function () {
 			new Backbone.Chooser(this);
 		},
 
 		urlRoot: function () {
-			return "http://localhost:3000/teams/" +  this.get("teamId") + "/users";
+			var teamId = App.request("entities:cache:teamid");
+			return "http://localhost:3000/teams/" + teamId + "/users";
 		},
 
 		defaults: {
@@ -21,16 +22,19 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 	Entities.UserCollection = Backbone.Collection.extend({
 		model: Entities.User,
 
-		initialize: function() {
+		initialize: function () {
 			new Backbone.MultiChooser(this);
 		},
 
 		url: function () {
-			return "http://localhost:3000/teams/" + this.teamId + "/users";
+			var teamId = App.request("entities:cache:teamid");
+			return "http://localhost:3000/teams/" + teamId + "/users";
 		},
 
-		setOnlineStatus: function(userId, isOnline) {
-			var user = this.findWhere({id: userId});
+		setOnlineStatus: function (userId, isOnline) {
+			var user = this.findWhere({
+				id: userId
+			});
 			if (user) {
 				user.set("isOnline", isOnline);
 			};
@@ -40,11 +44,10 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 	// API functions
 	var API = {
 
-		getUserEntities: function (teamId) {
+		getUserEntities: function () {
 			var users = new Entities.UserCollection(),
 				defer = $.Deferred();
 
-			users.teamId = teamId;
 			var response = users.fetch({
 				// Oauth access token header
 				headers: App.getBearerHeader(),
@@ -60,7 +63,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 		}
 	};
 
-	App.reqres.setHandler("entities:user", function (teamId) {
-		return API.getUserEntities(teamId);
+	App.reqres.setHandler("entities:user", function () {
+		return API.getUserEntities();
 	})
 });
