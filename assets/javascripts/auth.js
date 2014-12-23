@@ -41,7 +41,7 @@ var LoginForm = Marionette.ItemView.extend({
 			};
 
 			// Set the access token to the local storage.
-			simpleStorage.set('token', data.access_token);
+			simpleStorage.set('token', data.AccessToken);
 			window.location.replace("/");
 
 		}).fail(function (data) {
