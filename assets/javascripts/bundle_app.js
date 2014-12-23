@@ -16,6 +16,7 @@
 //= require javascripts/apps/chats/common/common_controller
 //= require javascripts/apps/chats/private/private_controller
 //= require javascripts/apps/chats/private/private_view
+//= require javascripts/apps/chats/group/group_controller
 //= require javascripts/apps/lobby/lobby_app
 //= require javascripts/apps/lobby/lobby_controller
 //= require javascripts/apps/lobby/lobby_view

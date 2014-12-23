@@ -1,8 +1,5 @@
 App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, _) {
 
-	var _chatViews = [];
-	var _currentView = "";
-
 	Private.Controller = {
 
 		start: function (conv) {
@@ -29,7 +26,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 					this.inputRegion.show(inputView);
 					this.messagesRegion.show(messagesView);
 
-					ReadyChat.init(); // TODO: should change this logic to each view.
+					ReadyChat.init();
 				});
 
 				inputView.on("form:submit", function (data) {
@@ -75,7 +72,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 							// TODO:
 						};
 					});
-				})
+				});
 
 				App.mainRegion.show(privateChatLayout, {
 					preventDestroy: true
