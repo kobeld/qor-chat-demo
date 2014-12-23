@@ -4,7 +4,6 @@
 //= require javascripts/websocket/websocket
 //= require javascripts/entities/account
 //= require javascripts/entities/user
-//= require javascripts/entities/buddy
 //= require javascripts/entities/message
 //= require javascripts/entities/conversation
 //= require javascripts/entities/menu

@@ -7,9 +7,6 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 
 		start: function (conv) {
 
-			// Hide the privious chat view
-			App.ChatsApp.Common.Controller.hideCurrentChatView();
-
 			var toUser = conv.get("withUsers")[0],
 				privateChatLayout = App.ChatsApp.Common.Controller.findChatView(conv);
 
@@ -17,14 +14,14 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 				privateChatLayout.$el.show();
 
 			} else {
-				privateChatLayout = new Private.ChatLayout({
+				privateChatLayout = new App.ChatsApp.Common.Views.ChatLayout({
 					id: conv.id
 				});
 
 				var self = this,
 					messages = App.request("chat:messages"),
-					inputView = new Private.ChatInputView(),
-					messagesView = new Private.ChatMessagesView({
+					inputView = new App.ChatsApp.Common.Views.ChatInputView(),
+					messagesView = new App.ChatsApp.Common.Views.ChatMessagesView({
 						collection: messages
 					});
 
@@ -90,7 +87,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 			// Set to cache the current view
 			App.ChatsApp.Common.Controller.setCurrentChatView(privateChatLayout);
 
-			userInfoView = new App.ChatsApp.Common.UserInfoView({
+			userInfoView = new Private.UserInfoView({
 				model: toUser
 			}),
 			App.rightRegion.show(userInfoView);

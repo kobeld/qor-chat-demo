@@ -15,9 +15,11 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 		startChatByClicked: function (conv) {
 			// Hide the Lobby view
 			App.execute("cmd:lobby:hide");
+			// Hide the privious chat view
+			App.ChatsApp.Common.Controller.hideCurrentChatView();
 
 			if (conv.isGroupChat()) {
-
+				ChatsApp.Group.Controller.start(conv);
 			} else {
 				ChatsApp.Private.Controller.start(conv);
 			}

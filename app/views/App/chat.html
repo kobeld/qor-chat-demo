@@ -1,0 +1,29 @@
+<!-- Chat Related -->
+<!-- <div class="block"> -->
+<script type="text/template" id="chat-layout">
+  <div class="chatui-container block-content-full">
+
+    <div class="chatui-talk">
+      <div id="messages-region" class="chatui-talk-scroll">
+
+      </div>
+    </div>
+
+    <div id="input-region" class="chatui-input">
+    </div>
+
+  </div>
+</script>
+
+<script type="text/template" id="chat-message">
+  <img src="<%= fromUserAvatar %>" alt="Avatar" class="img-circle chatui-talk-msg-avatar"> <%= content %>
+</script>
+
+<script type="text/template" id="chat-input">
+  <form class="form-horizontal form-control-borderless remove-margin">
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-angle-right"></i></span>
+      <input type="text" id="chatui-message" name="content" class="form-control input-lg" placeholder="Type a message and hit enter..">
+    </div>
+  </form>
+</script>
