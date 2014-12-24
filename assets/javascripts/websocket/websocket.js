@@ -1,7 +1,6 @@
 App.module("Websocket", function (Websocket, App, Backbone, Marionette, $, _) {
 
-	var _wsConn = null,
-		_user = null;
+	var _wsConn = null;
 
 	var API = {
 		connect: function () {
@@ -10,7 +9,7 @@ App.module("Websocket", function (Websocket, App, Backbone, Marionette, $, _) {
 			};
 
 			// TODO: This will cause bug, should improve it later.
-			var	teamId = _user.get("teamIds")[0],
+			var teamId = App.request("entities:cache:teamid");
 				token = simpleStorage.get("token");
 
 			_wsConn = new WebSocket("ws://localhost:3000/ws/" + teamId + "/" + token);
@@ -43,8 +42,7 @@ App.module("Websocket", function (Websocket, App, Backbone, Marionette, $, _) {
 		}
 	};
 
-	App.commands.setHandler("cmd:websocket:connect", function (user) {
-		_user = user;
+	App.commands.setHandler("cmd:websocket:connect", function () {
 		if (window["WebSocket"]) {
 			API.connect();
 		} else {

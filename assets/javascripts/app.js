@@ -47,11 +47,16 @@ App.on("start", function () {
 	// Get current user account first
 	$.when(myAccountEntity).done(function (myAccount) {
 
-		// Ensure the websocket be connected
-		App.vent.on("vent:websocket:open", function () {
-			// Then start the routers
-			if (Backbone.history) {
-				Backbone.history.start();
+		// Set the cached teamId.
+		// TODO: Improvet the way of getting the teamId
+		App.execute("entities:set:teamid", myAccount.get("teamIds")[0]);
+
+		// Then start the routers
+		if (Backbone.history) {
+			Backbone.history.start();
+
+			// Ensure the websocket be connected
+			App.vent.on("vent:websocket:open", function () {
 
 				$("#page-container").show();
 				// Show the Header
@@ -59,16 +64,13 @@ App.on("start", function () {
 
 				// Show the Lobby by default
 				if (self.getCurrentRoute() === "") {
-					// Set the cached teamId.
-					// TODO: Improvet the way of getting the teamId
-					App.execute("entities:set:teamid", myAccount.get("teamIds")[0]);
 					App.execute("cmd:menu:list");
 				}
-			}
-		});
+			});
 
-		// Execute command to build the websocket connection
-		App.execute("cmd:websocket:connect", myAccount);
+			// Execute command to build the websocket connection
+			App.execute("cmd:websocket:connect");
+		}
 
 	}).fail(function (response) {
 		App.execute("cmd:response:handle", response);

@@ -35,6 +35,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 			var user = this.findWhere({
 				id: userId
 			});
+
 			if (user) {
 				user.set("isOnline", isOnline);
 			};
@@ -65,5 +66,6 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 	App.reqres.setHandler("entities:user", function () {
 		return API.getUserEntities();
-	})
+	});
+
 });
