@@ -5,9 +5,9 @@ App.module("ChatsApp.Common", function (Common, App, Backbone, Marionette, $, _)
 
 	Common.Controller = {
 
-		findChatView: function (conv) {
+		findChatView: function (convId) {
 			var chatView = _.find(_chatViews, function (view) {
-				return view.id == conv.id;
+				return view.id == convId;
 			});
 
 			return chatView;

@@ -39,7 +39,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 						msg = {
 							convId: conv.id,
 							content: data.content,
-							toUserId: toUser.id,
+							receiverId: toUser.id,
 							fromUserId: myAccount.get("id"),
 							fromUserAvatar: myAccount.get("avatar")
 						};
@@ -48,7 +48,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 
 					App.execute("cmd:websocket:send", {
 						topic: "messages",
-						dType: "new",
+						dType: "private",
 						message: msg
 					});
 				});
@@ -61,11 +61,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 						if (data.dType === "all") {
 							// messages.reset(object);
 
-						} else if (data.dType === "new") {
-
-							// if (_selectedUser == null) {
-							// 	buddies.chooseById(msg.fromUserId);
-							// };
+						} else if (data.dType === "private") {
 
 							messages.push(msg);
 
@@ -92,8 +88,9 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 		},
 
 		receiveMessage: function (data) {
+
 			var msg = data.message,
-				privateChatLayout = App.ChatsApp.Common.Controller.findChatView(conv);
+				privateChatLayout = App.ChatsApp.Common.Controller.findChatView(msg.convId);
 
 			// The conversation tab is open, just show the message
 			if (privateChatLayout) {

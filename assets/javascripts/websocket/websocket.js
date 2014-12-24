@@ -18,7 +18,7 @@ App.module("Websocket", function (Websocket, App, Backbone, Marionette, $, _) {
 			};
 
 			_wsConn.onmessage = function (msgEvent) {
-				var msData = JSON.parse(msgEvent.data)
+				var msData = JSON.parse(msgEvent.data);
 				App.vent.trigger("vent:websocket:" + msData.topic, msData);
 			};
 
