@@ -69,8 +69,9 @@ App.module("ChatsApp.Group", function (Group, App, Backbone, Marionette, $, _) {
 			// Set to cache the current view
 			App.ChatsApp.Common.Controller.setCurrentChatView(groupChatLayout);
 
+			var participants = App.request("entity:cache:users", conv.get("userIds"));
 			var sidebarUsersView = new App.Common.RosterSidebarView({
-				collection: new App.Entities.UserCollection(conv.get("withUsers"))
+				collection: participants
 			});
 
 			App.rightRegion.show(sidebarUsersView);

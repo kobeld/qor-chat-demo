@@ -27,7 +27,7 @@ App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 				MenuApp.listenTo(_menu, "collection:chose:one", function (chosen) {
 					// Show lobby if it is not conversation
 					if (chosen.get("conv")) {
-						App.execute("cmd:chats:private:conv", chosen.get("conv"));
+						App.execute("cmd:chats:conv", chosen.get("conv"));
 					} else {
 						App.execute("cmd:lobby:show");
 					}

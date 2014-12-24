@@ -19,7 +19,6 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 		defaults: {
 			isOnline: false
 		}
-
 	});
 
 	// User Collection
@@ -33,6 +32,12 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 		url: function () {
 			var teamId = App.request("entity:cache:teamid");
 			return "http://localhost:3000/teams/" + teamId + "/users";
+		},
+
+		// Features from: backbone-collection-sorting.js
+		sorting: {
+			by: 'name',
+			type: 'alpha'
 		},
 
 		setOnlineStatus: function (userId, isOnline) {
@@ -59,7 +64,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 				return defer.promise();
 			};
 
-			_users = new Entities.UserCollection();
+			_users = new Entities.UserCollection;
 			var response = _users.fetch({
 				// Oauth access token header
 				headers: App.getBearerHeader(),
@@ -94,7 +99,19 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 	});
 
 	App.reqres.setHandler("entity:cache:users", function (userIds) {
+
 		if (userIds) {
+			var selectedUsers = new Entities.UserCollection;
+			_.each(userIds, function (userId) {
+				var user = _users.findWhere({
+					id: userId
+				});
+
+				if (user) {
+					selectedUsers.add(user)
+				};
+			});
+			return selectedUsers;
 
 		} else {
 			return _users;

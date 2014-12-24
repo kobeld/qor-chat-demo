@@ -30,7 +30,9 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 				collection:  App.request("entity:cache:users")
 			});
 
+			// Select users to chat
 			rosterView.on("start:chat", function (args) {
+
 				var choseUsers = args.collection.getChosen();
 				if (choseUsers.length > 0) {
 					App.execute("cmd:chats:users", choseUsers);
