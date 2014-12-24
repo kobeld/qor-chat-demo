@@ -45,7 +45,7 @@ App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 
 			if (!menuItem) {
 				menuItem = new App.Entities.MenuItem({
-					id: conv.get("id"),
+					id: conv.id,
 					title: conv.title(),
 					conv: conv
 				})

@@ -8,6 +8,7 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 
 	var API = {
 		startChatFromRouter: function (teamId, convId) {
+
 			App.execute("entities:set:teamid", teamId);
 			// Show the Left menu first if it is from the router
 			App.execute("cmd:menu:list", convId);
@@ -55,6 +56,12 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 		}, {
 			headers: App.getBearerHeader(),
 			success: function () {
+
+				// TEMP: The backend should also return the teamId
+				if (!newConv.get("teamId")) {
+					newConv.set("teamId", App.request("entities:cache:teamid"))
+				};
+
 				newConv.set("withUsers", withUsers);
 				App.execute("cmd:menu:activeOrAdd", newConv);
 			}
