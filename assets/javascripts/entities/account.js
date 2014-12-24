@@ -25,7 +25,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 			// Or fetch it from the API
 			_myAccount = new Entities.Account();
-			response = _myAccount.fetch({
+			var response = _myAccount.fetch({
 				// Oauth access token header
 				headers: App.getBearerHeader(),
 			});

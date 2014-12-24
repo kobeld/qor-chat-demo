@@ -13,6 +13,12 @@ App.module("Common", function (Common, App, Backbone, Marionette, $, _) {
 			onlineIndicator: ".online-indicator"
 		},
 
+		templateHelpers: function () {
+			return {
+				onlineIcon: this.model.get("isOnline") ? "text-success": "text-muted"
+			};
+		},
+
 		onRender: function () {
 			if (App.request("entity:check:myaccount", this.model)) {
 				this.ui.alink.addClass("current-user");

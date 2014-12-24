@@ -8,7 +8,7 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 
 	var API = {
 		showFromRouter: function (teamId) {
-			App.execute("entities:set:teamid", teamId);
+			App.execute("entity:set:teamid", teamId);
 			// Show the Left menu first if it is from the router
 			App.execute("cmd:menu:list");
 		},
@@ -25,7 +25,7 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 	};
 
 	App.commands.setHandler("cmd:lobby:show", function () {
-		var teamId = App.request("entities:cache:teamid");
+		var teamId = App.request("entity:cache:teamid");
 		App.navigate("teams/" + teamId + "/lobby");
 		API.showByClicked();
 	});

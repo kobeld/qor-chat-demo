@@ -1,5 +1,9 @@
 App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
+	// Caching the user collection
+	// Be initialized on App start
+	var _users = null;
+
 	// User Model
 	Entities.User = Backbone.Model.extend({
 
@@ -8,7 +12,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 		},
 
 		urlRoot: function () {
-			var teamId = App.request("entities:cache:teamid");
+			var teamId = App.request("entity:cache:teamid");
 			return "http://localhost:3000/teams/" + teamId + "/users";
 		},
 
@@ -27,7 +31,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 		},
 
 		url: function () {
-			var teamId = App.request("entities:cache:teamid");
+			var teamId = App.request("entity:cache:teamid");
 			return "http://localhost:3000/teams/" + teamId + "/users";
 		},
 
@@ -45,17 +49,38 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 	// API functions
 	var API = {
 
-		getUserEntities: function () {
-			var users = new Entities.UserCollection(),
-				defer = $.Deferred();
+		getUsersEntity: function () {
 
-			var response = users.fetch({
+			var defer = $.Deferred();
+
+			// Return if it is already there
+			if (_users != null) {
+				defer.resolve(_users);
+				return defer.promise();
+			};
+
+			_users = new Entities.UserCollection();
+			var response = _users.fetch({
 				// Oauth access token header
 				headers: App.getBearerHeader(),
 			});
 
 			response.done(function () {
-				defer.resolveWith(response, [users]);
+
+				// Subscripe to the roster events of websocket
+				App.vent.on("vent:websocket:roster", function (data) {
+
+					var object = data.object;
+					if (data.dType === "all") {
+						_.each(data.object, function (onlineUser) {
+							_users.setOnlineStatus(onlineUser.id, true);
+						});
+					} else {
+						_users.setOnlineStatus(object.id, (data.dType === "online"));
+					}
+				});
+
+				defer.resolveWith(response, [_users]);
 			}).fail(function () {
 				defer.rejectWith(response, arguments);
 			});
@@ -64,8 +89,16 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 		}
 	};
 
-	App.reqres.setHandler("entities:user", function () {
-		return API.getUserEntities();
+	App.reqres.setHandler("entity:users", function () {
+		return API.getUsersEntity();
 	});
+
+	App.reqres.setHandler("entity:cache:users", function (userIds) {
+		if (userIds) {
+
+		} else {
+			return _users;
+		}
+	})
 
 });

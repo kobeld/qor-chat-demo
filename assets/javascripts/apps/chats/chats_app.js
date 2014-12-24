@@ -9,7 +9,7 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 	var API = {
 		startChatFromRouter: function (teamId, convId) {
 
-			App.execute("entities:set:teamid", teamId);
+			App.execute("entity:set:teamid", teamId);
 			// Show the Left menu first if it is from the router
 			App.execute("cmd:menu:list", convId);
 		},
@@ -48,7 +48,7 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 		})
 
 		var newConv = new App.Entities.Conversation({
-			"teamId": App.request("entities:cache:teamid"),
+			"teamId": App.request("entity:cache:teamid"),
 		});
 
 		var savedConv = newConv.save({
@@ -59,7 +59,7 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 
 				// TEMP: The backend should also return the teamId
 				if (!newConv.get("teamId")) {
-					newConv.set("teamId", App.request("entities:cache:teamid"))
+					newConv.set("teamId", App.request("entity:cache:teamid"))
 				};
 
 				newConv.set("withUsers", withUsers);

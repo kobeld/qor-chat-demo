@@ -49,27 +49,37 @@ App.on("start", function () {
 
 		// Set the cached teamId.
 		// TODO: Improvet the way of getting the teamId
-		App.execute("entities:set:teamid", myAccount.get("teamIds")[0]);
+		App.execute("entity:set:teamid", myAccount.get("teamIds")[0]);
 
 		// Then start the routers
 		if (Backbone.history) {
 			Backbone.history.start();
 
-			// Ensure the websocket be connected
-			App.vent.on("vent:websocket:open", function () {
+			$("#page-container").show();
+			// Show the Header
+			App.execute("cmd:header:show");
 
-				$("#page-container").show();
-				// Show the Header
-				App.execute("cmd:header:show");
+			// Fetch users first to get the online users
+			var usersEntity = App.request("entity:users");
+			$.when(usersEntity).done(function () {
 
-				// Show the Lobby by default
-				if (self.getCurrentRoute() === "") {
-					App.execute("cmd:menu:list");
-				}
+				// Ensure the websocket be connected
+				App.vent.on("vent:websocket:open", function () {
+					// Request roster
+					App.execute("cmd:websocket:send", {
+						topic: "roster",
+						dType: "all",
+					});
+
+					// Show the Lobby by default
+					if (self.getCurrentRoute() === "") {
+						App.execute("cmd:menu:list");
+					}
+				});
+
+				// Execute command to build the websocket connection
+				App.execute("cmd:websocket:connect");
 			});
-
-			// Execute command to build the websocket connection
-			App.execute("cmd:websocket:connect");
 		}
 
 	}).fail(function (response) {

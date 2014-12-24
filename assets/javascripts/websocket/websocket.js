@@ -9,7 +9,7 @@ App.module("Websocket", function (Websocket, App, Backbone, Marionette, $, _) {
 			};
 
 			// TODO: This will cause bug, should improve it later.
-			var teamId = App.request("entities:cache:teamid");
+			var teamId = App.request("entity:cache:teamid");
 				token = simpleStorage.get("token");
 
 			_wsConn = new WebSocket("ws://localhost:3000/ws/" + teamId + "/" + token);

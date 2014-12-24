@@ -37,7 +37,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 		},
 
 		url: function () {
-			var teamId = App.request("entities:cache:teamid");
+			var teamId = App.request("entity:cache:teamid");
 			return "http://localhost:3000" + teamId + "/conversations";
 		}
 	});
@@ -50,7 +50,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 			// Temp
 			setTimeout(function () {
-				defer.resolveWith(response, [convs]);
+				defer.resolveWith(convs);
 			}, 200);
 
 			return defer.promise();

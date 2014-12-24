@@ -55,6 +55,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 					title: "Lobby"
 				}]);
 
+			// TODO: Get Active Conversation here
 			$.when(activedConvsDefer).then(function (convs) {
 				_.each(convs, function (convItem) {
 					menu.add([{

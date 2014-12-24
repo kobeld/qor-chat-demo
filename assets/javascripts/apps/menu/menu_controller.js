@@ -9,7 +9,7 @@ App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 			var menuDeferred = App.request("entity:menu");
 
 			$.when(menuDeferred).done(function (menu) {
-				_menu = menu
+				_menu = menu;
 				var menuView = new MenuApp.MenuView({
 					collection: _menu
 				});
