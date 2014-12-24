@@ -6,7 +6,7 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 	});
 
 	// The Roster Item in Lobby
-	// Extended from App.Common.Views.RosterItemView
+	// Extended from App.Common.RosterItemView
 	LobbyApp.LobbyRosterItemView = App.Common.RosterItemView.extend({
 
 		events: {
@@ -24,7 +24,7 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 	});
 
 	// The Roster Sidebar View that maintaining the user list
-	// Extended from App.Common.Views.RosterSidebarView
+	// Extended from App.Common.RosterSidebarView
 	LobbyApp.RosterSideberView = App.Common.RosterSidebarView.extend({
 		childView: LobbyApp.LobbyRosterItemView,
 

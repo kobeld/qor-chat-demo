@@ -11,14 +11,14 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 				privateChatLayout.$el.show();
 
 			} else {
-				privateChatLayout = new App.ChatsApp.Common.Views.ChatLayout({
+				privateChatLayout = new App.ChatsApp.Common.ChatLayout({
 					id: conv.id
 				});
 
 				var self = this,
 					messages = App.request("chat:messages"),
-					inputView = new App.ChatsApp.Common.Views.ChatInputView(),
-					messagesView = new App.ChatsApp.Common.Views.ChatMessagesView({
+					inputView = new App.ChatsApp.Common.ChatInputView(),
+					messagesView = new App.ChatsApp.Common.ChatMessagesView({
 						collection: messages
 					});
 
@@ -67,7 +67,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 							// 	buddies.chooseById(msg.fromUserId);
 							// };
 
-							messages.add(msg);
+							messages.push(msg);
 
 						} else if (data.dType === "composing") {
 							// TODO:

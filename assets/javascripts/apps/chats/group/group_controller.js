@@ -10,14 +10,14 @@ App.module("ChatsApp.Group", function (Group, App, Backbone, Marionette, $, _) {
 				groupChatLayout.$el.show();
 
 			} else {
-				groupChatLayout = new App.ChatsApp.Common.Views.ChatLayout({
+				groupChatLayout = new App.ChatsApp.Common.ChatLayout({
 					id: conv.id
 				});
 
 				var self = this,
 					messages = App.request("chat:messages"),
-					inputView = new App.ChatsApp.Common.Views.ChatInputView(),
-					messagesView = new App.ChatsApp.Common.Views.ChatMessagesView({
+					inputView = new App.ChatsApp.Common.ChatInputView(),
+					messagesView = new App.ChatsApp.Common.ChatMessagesView({
 						collection: messages
 					});
 
