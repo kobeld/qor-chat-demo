@@ -5,7 +5,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 		start: function (conv) {
 
 			var toUser = conv.get("withUsers")[0],
-				privateChatLayout = App.ChatsApp.Common.Controller.findChatView(conv);
+				privateChatLayout = App.ChatsApp.Common.Controller.findChatView(conv.id);
 
 			if (privateChatLayout) {
 				privateChatLayout.$el.show();

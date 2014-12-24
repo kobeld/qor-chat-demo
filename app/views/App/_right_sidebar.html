@@ -9,7 +9,7 @@
 <script type="text/template" id="roster-sidebar-view">
 	<div class="sidebar-content">
 		<span class="sidebar-title">
-			<button type="button" class="btn btn-xs btn-success js-start-chat hide">Start Chat</button>
+			<button type="button" class="btn btn-xs btn-success js-start-chat <%= hideClass %>">Start Chat</button>
 			<i class="gi gi-group pull-right"></i>
 		</span>
 
@@ -23,7 +23,7 @@
 
 <!-- #list-group -->
 <script type="text/template" id="roster-item">
-	<a href="javascript:void(0)" class="list-group-item">
+	<a href="javascript:void(0)" class="list-group-item <%= selectedClass %>">
 		<i class="online-indicator fa fa-circle <%= onlineIcon %> pull-right"></i>
 		<img src="<%= avatar %>" alt="Avatar" class="img-circle">
 		<h5 class="list-group-item-heading"><%= name %></h5>

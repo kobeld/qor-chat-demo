@@ -4,7 +4,7 @@ App.module("ChatsApp.Group", function (Group, App, Backbone, Marionette, $, _) {
 
 		start: function (conv) {
 
-			var groupChatLayout = App.ChatsApp.Common.Controller.findChatView(conv);
+			var groupChatLayout = App.ChatsApp.Common.Controller.findChatView(conv.id);
 
 			if (groupChatLayout) {
 				groupChatLayout.$el.show();
@@ -34,7 +34,22 @@ App.module("ChatsApp.Group", function (Group, App, Backbone, Marionette, $, _) {
 						return;
 					};
 
-					// TODO: Send Message
+					var myAccount = App.request("entity:cache:myaccount"),
+						msg = {
+							convId: conv.id,
+							content: data.content,
+							fromUserId: myAccount.get("id"),
+							fromUserAvatar: myAccount.get("avatar")
+						};
+
+					messages.add(msg);
+
+					App.execute("cmd:websocket:send", {
+						topic: "messages",
+						dType: "group",
+						message: msg
+					});
+
 				});
 
 				messagesView.on("show", function () {
@@ -45,11 +60,7 @@ App.module("ChatsApp.Group", function (Group, App, Backbone, Marionette, $, _) {
 						if (data.dType === "all") {
 							// messages.reset(object);
 
-						} else if (data.dType === "new") {
-
-							// if (_selectedUser == null) {
-							// 	buddies.chooseById(msg.fromUserId);
-							// };
+						} else if (data.dType === "group") {
 
 							messages.add(msg);
 

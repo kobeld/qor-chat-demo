@@ -15,7 +15,8 @@ App.module("Common", function (Common, App, Backbone, Marionette, $, _) {
 
 		templateHelpers: function () {
 			return {
-				onlineIcon: this.model.get("isOnline") ? "text-success": "text-muted"
+				onlineIcon: this.model.get("isOnline") ? "text-success": "text-muted",
+				selectedClass: this.model.isChosen() ? "selected": ""
 			};
 		},
 
@@ -38,7 +39,14 @@ App.module("Common", function (Common, App, Backbone, Marionette, $, _) {
 		template: "#roster-sidebar-view",
 		className: "sidebar-scroll",
 		childView: this.RosterItemView,
-		childViewContainer: "#user-list"
+		childViewContainer: "#user-list",
+
+		templateHelpers: function() {
+			var hasChosen = (this.collection.getChosen().length > 0);
+			return {
+				hideClass: hasChosen ? "": "hide"
+			}
+		}
 	});
 
 });

@@ -27,12 +27,16 @@ App.module("LobbyApp", function (LobbyApp, App, Backbone, Marionette, $, _) {
 		showRoster: function () {
 
 			var rosterView = new LobbyApp.RosterSideberView({
-				collection:  App.request("entity:cache:users")
+				collection: App.request("entity:cache:users")
+			});
+
+			rosterView.on("destroy", function () {
+				// Should reset all
+				this.collection.chooseNone();
 			});
 
 			// Select users to chat
 			rosterView.on("start:chat", function (args) {
-
 				var choseUsers = args.collection.getChosen();
 				if (choseUsers.length > 0) {
 					App.execute("cmd:chats:users", choseUsers);
