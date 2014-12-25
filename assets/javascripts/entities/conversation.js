@@ -8,7 +8,8 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 		// Temp
 		urlRoot: function () {
-			return "http://localhost:3000/teams/" + this.get("teamId") + "/conversations"
+			var teamId = this.get("teamId") || App.request("entity:cache:teamid");
+			return "http://localhost:3000/teams/" + teamId + "/conversations"
 		},
 
 		title: function () {
@@ -26,6 +27,16 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 		isGroupChat: function () {
 			return (this.get("withUsers").length > 1);
+		},
+
+		// Used to set necessary fields like withUsers
+		setup: function () {
+			var withUserIds = _.reject(this.get("participantIds"), function (userId) {
+				return userId == App.request("entity:cache:myaccount").id;
+			});
+
+			var withUserCollection = App.request("entity:cache:users", withUserIds);
+			this.set("withUsers", withUserCollection.models);
 		}
 	});
 
@@ -38,7 +49,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 		url: function () {
 			var teamId = App.request("entity:cache:teamid");
-			return "http://localhost:3000" + teamId + "/conversations";
+			return "http://localhost:3000/teams/" + teamId + "/conversations";
 		}
 	});
 
@@ -54,11 +65,35 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 			}, 200);
 
 			return defer.promise();
+		},
+
+		getConversation: function (id) {
+			var defer = $.Deferred(),
+				conv = new Entities.Conversation({
+					id: id
+				});
+
+			var response = conv.fetch({
+				// Oauth access token header
+				headers: App.getBearerHeader(),
+			});
+
+			response.done(function () {
+				conv.setup();
+				defer.resolveWith(response, [conv]);
+			}).fail(function () {
+				defer.rejectWith(response, arguments);
+			});
+			return defer.promise();
 		}
 	};
 
 	App.reqres.setHandler("entity:conversations", function () {
 		return API.getConversations();
 	});
+
+	App.reqres.setHandler("entity:conversation", function (id) {
+		return API.getConversation(id);
+	})
 
 });

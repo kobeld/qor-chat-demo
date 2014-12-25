@@ -43,16 +43,18 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 	// Start the conversation with the user passing in
 	App.commands.setHandler("cmd:chats:users", function (withUsers) {
 
-		var withUserIds = _.map(withUsers, function (user) {
-			return user.id;
-		})
+		var currentUserId = App.request("entity:cache:myaccount").id,
+			withUserIds = _.map(withUsers, function (user) {
+				return user.id;
+			}),
+			participantIds = _.union(withUserIds, [currentUserId]);
 
 		var newConv = new App.Entities.Conversation({
 			"teamId": App.request("entity:cache:teamid"),
 		});
 
 		var savedConv = newConv.save({
-			"withUserIds": withUserIds
+			"participantIds": participantIds
 		}, {
 			headers: App.getBearerHeader(),
 			success: function () {

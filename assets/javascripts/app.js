@@ -79,7 +79,10 @@ App.on("start", function () {
 
 				// Execute command to build the websocket connection
 				App.execute("cmd:websocket:connect");
-			});
+
+			}).fail(function (response) {
+				App.execute("cmd:response:handle", response);
+			})
 		}
 
 	}).fail(function (response) {

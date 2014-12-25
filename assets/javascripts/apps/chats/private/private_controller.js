@@ -89,7 +89,8 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 
 		receiveMessage: function (data) {
 
-			var msg = data.message,
+			var self = this,
+				msg = data.message,
 				privateChatLayout = App.ChatsApp.Common.Controller.findChatView(msg.convId);
 
 			// The conversation tab is open, just show the message
@@ -97,15 +98,18 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 				privateChatLayout.trigger("vent:messages:" + msg.convId, data);
 
 			} else {
-				// Should bump out the conversation tab
-				var conv = new App.Entities.Conversation({
-					id: "5469a9c263ed2e0df1000001", // Aaron and Safari
-					teamId: App.Entities.DemoUser.get("teamId"),
-					withUsers: [App.Entities.DemoUser],
+
+				// Should fetch the conversation first
+				var convEntity = App.request("entity:conversation", msg.convId);
+				$.when(convEntity).done(function (conv) {
+
+					App.execute("cmd:menu:activeOrAdd", conv);
+					self.receiveMessage(data);
+
+				}).fail(function (response) {
+					App.execute("cmd:response:handle", response);
 				});
 
-				App.execute("cmd:menu:activeOrAdd", conv);
-				this.receiveMessage(data);
 			}
 		}
 	};
