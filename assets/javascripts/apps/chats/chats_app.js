@@ -36,7 +36,8 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 		},
 
 		receiveMessage: function (data) {
-			ChatsApp.Private.Controller.receiveMessage(data);
+
+			ChatsApp.Common.Controller.receiveMessage(data);
 		}
 	};
 

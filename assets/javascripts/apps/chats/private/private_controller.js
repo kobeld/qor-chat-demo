@@ -7,10 +7,12 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 			var toUser = conv.get("withUsers")[0],
 				privateChatLayout = App.ChatsApp.Common.Controller.findChatView(conv.id);
 
+			// Found the view from the cache
 			if (privateChatLayout) {
 				privateChatLayout.$el.show();
 
 			} else {
+				// Not found, initialize a new one and put it into the cache later
 				privateChatLayout = new App.ChatsApp.Common.ChatLayout({
 					id: conv.id
 				});
@@ -85,32 +87,6 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 				model: toUser
 			});
 			App.rightRegion.show(userInfoView);
-		},
-
-		receiveMessage: function (data) {
-
-			var self = this,
-				msg = data.message,
-				privateChatLayout = App.ChatsApp.Common.Controller.findChatView(msg.convId);
-
-			// The conversation tab is open, just show the message
-			if (privateChatLayout) {
-				privateChatLayout.trigger("vent:messages:" + msg.convId, data);
-
-			} else {
-
-				// Should fetch the conversation first
-				var convEntity = App.request("entity:conversation", msg.convId);
-				$.when(convEntity).done(function (conv) {
-
-					App.execute("cmd:menu:activeOrAdd", conv);
-					self.receiveMessage(data);
-
-				}).fail(function (response) {
-					App.execute("cmd:response:handle", response);
-				});
-
-			}
 		}
 	};
 });
