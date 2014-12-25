@@ -51,17 +51,17 @@ App.on("start", function () {
 		// TODO: Improvet the way of getting the teamId
 		App.execute("entity:set:teamid", myAccount.get("teamIds")[0]);
 
-		// Then start the routers
-		if (Backbone.history) {
-			Backbone.history.start();
+		// Fetch users first to get the online users
+		var usersEntity = App.request("entity:users");
+		$.when(usersEntity).done(function () {
 
-			$("#page-container").show();
-			// Show the Header
-			App.execute("cmd:header:show");
+			// Then start the routers
+			if (Backbone.history) {
+				Backbone.history.start();
 
-			// Fetch users first to get the online users
-			var usersEntity = App.request("entity:users");
-			$.when(usersEntity).done(function () {
+				$("#page-container").show();
+				// Show the Header
+				App.execute("cmd:header:show");
 
 				// Ensure the websocket be connected
 				App.vent.on("vent:websocket:open", function () {
@@ -79,11 +79,11 @@ App.on("start", function () {
 
 				// Execute command to build the websocket connection
 				App.execute("cmd:websocket:connect");
+			};
 
-			}).fail(function (response) {
-				App.execute("cmd:response:handle", response);
-			})
-		}
+		}).fail(function (response) {
+			App.execute("cmd:response:handle", response);
+		});
 
 	}).fail(function (response) {
 		App.execute("cmd:response:handle", response);

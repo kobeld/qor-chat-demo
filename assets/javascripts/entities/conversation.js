@@ -57,12 +57,19 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 		getConversations: function () {
 
 			var defer = $.Deferred(),
-				convs = new Entities.Conversations();
+				convs = new Entities.Conversations(),
+				response = convs.fetch({
+					headers: App.getBearerHeader(),
+				});
 
-			// Temp
-			setTimeout(function () {
-				defer.resolveWith(convs);
-			}, 200);
+			response.done(function () {
+				convs.forEach(function(conv){
+					conv.setup();
+				});
+				defer.resolveWith(response, [convs])
+			}).fail(function () {
+				defer.rejectWith(response, arguments);
+			});
 
 			return defer.promise();
 		},

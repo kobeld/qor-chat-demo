@@ -20,15 +20,22 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 		},
 
 		chooseByConvId: function (convId) {
-			var self = this,
-				menuItem = this.first();
 
-			if (convId != "") {
-				menuItem = this.findWhere({
-					id: convId
-				});
+			if (convId == "") {
+				// Choose the Lobby Menu
+				this.first().choose();
 
-				if (!menuItem) {
+			} else {
+				var self = this,
+					menuItem = this.findWhere({
+						id: convId
+					});
+
+				if (menuItem) {
+					// Found the item in the cache
+					menuItem.choose();
+
+				} else {
 					// Not found, fetch the conv and make the menuItem
 					var convEntity = App.request("entity:conversation", convId);
 					$.when(convEntity).done(function (conv) {
@@ -40,7 +47,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 					}).fail(function (response) {
 						App.execute("cmd:response:handle", response);
 					});
-				};
+				}
 			};
 		},
 
@@ -48,6 +55,14 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 			this.remove(menuItem);
 			var lobbyMenu = this.first();
 			lobbyMenu.choose();
+		},
+
+		addConvMenuItems: function (convs) {
+			var self = this;
+			convs.forEach(function (conv) {
+				menuItem = API.newConvMenuItem(conv);
+				self.push(menuItem);
+			});
 		}
 
 	});
@@ -60,18 +75,13 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 					title: "Lobby"
 				}]);
 
-			// TODO: Get Active Conversation here
-			$.when(activedConvsDefer).then(function (convs) {
-				_.each(convs, function (convItem) {
-					menu.add([{
-						id: convItem.get("id"),
-						title: "Chat",
-						conv: convItem
-					}]);
-				});
-
+			// Fetch Active Conversation
+			$.when(activedConvsDefer).done(function (convs) {
+				menu.addConvMenuItems(convs);
 				defer.resolve(menu);
-			})
+			}).fail(function (response) {
+				defer.rejectWith(response, arguments);
+			});
 
 			return defer.promise();
 		},
