@@ -29,6 +29,18 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 			return (this.get("withUsers").length > 1);
 		},
 
+		deactivate: function () {
+			var teamId = this.get("teamId") || App.request("entity:cache:teamid"),
+				url = "http://localhost:3000/teams/" + teamId + "/conversations/" +
+					this.id + "/deactivate";
+
+			$.ajax({
+				type: "PUT",
+				url: url,
+				headers: App.getBearerHeader()
+			})
+		},
+
 		// Used to set necessary fields like withUsers
 		setup: function () {
 			var withUserIds = _.reject(this.get("participantIds"), function (userId) {
@@ -63,7 +75,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 				});
 
 			response.done(function () {
-				convs.forEach(function(conv){
+				convs.forEach(function (conv) {
 					conv.setup();
 				});
 				defer.resolveWith(response, [convs])
@@ -101,6 +113,6 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 	App.reqres.setHandler("entity:conversation", function (id) {
 		return API.getConversation(id);
-	})
+	});
 
 });

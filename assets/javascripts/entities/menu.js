@@ -52,6 +52,12 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 		},
 
 		removeConvMenu: function (menuItem) {
+			// Deactivate Conversation here
+			var conv = menuItem.get("conv");
+			if (conv) {
+				conv.deactivate();
+			};
+
 			this.remove(menuItem);
 			var lobbyMenu = this.first();
 			lobbyMenu.choose();
