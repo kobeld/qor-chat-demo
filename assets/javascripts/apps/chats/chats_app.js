@@ -73,7 +73,8 @@ App.module("ChatsApp", function (ChatsApp, App, Backbone, Marionette, $, _) {
 
 	// Start the conversation with the conv passing in
 	App.commands.setHandler("cmd:chats:conv", function (conv) {
-		App.navigate("teams/" + conv.get("teamId") + "/chat/" + conv.id);
+		var teamId = conv.get("teamId") || App.request("entity:cache:teamid");
+		App.navigate("teams/" + teamId + "/chat/" + conv.id);
 		API.startChatByClicked(conv);
 	});
 

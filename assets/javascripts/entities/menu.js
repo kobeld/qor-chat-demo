@@ -20,23 +20,28 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 		},
 
 		chooseByConvId: function (convId) {
+			var self = this,
+				menuItem = this.first();
 
-			var menuItem = this.first();
 			if (convId != "") {
 				menuItem = this.findWhere({
 					id: convId
 				});
 
-				// TODO:
 				if (!menuItem) {
-					menuItem = Entities.DemoMenuItem;
-					this.push(menuItem);
-				}
-			}
-
-			if (menuItem) {
-				menuItem.choose();
-			}
+					// Not found, fetch the conv and make the menuItem
+					var convEntity = App.request("entity:conversation", convId);
+					$.when(convEntity).done(function (conv) {
+						menuItem = API.newConvMenuItem(conv);
+						self.push(menuItem);
+						if (menuItem) {
+							menuItem.choose();
+						}
+					}).fail(function (response) {
+						App.execute("cmd:response:handle", response);
+					});
+				};
+			};
 		},
 
 		removeConvMenu: function (menuItem) {
@@ -69,11 +74,23 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 			})
 
 			return defer.promise();
+		},
+
+		newConvMenuItem: function (conv) {
+			return new Entities.MenuItem({
+				id: conv.id,
+				title: conv.title(),
+				conv: conv
+			});
 		}
 	};
 
 	App.reqres.setHandler("entity:menu", function () {
 		return API.getMenu();
+	});
+
+	App.reqres.setHandler("entity:menuItem:new", function (conv) {
+		return API.newConvMenuItem(conv);
 	});
 
 })

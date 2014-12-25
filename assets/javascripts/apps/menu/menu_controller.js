@@ -44,11 +44,7 @@ App.module("MenuApp", function (MenuApp, App, Backbone, Marionette, $, _) {
 			});
 
 			if (!menuItem) {
-				menuItem = new App.Entities.MenuItem({
-					id: conv.id,
-					title: conv.title(),
-					conv: conv
-				})
+				menuItem = App.request("entity:menuItem:new", conv);
 				_menu.push(menuItem);
 			};
 
