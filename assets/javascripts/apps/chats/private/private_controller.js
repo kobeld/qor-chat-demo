@@ -62,6 +62,9 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 
 						if (data.dType === "all") {
 							// messages.reset(object);
+						} else if (data.dType === "sync") {
+
+							messages.push(msg);
 
 						} else if (data.dType === "private") {
 
