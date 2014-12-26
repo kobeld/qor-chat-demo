@@ -3,7 +3,7 @@
 //= require javascripts/vendor/bootstrap.min
 //= require javascripts/vendor/underscore-min
 //= require javascripts/vendor/backbone-min
-//= require javascripts/vendor/backbone.marionette
+//= require javascripts/vendor/backbone.marionette.min
 //= require javascripts/vendor/backbone-chooser-min
 //= require javascripts/vendor/backbone.syphon.min
 //= require javascripts/vendor/json2

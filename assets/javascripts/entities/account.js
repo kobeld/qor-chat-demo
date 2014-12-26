@@ -27,7 +27,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 			_myAccount = new Entities.Account();
 			var response = _myAccount.fetch({
 				// Oauth access token header
-				headers: App.getBearerHeader(),
+				headers: App.getBearerHeader()
 			});
 
 			response.done(function () {

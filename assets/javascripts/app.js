@@ -40,7 +40,10 @@ App.commands.setHandler("cmd:response:handle", function (response) {
 	}
 });
 
-App.on("start", function () {
+App.on("start", function (options) {
+	// The options was passed from App.start(options)
+	this.options = options;
+
 	var self = this,
 		myAccountEntity = App.request("entity:user:myaccount");
 
