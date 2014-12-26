@@ -7,7 +7,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 	// MyAccount model
 	Entities.Account = Backbone.Model.extend({
 		url: function () {
-			return "http://localhost:3000/users/my-account";
+			return App.options.HttpHost +  "/users/my-account";
 		}
 	});
 

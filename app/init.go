@@ -1,10 +1,26 @@
 package app
 
 import (
+	"encoding/json"
 	"github.com/shaoshing/train"
+	"io/ioutil"
 	"net/http"
+	"os"
 
 	"github.com/revel/revel"
+)
+
+type EnvMode string
+
+const (
+	ENV_LOCAL      EnvMode = "env_local"
+	ENV_DEV_SERVER EnvMode = "env_dev_server"
+	ENV_PRODUCTION EnvMode = "env_production"
+	ENV_CN         EnvMode = "env_cn"
+)
+
+var (
+	serverBasePath = os.Getenv("GOPATH") + "/src/github.com/kobeld/qor-chat-demo/conf"
 )
 
 func init() {
@@ -45,6 +61,8 @@ func installFuncMaps() {
 	revel.TemplateFuncs["javascript_tag"] = train.JavascriptTag
 	revel.TemplateFuncs["stylesheet_tag"] = train.StylesheetTag
 	revel.TemplateFuncs["stylesheet_tag_with_param"] = train.StylesheetTagWithParam
+
+	revel.TemplateFuncs["server_configs"] = serverConfigs
 }
 
 func installHandlers() {
@@ -57,4 +75,51 @@ func installHandlers() {
 	train.ConfigureHttpHandler(serveMux)
 	revel.Server.Handler = serveMux
 
+}
+
+type ServerConfigs struct {
+	HttpHost, WsHost string
+}
+
+func serverConfigs() (r ServerConfigs) {
+	switch detectEnv() {
+	case ENV_LOCAL:
+		r.HttpHost = "http://localhost:3000"
+		r.WsHost = "ws://localhost:3000"
+	case ENV_DEV_SERVER:
+		r.HttpHost = "http://chat_server.qortex.theplant-dev.com"
+		r.WsHost = "ws://chat_server.qortex.theplant-dev.com"
+	case ENV_CN:
+		// TODO
+	case ENV_PRODUCTION:
+		// TODO
+	default:
+		// TODO
+	}
+	return
+}
+
+func detectEnv() EnvMode {
+	envf, err := os.OpenFile(serverBasePath+"/env.json", os.O_RDONLY, 0644)
+	if err != nil {
+		panic(err)
+	}
+	defer envf.Close()
+
+	var readBytes []byte
+	readBytes, err = ioutil.ReadAll(envf)
+	if err != nil {
+		panic(err)
+	}
+
+	var se struct {
+		ENV string
+	}
+
+	err = json.Unmarshal(readBytes, &se)
+	if err != nil {
+		panic(err)
+	}
+
+	return EnvMode(se.ENV)
 }

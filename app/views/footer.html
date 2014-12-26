@@ -1,4 +1,3 @@
-
 {{ javascript_tag "bundle_libs" }}
 {{ javascript_tag "bundle_proui" }}
 {{ javascript_tag "bundle_app" }}
@@ -7,10 +6,7 @@
 
 <script type="text/javascript">
 $(function(){
-	var options = {
-		ServerHost: "http://localhost:3000"
-	};
-	App.start(options);
+	App.start({{server_configs}});
 });
 </script>
 

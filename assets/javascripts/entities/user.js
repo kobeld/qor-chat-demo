@@ -13,7 +13,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 		urlRoot: function () {
 			var teamId = App.request("entity:cache:teamid");
-			return "http://localhost:3000/teams/" + teamId + "/users";
+			return  App.options.HttpHost + "/teams/" + teamId + "/users";
 		},
 
 		defaults: {
@@ -31,7 +31,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 		url: function () {
 			var teamId = App.request("entity:cache:teamid");
-			return "http://localhost:3000/teams/" + teamId + "/users";
+			return App.options.HttpHost + "/teams/" + teamId + "/users";
 		},
 
 		// Features from: backbone-collection-sorting.js

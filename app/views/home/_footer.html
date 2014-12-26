@@ -1,7 +1,14 @@
 {{ javascript_tag "bundle_libs" }}
 {{ javascript_tag "bundle_proui" }}
+
+<script>
+$(function(){
+	document.configs = {{server_configs}}
+	Login.init();
+});
+</script>
+
 {{ javascript_tag "auth" }}
 
-<script>$(function(){ Login.init(); });</script>
 </body>
 </html>

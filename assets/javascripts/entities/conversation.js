@@ -9,7 +9,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 		// Temp
 		urlRoot: function () {
 			var teamId = this.get("teamId") || App.request("entity:cache:teamid");
-			return "http://localhost:3000/teams/" + teamId + "/conversations"
+			return App.options.HttpHost + "/teams/" + teamId + "/conversations"
 		},
 
 		title: function () {
@@ -31,7 +31,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 		deactivate: function () {
 			var teamId = this.get("teamId") || App.request("entity:cache:teamid"),
-				url = "http://localhost:3000/teams/" + teamId + "/conversations/" +
+				url = App.options.HttpHost + "/teams/" + teamId + "/conversations/" +
 					this.id + "/deactivate";
 
 			$.ajax({
@@ -61,7 +61,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 		url: function () {
 			var teamId = App.request("entity:cache:teamid");
-			return "http://localhost:3000/teams/" + teamId + "/conversations";
+			return App.options.HttpHost + "/teams/" + teamId + "/conversations";
 		}
 	});
 

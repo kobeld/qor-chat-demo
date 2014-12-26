@@ -12,7 +12,7 @@ App.module("Websocket", function (Websocket, App, Backbone, Marionette, $, _) {
 			var teamId = App.request("entity:cache:teamid");
 				token = simpleStorage.get("token");
 
-			_wsConn = new WebSocket("ws://localhost:3000/ws/" + teamId + "/" + token);
+			_wsConn = new WebSocket(App.options.WsHost + "/ws/" + teamId + "/" + token);
 			_wsConn.onopen = function () {
 				App.vent.trigger("vent:websocket:open");
 			};
