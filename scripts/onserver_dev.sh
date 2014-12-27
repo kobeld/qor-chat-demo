@@ -10,7 +10,7 @@ echo "cd app path"
 cd $PRJ_HOME
 
 echo "git pulling..."
-git checkout save-conversation  # NOTE change it ot related branch
+git checkout master  # NOTE change it ot related branch
 git pull
 
 
