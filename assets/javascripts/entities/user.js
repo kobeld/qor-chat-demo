@@ -116,6 +116,10 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 		} else {
 			return _users;
 		}
-	})
+	});
+
+	App.reqres.setHandler("entity:cache:user", function(userId){
+		return _users.findWhere({id: userId});
+	});
 
 });

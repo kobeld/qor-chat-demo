@@ -8,7 +8,6 @@ App.module("Websocket", function (Websocket, App, Backbone, Marionette, $, _) {
 				return;
 			};
 
-			// TODO: This will cause bug, should improve it later.
 			var teamId = App.request("entity:cache:teamid");
 				token = simpleStorage.get("token");
 

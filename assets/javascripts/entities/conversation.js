@@ -78,7 +78,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 				convs.forEach(function (conv) {
 					conv.setup();
 				});
-				defer.resolveWith(response, [convs])
+				defer.resolveWith(response, [convs]);
 			}).fail(function () {
 				defer.rejectWith(response, arguments);
 			});
