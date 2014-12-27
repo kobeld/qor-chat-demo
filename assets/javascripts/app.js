@@ -37,6 +37,13 @@ App.logout = function () {
 App.commands.setHandler("cmd:response:handle", function (response) {
 	if (response.status === 401) {
 		App.logout();
+	} else {
+		$.bootstrapGrowl("<h4><strong>Oops...</strong></h4><p>" +
+			response.status + ": " + response.statusText + "</p>", {
+				type: "danger",
+				delay: 2500,
+				allow_dismiss: true
+			});
 	}
 });
 
