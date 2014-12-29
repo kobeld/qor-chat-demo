@@ -40,9 +40,11 @@ func init() {
 		revel.ActionInvoker,           // Invoke the action.
 	}
 
+	installFuncMaps()
+
 	// register startup functions with OnAppStart
-	revel.OnAppStart(installFuncMaps)
 	revel.OnAppStart(installHandlers)
+
 }
 
 // TODO turn this into revel.HeaderFilter
