@@ -1,4 +1,5 @@
 //= require javascripts/extensions/tab_region
+//= require javascripts/extensions/modal_region
 //= require javascripts/app
 //= require javascripts/websocket/websocket
 //= require javascripts/entities/account

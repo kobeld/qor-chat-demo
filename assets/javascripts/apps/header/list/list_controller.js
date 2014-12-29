@@ -15,6 +15,13 @@ App.module("HeaderApp.List", function (List, App, Backbone, Marionette, $, _) {
 					App.logout();
 				});
 
+				accountView.on("user:xmpp", function () {
+					var xmppView = new List.XmppSettingsView({
+						model: myAccount
+					});
+					App.modalRegion.show(xmppView);
+				});
+
 				App.headerRegion.show(accountView);
 
 			}).fail(function (response) {

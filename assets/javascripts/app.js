@@ -7,10 +7,10 @@ App.addRegions({
 		selector: ".main-region"
 	},
 	rightRegion: ".right-region",
-	leftRegion: ".left-region"
-	// modalRegion: Marionette.Region.Modal.extend({
-	// 	el: "#global-modal"
-	// })
+	leftRegion: ".left-region",
+	modalRegion: Marionette.Region.Modal.extend({
+		el: "#global-modal"
+	})
 });
 
 App.navigate = function (route, options) {

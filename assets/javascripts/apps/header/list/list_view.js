@@ -8,8 +8,13 @@ App.module("HeaderApp.List", function (List, App, Backbone, Marionette, $, _) {
 		template: "#user-account",
 
 		triggers: {
-			"click a.js-logout": "user:logout"
+			"click a.js-logout": "user:logout",
+			"click a.xmpp-settings": "user:xmpp",
 		}
 	});
+
+	List.XmppSettingsView = Marionette.ItemView.extend({
+		template: "#xmpp-settings"
+	})
 
 });
