@@ -17,7 +17,7 @@ echo "Bundle assets"
 $GOPATH/bin/train
 
 echo "killing old process"
-sudo killall qor-chat-demo
+sudo killall revel
 
 echo "deploying"
 nohup $GOPATH/bin/revel run github.com/kobeld/qor-chat-demo prod >> $HOME/qor-chat-demo.log 2>&1 &

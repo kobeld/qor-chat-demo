@@ -19,7 +19,7 @@ App.module("ChatsApp.Common", function (Common, App, Backbone, Marionette, $, _)
 			var fromUserId = this.model.get("fromUserId"),
 				user = App.request("entity:cache:user", fromUserId);
 			if (user) {
-				this.model.set("fromUserAvatar", user.fromUserAvatar);
+				this.model.set("fromUserAvatar", user.get("avatar"));
 			};
 
 			if (fromUserId === App.request("entity:cache:myaccount").get("id")) {
