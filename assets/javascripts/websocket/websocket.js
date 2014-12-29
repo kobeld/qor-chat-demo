@@ -9,8 +9,7 @@ App.module("Websocket", function (Websocket, App, Backbone, Marionette, $, _) {
 			};
 
 			var teamId = App.request("entity:cache:teamid");
-				token = simpleStorage.get("token");
-
+			token = simpleStorage.get("token");
 			_wsConn = new WebSocket(App.options.WsHost + "/ws/" + teamId + "/" + token);
 			_wsConn.onopen = function () {
 				App.vent.trigger("vent:websocket:open");
@@ -22,15 +21,20 @@ App.module("Websocket", function (Websocket, App, Backbone, Marionette, $, _) {
 			};
 
 			_wsConn.onclose = function (data) {
-				// TODO: Reconnect
-				_wsConn = null;
+				API.reconnect();
 			};
 
 			_wsConn.onerror = function (data) {
 				cosole.log(data);
-				// TODO: Reconnect
-				_wsConn = null;
 			};
+		},
+
+		reconnect: function () {
+			var reconnectTime = Math.floor(Math.random() * 5001) + 1000;
+			setTimeout(function () {
+				_wsConn = null;
+				API.connect();
+			}, reconnectTime);
 		},
 
 		send: function (data) {
