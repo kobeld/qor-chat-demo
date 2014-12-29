@@ -53,7 +53,9 @@ App.module("ChatsApp.Common", function (Common, App, Backbone, Marionette, $, _)
 				$.when(convEntity).done(function (conv) {
 
 					App.execute("cmd:menu:activeOrAdd", conv);
-					self.receiveMessage(data);
+
+					// Don't have to because it will fetch the history which includes that message
+					// self.receiveMessage(data);
 
 				}).fail(function (response) {
 					App.execute("cmd:response:handle", response);

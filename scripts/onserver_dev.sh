@@ -20,6 +20,6 @@ echo "killing old process"
 sudo killall qor-chat-demo
 
 echo "deploying"
-nohup $GOPATH/bin/revel run github.com/kobeld/qor-chat-demo prod>> $HOME/qor-chat-demo.log 2>&1 &
+nohup $GOPATH/bin/revel run github.com/kobeld/qor-chat-demo prod >> $HOME/qor-chat-demo.log 2>&1 &
 
 echo "done"

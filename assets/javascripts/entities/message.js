@@ -6,6 +6,11 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 	Entities.Messages = Backbone.Collection.extend({
 		model: Entities.Message,
 
+		sorting: {
+			by: 'createdAt',
+			type: 'numeric'
+		},
+
 		url: function () {
 			var teamId = App.request("entity:cache:teamid");
 			return App.options.HttpHost + "/teams/" + teamId + "/messages"

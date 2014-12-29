@@ -23,7 +23,6 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 				// TODO: Consider to use localstorage to store some messages
 				var msgsEntity = App.request("entity:messages", conv.id);
 				$.when(msgsEntity).done(function (messages) {
-
 					// Initialize the Message Input box at the bottom
 					var inputView = new App.ChatsApp.Common.ChatInputView();
 					inputView.on("form:submit", function (data) {
@@ -41,7 +40,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 								fromUserAvatar: myAccount.get("avatar")
 							};
 
-						messages.add(msg);
+						messages.push(msg);
 
 						App.execute("cmd:websocket:send", {
 							topic: "messages",
