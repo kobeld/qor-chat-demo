@@ -13,6 +13,8 @@ echo "git pulling..."
 git checkout master  # NOTE change it ot related branch
 git pull
 
+echo "Bundle assets"
+$GOPATH/bin/train
 
 echo "killing old process"
 killall -9 revel;

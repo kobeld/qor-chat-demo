@@ -5,3 +5,5 @@ routes/
 conf/env.json
 qor-chat-demo.log
 env.json
+/public/.sass-cache/
+/public/assets
