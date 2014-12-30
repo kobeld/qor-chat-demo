@@ -40,6 +40,7 @@ App.module("ChatsApp.Group", function (Group, App, Backbone, Marionette, $, _) {
 							};
 
 						messages.add(msg);
+						groupChatLayout.scrollChatTalk();
 
 						App.execute("cmd:websocket:send", {
 							topic: "messages",
@@ -64,6 +65,7 @@ App.module("ChatsApp.Group", function (Group, App, Backbone, Marionette, $, _) {
 							} else if (data.dType === "group") {
 
 								messages.add(msg);
+								groupChatLayout.scrollChatTalk();
 
 							} else if (data.dType === "composing") {
 								// TODO:
@@ -75,8 +77,7 @@ App.module("ChatsApp.Group", function (Group, App, Backbone, Marionette, $, _) {
 					groupChatLayout.on("show", function () {
 						this.inputRegion.show(inputView);
 						this.messagesRegion.show(messagesView);
-
-						ReadyChat.init();
+						this.readyChat();
 					});
 
 					// Finally show the layout

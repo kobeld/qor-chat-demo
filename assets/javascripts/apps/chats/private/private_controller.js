@@ -41,6 +41,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 							};
 
 						messages.push(msg);
+						privateChatLayout.scrollChatTalk();
 
 						App.execute("cmd:websocket:send", {
 							topic: "messages",
@@ -65,6 +66,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 							} else if (data.dType === "private" || data.dType == "sync") {
 
 								messages.push(msg);
+								privateChatLayout.scrollChatTalk();
 
 							} else if (data.dType === "composing") {
 								// TODO:
@@ -76,7 +78,7 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 					privateChatLayout.on("show", function () {
 						this.inputRegion.show(inputView);
 						this.messagesRegion.show(messagesView);
-						ReadyChat.init();
+						this.readyChat();
 					});
 
 					// Finally show the layout
