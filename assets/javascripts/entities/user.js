@@ -81,6 +81,13 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 							_users.setOnlineStatus(onlineUser.id, true);
 						});
 					} else {
+                                                if(data.dType === "online"){
+                                                    var found = _users.findWhere({ id: object.id });
+                                                    if(!found){
+                                                        _users.add(object)
+                                                    }
+                                                }
+
 						_users.setOnlineStatus(object.id, (data.dType === "online"));
 					}
 				});
