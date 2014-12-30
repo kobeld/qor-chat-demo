@@ -39,7 +39,7 @@ App.module("ChatsApp.Group", function (Group, App, Backbone, Marionette, $, _) {
 								fromUserAvatar: myAccount.get("avatar")
 							};
 
-						messages.add(msg);
+						messages.push(msg);
 						groupChatLayout.scrollChatTalk();
 
 						App.execute("cmd:websocket:send", {
@@ -64,7 +64,7 @@ App.module("ChatsApp.Group", function (Group, App, Backbone, Marionette, $, _) {
 
 							} else if (data.dType === "group") {
 
-								messages.add(msg);
+								messages.push(msg);
 								groupChatLayout.scrollChatTalk();
 
 							} else if (data.dType === "composing") {
