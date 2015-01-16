@@ -22,11 +22,27 @@ App.module("HeaderApp.List", function (List, App, Backbone, Marionette, $, _) {
 					App.modalRegion.show(xmppView);
 				});
 
+                                var myTeams = App.request("entity:teams");
+                                $.when(myTeams).done(function (teams) {
+                                    accountView.on("user:teams", function () {
+                                        var teamsView = new List.TeamsSettingsView({
+                                            collection: teams
+                                        });
+                                        App.modalRegion.show(teamsView);
+                                    });
+                                }).fail(function (response) {
+                                        App.execute("cmd:response:handle", response);
+                                });
+
 				App.headerRegion.show(accountView);
 
 			}).fail(function (response) {
 				App.execute("cmd:response:handle", response);
 			});
+
+
+
+
 		}
 	};
 
