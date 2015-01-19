@@ -39,7 +39,7 @@ App.module("HeaderApp.List", function (List, App, Backbone, Marionette, $, _) {
                             url: url,
                             headers: App.getBearerHeader()
                     }).done(function (data) {
-                            if (data.Errors) {
+                            if (!data.Success) {
                                     alert("Validation Error");
                                     return
                             };
