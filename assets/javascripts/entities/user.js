@@ -13,7 +13,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 		urlRoot: function () {
 			var teamId = App.request("entity:cache:teamid");
-			return  App.options.HttpHost + "/teams/" + teamId + "/users";
+			return App.options.HttpHost + "/teams/" + teamId + "/users";
 		},
 
 		defaults: {
@@ -80,10 +80,9 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 						_.each(data.object, function (onlineUser) {
 							_users.setOnlineStatus(onlineUser.id, true);
 						});
-                                        } else if(data.dType === "add"){
-                                                _users.add(object);
-                                        }
-                                        else{
+					} else if (data.dType === "add") {
+						_users.add(object);
+					} else {
 						_users.setOnlineStatus(object.id, (data.dType === "online"));
 					}
 				});
@@ -121,8 +120,10 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 		}
 	});
 
-	App.reqres.setHandler("entity:cache:user", function(userId){
-		return _users.findWhere({id: userId});
+	App.reqres.setHandler("entity:cache:user", function (userId) {
+		return _users.findWhere({
+			id: userId
+		});
 	});
 
 });
