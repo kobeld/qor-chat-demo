@@ -1,13 +1,25 @@
 App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
-        var _teams = null
+	var _teams = null
 
-	Entities.Team = Backbone.Model.extend({});
+	Entities.Team = Backbone.Model.extend({
+		urlRoot: function () {
+			return App.options.HttpHost + "/teams/";
+		},
+
+		switch: function () {
+			var self = this,
+				response = $.ajax({
+					type: "POST",
+					url: self.urlRoot() + self.get("slug") + "/switch",
+					headers: App.getBearerHeader()
+				});
+
+			return response;
+		}
+	});
 
 	Entities.TeamCollection = Backbone.Collection.extend({
 		model: Entities.Team,
-
-		initialize: function () {
-		},
 
 		url: function () {
 			return App.options.HttpHost + "/teams/";
@@ -21,9 +33,6 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 	});
 
 	var API = {
-		switchTeam: function () {
-                },
-
 		getTeamsEntity: function () {
 			var defer = $.Deferred();
 
@@ -64,10 +73,6 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 
 	App.reqres.setHandler("entity:teams", function () {
 		return API.getTeamsEntity();
-	});
-
-	App.reqres.setHandler("entity:teams:switch", function () {
-		return API.switchTeam();
 	});
 
 });

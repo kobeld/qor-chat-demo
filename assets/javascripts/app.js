@@ -33,6 +33,10 @@ App.logout = function () {
 	window.location.replace("/login");
 }
 
+App.reload = function() {
+	window.location.replace("/");
+}
+
 // Command for redirecting to the login page
 App.commands.setHandler("cmd:response:handle", function (response) {
 	if (response.status === 401) {

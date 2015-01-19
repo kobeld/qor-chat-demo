@@ -21,35 +21,9 @@ App.module("HeaderApp.List", function (List, App, Backbone, Marionette, $, _) {
 	List.TeamInfoView = Marionette.ItemView.extend({
 		template: "#team-info",
 
-		ui: {
-			switchTeamBtn: ".js-switch-team"
-		},
-
-		events: {
-			"click .js-switch-team": "onSwitchTeam"
-		},
-
-                onSwitchTeam: function(event){
-                    var $Target = $(event.currentTarget);
-                    var slug = $Target.data("team-slug");
-                    // TODO maybe need to move to API request?
-                    var url = App.options.HttpHost + "/teams/"+slug+"/switch";
-                    $.ajax({
-                            type: "POST",
-                            url: url,
-                            headers: App.getBearerHeader()
-                    }).done(function (data) {
-                            if (!data.Success) {
-                                    alert("Validation Error");
-                                    return
-                            };
-
-                            window.location.replace("/");
-
-                    }).fail(function (data) {
-                            alert("Internal Error");
-                    });
-                },
+		triggers: {
+			"click .js-switch-team": "team:switch"
+		}
 	});
 
 	List.TeamsSettingsView = Marionette.CompositeView.extend({
@@ -57,6 +31,4 @@ App.module("HeaderApp.List", function (List, App, Backbone, Marionette, $, _) {
 		childView: this.TeamInfoView,
 		childViewContainer: "#teams-info",
 	});
-
-
 });
