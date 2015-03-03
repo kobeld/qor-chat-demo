@@ -35,7 +35,7 @@ var LoginForm = Marionette.ItemView.extend({
 			data: formData
 
 		}).done(function (data) {
-			if (data.Errors) {
+			if (!data.Success) {
 				alert("Validation Error");
 				return
 			};

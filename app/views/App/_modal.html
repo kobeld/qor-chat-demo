@@ -1,10 +1,7 @@
 <div id="global-modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
-
 </div>
 
-
 <script type="text/template" id="xmpp-settings">
-
 <div class="modal-dialog">
 	<div class="modal-content">
 		<div class="modal-header">
@@ -38,4 +35,32 @@
 	</div>
 </div>
 
+</script>
+
+
+<script type="text/template" id="teams-settings">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title">Joined Teams</h3>
+			</div>
+			<div class="modal-body">
+				<div id="teams-info" class="form-horizontal form-bordered">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="team-info">
+	<div class="form-group">
+		<label class="col-md-8 control-label"><%= name %></label>
+		<div class=" col-md-1"></div>
+		<div class=" col-md-3">
+			<button type="button" class="btn btn-sm btn-primary fr js-switch-team ">Switch</button>
+		</div>
+	</div>
 </script>

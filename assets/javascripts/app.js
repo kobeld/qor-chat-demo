@@ -33,6 +33,10 @@ App.logout = function () {
 	window.location.replace("/login");
 }
 
+App.reload = function() {
+	window.location.replace("/");
+}
+
 // Command for redirecting to the login page
 App.commands.setHandler("cmd:response:handle", function (response) {
 	if (response.status === 401) {
@@ -59,7 +63,8 @@ App.on("start", function (options) {
 
 		// Set the cached teamId.
 		// TODO: Improvet the way of getting the teamId
-		App.execute("entity:set:teamid", myAccount.get("teamIds")[0]);
+		//App.execute("entity:set:teamid", myAccount.get("teamIds")[0]);
+		App.execute("entity:set:teamid", myAccount.get("currentTeamId"));
 
 		// Fetch users first to get the online users
 		var usersEntity = App.request("entity:users");

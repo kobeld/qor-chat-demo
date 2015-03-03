@@ -22,6 +22,28 @@ App.module("HeaderApp.List", function (List, App, Backbone, Marionette, $, _) {
 					App.modalRegion.show(xmppView);
 				});
 
+				var myTeams = App.request("entity:teams");
+				$.when(myTeams).done(function (teams) {
+					accountView.on("user:teams", function () {
+						var teamsView = new List.TeamsSettingsView({
+							collection: teams
+						});
+
+						teamsView.on("childview:team:switch", function (childview, args) {
+							var team = args.model;
+							team.switch().done(function(data){
+								App.reload();
+							}).fail(function(data){
+								App.execute("cmd:response:handle", data);
+							})
+						});
+
+						App.modalRegion.show(teamsView);
+					});
+				}).fail(function (response) {
+					App.execute("cmd:response:handle", response);
+				});
+
 				App.headerRegion.show(accountView);
 
 			}).fail(function (response) {
