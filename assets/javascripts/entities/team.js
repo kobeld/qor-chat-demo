@@ -6,7 +6,7 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 			return App.options.HttpHost + "/teams/";
 		},
 
-		switch: function () {
+		switchTo: function () {
 			var self = this,
 				response = $.ajax({
 					type: "POST",

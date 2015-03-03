@@ -31,7 +31,7 @@ App.module("HeaderApp.List", function (List, App, Backbone, Marionette, $, _) {
 
 						teamsView.on("childview:team:switch", function (childview, args) {
 							var team = args.model;
-							team.switch().done(function(data){
+							team.switchTo().done(function(data){
 								App.reload();
 							}).fail(function(data){
 								App.execute("cmd:response:handle", data);
