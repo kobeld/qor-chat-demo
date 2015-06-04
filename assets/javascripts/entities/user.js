@@ -75,13 +75,13 @@ App.module("Entities", function (Entities, App, Backbone, Marionette, $, _) {
 				// Subscripe to the roster events of websocket
 				App.vent.on("vent:websocket:roster", function (data) {
 
-					var object = data.object;
+					var object = data.users;
 					if (data.dType === "all") {
-						_.each(data.object, function (onlineUser) {
+						_.each(data.users, function (onlineUser) {
 							_users.setOnlineStatus(onlineUser.id, true);
 						});
 					} else if (data.dType === "add") {
-						_users.add(object);
+						_users.add(users);
 					} else {
 						_users.setOnlineStatus(object.id, (data.dType === "online"));
 					}
