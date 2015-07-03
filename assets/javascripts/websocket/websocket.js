@@ -25,7 +25,7 @@ App.module("Websocket", function (Websocket, App, Backbone, Marionette, $, _) {
 			};
 
 			_wsConn.onerror = function (data) {
-				cosole.log(data);
+				console.log(data);
 			};
 		},
 
