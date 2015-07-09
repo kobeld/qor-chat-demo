@@ -37,7 +37,9 @@ App.module("ChatsApp.Private", function (Private, App, Backbone, Marionette, $, 
 								content: data.content,
 								receiverId: toUser.id,
 								fromUserId: myAccount.get("id"),
-								fromUserAvatar: myAccount.get("avatar")
+								fromUserAvatar: myAccount.get("avatar"),
+								fromUserName: myAccount.get("name"),
+								fromUserEmail: myAccount.get("email")
 							};
 
 						messages.push(msg);

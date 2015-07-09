@@ -36,7 +36,9 @@ App.module("ChatsApp.Group", function (Group, App, Backbone, Marionette, $, _) {
 								convId: conv.id,
 								content: data.content,
 								fromUserId: myAccount.get("id"),
-								fromUserAvatar: myAccount.get("avatar")
+								fromUserAvatar: myAccount.get("avatar"),
+								fromUserName: myAccount.get("name"),
+								fromUserEmail: myAccount.get("email")
 							};
 
 						messages.push(msg);
